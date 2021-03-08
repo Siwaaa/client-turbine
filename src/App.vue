@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <component :is="currentTabComponent" />
   </div>
 </template>
+<script>
+import DashboardLayout from './layouts/DashboardLayout.vue'
+import LoginLayout from './layouts/LoginLayout.vue'
 
+export default {
+  name: 'App',
+  computed: {
+    currentTabComponent() {
+      console.log()
+      return (this.$route.meta.layout || 'dashboard') + '-layout'
+    }
+  },
+  components: {DashboardLayout, LoginLayout},
+  methods: {
+    test () {
+      this.$Progress.start()
+      this.$http.jsonp('http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz')
+      .then((response) => {
+        console.log(response)
+          this.$Progress.finish()
+      }, (response) => {
+                console.log(response)
+
+          this.$Progress.fail()
+      })
+    }
+  }
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
