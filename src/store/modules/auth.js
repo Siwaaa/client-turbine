@@ -11,9 +11,8 @@ export default {
       state.token = null
       state.name = null
     },
-    destroyOperationsAndProject() {
-      this.state.operation.operations = null
-      this.state.project.projects = null
+    destroyPages() {
+      this.state.page.pages = null
     },
     nameUpdate(state, name) {
       state.name = name
@@ -22,8 +21,8 @@ export default {
   actions: {
     async getToken(ctx, data) {
       try {
-      // console.log(data)
-      const res = await fetch("https://bu.emocia.com/v1/api/login", {
+      console.log(data)
+      const res = await fetch("http://127.0.0.1:8000/api/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,22 +52,24 @@ export default {
       }
     },
     async destroyToken(ctx) {
-      try {
-      await fetch("https://bu.emocia.com/v1/api/logout", {
+      await fetch("http://127.0.0.1:8000/api/logout", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
-      })
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('name_user')
-      ctx.commit('destroyTokenAndName')
-      ctx.commit('destroyOperationsAndProject')
-
-      } catch (error) {
-        alert('Выход не выполнен')
-      }
+      }).then(
+        function (result) {
+          console.log(result)
+          localStorage.removeItem('access_token')
+          localStorage.removeItem('name_user')
+          ctx.commit('destroyTokenAndName')
+          ctx.commit('destroyPages')
+        },
+        function (error) {
+          alert('Вход не выполнен', error)
+        }
+      )
     },
   },
   getters: {

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <component :is="currentTabComponent" />
+    <!-- v-if здесь для того чтобы пофиксить проблему с отсутствием в this.$route.meta.layout значения. Оно подгружается через определенное время. Через какое я не нашел -->
+    <component v-if="this.$route.meta.layout" :is="currentTabComponent" />
   </div>
 </template>
 <script>
@@ -9,26 +10,14 @@ import LoginLayout from './layouts/LoginLayout.vue'
 
 export default {
   name: 'App',
+  components: {DashboardLayout, LoginLayout},
   computed: {
     currentTabComponent() {
-      console.log()
+      console.log(this.$route.meta.layout)
       return (this.$route.meta.layout || 'dashboard') + '-layout'
     }
   },
-  components: {DashboardLayout, LoginLayout},
   methods: {
-    test () {
-      this.$Progress.start()
-      this.$http.jsonp('http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz')
-      .then((response) => {
-        console.log(response)
-          this.$Progress.finish()
-      }, (response) => {
-                console.log(response)
-
-          this.$Progress.fail()
-      })
-    }
   }
 }
 </script>

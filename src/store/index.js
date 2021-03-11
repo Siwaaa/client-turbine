@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import project from './modules/project'
-import operation from './modules/operation'
+import page from './modules/page'
 import auth from './modules/auth'
 
 Vue.use(Vuex)
@@ -15,8 +14,7 @@ export default new Vuex.Store({
   },
 
   modules: {
-    project,
-    operation,
+    page,
     auth,
   }
 })

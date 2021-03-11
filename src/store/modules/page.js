@@ -1,45 +1,45 @@
 export default {
   state: {
-    operations: [],
+    pages: [],
   },
   mutations: {
-    updateOperAll(state, operations) {
-        state.operations = operations
+    updatepageAll(state, pages) {
+        state.pages = pages
     },
-    addOper(state, newOperations) {
-      state.operations.unshift(newOperations)
+    addpage(state, newpages) {
+      state.pages.unshift(newpages)
     },
   },
   actions: {
-    async fechOperations(ctx, date) {
+    async API_GET_PAGES(ctx, date) {
       try {
         let res = ''
         if(date) {
-          res = await fetch(`https://bu.emocia.com/v1/api/operations?startDate=${date[0]}&endDate=${date[1]}`, {
+          res = await fetch(`https://bu.emocia.com/v1/api/pages?startDate=${date[0]}&endDate=${date[1]}`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
             }
           })
         } else {
-          res = await fetch("https://bu.emocia.com/v1/api/operations", {
+          res = await fetch("https://bu.emocia.com/v1/api/pages", {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
             }
           })
         }
         
-        const oper = (await res.json()).data
-        ctx.commit('updateOperAll', oper)
+        const page = (await res.json()).data
+        ctx.commit('updatePageAll', page)
 
       } catch (error) {
         alert('Данные с сервера не получены')
       }
 
     },
-    async API_add_operation(ctx, data) {
+    async API_ADD_PAGE(ctx, data) {
       try {
-        // console.log(data)
-        const res = await fetch("https://bu.emocia.com/v1/api/operations", {
+        console.log(data)
+        const res = await fetch("https://bu.emocia.com/v1/api/pages", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -48,15 +48,15 @@ export default {
           body: JSON.stringify(data)
         });
         console.log(res)
-        ctx.commit('addOper', data)
+        ctx.commit('addpage', data)
 
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
     },
-    async API_update_operation(ctx, data) {
+    async API_update_pageation(ctx, data) {
       try {
-        const res = await fetch(`https://bu.emocia.com/v1/api/operations/${data.id}`, {
+        const res = await fetch(`https://bu.emocia.com/v1/api/pages/${data.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -66,15 +66,15 @@ export default {
         });
 
         console.log(res, "выполнение action")
-        ctx.dispatch('fechOperations')
+        ctx.dispatch('fechpages')
 
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
     },
-    async API_delete_operation(ctx, id) {
+    async API_delete_pageation(ctx, id) {
       try {
-        const res = await fetch(`https://bu.emocia.com/v1/api/operations/${id}`, {
+        const res = await fetch(`https://bu.emocia.com/v1/api/pages/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default {
         });
 
         console.log(res, "удаление")
-        ctx.dispatch('fechOperations')
+        ctx.dispatch('fechpages')
 
       } catch (error) {
         alert(error, "Андрей, исправь")
@@ -92,22 +92,22 @@ export default {
 
   },
   getters: {
-    allOperations(state) {
-      if(state.operations) {
-        return state.operations.sort(function (a, b) {
+    allPages(state) {
+      if(state.pages) {
+        return state.pages.sort(function (a, b) {
           var dateA = new Date(a.date), dateB = new Date(b.date)
           return dateB - dateA //сортировка по возрастающей дате
         })
       }
     },
-    groupOperations: state => project_id => {
+    grouppages: state => project_id => {
       const groupByDate = {}
 
-      if (state.operations) {
+      if (state.pages) {
         if (project_id) {
-          const filterOper = state.operations.filter(
-            (oper) => oper.project_id === Number(project_id))
-          filterOper.forEach(function (item) {
+          const filterpage = state.pages.filter(
+            (page) => page.project_id === Number(project_id))
+          filterpage.forEach(function (item) {
             if (groupByDate[item.date]) {
               groupByDate[item.date].push(item)
             } else {
@@ -115,7 +115,7 @@ export default {
             }
           })
         } else {
-          state.operations.forEach(function (item) {
+          state.pages.forEach(function (item) {
             if (groupByDate[item.date]) {
               groupByDate[item.date].push(item)
             } else {
@@ -127,23 +127,23 @@ export default {
 
       return groupByDate
     },
-    filterOperationsDate: state => date => {
+    filterpagesDate: state => date => {
       if (date.length >1) {
-        const newOper = state.operations.filter(
-          oper => oper.date >= date[0] && oper.date <= date[1])
-        return newOper
+        const newpage = state.pages.filter(
+          page => page.date >= date[0] && page.date <= date[1])
+        return newpage
       }
     },
-    nameOperationsArray(state) {
+    namepagesArray(state) {
       const nameArray = []
-      state.operations.forEach(function(item) {
+      state.pages.forEach(function(item) {
         nameArray.push(item.name)
       }) 
       // убираем повторяющиеся значения с помощью коллекции ES6
       return Array.from(new Set(nameArray)) 
     },
-    countOperations(state) {
-      return state.operations.length
+    countPages(state) {
+      return state.pages.length
     }
   }
 }

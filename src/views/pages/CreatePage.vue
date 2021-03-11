@@ -5,24 +5,69 @@
       <!-- <button @click="$router.back()">Назад</button> -->
     </header>
     <main class="h-full pb-16 overflow-y-auto">
-      <div class="container px-6 mx-auto grid">
+      <form @submit.prevent="submit" class="container px-6 mx-auto grid">
+        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+          Настройка проекта
+        </h4>
         <div
           class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
         >
           <label class="block text-sm">
-            <span class="text-gray-700 dark:text-gray-400">Name</span>
+            <span class="text-gray-700 dark:text-gray-400"
+              >Название
+              <span class="text-purple-700">*</span>
+            </span>
             <input
+              v-model="name"
+              type="text"
+              required
+              maxlength="40"
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
-              placeholder="Jane Doe"
+              placeholder="Client turbine"
             />
           </label>
+
           <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400">
-              Requested Limit
-            </span>
+            <span class="text-gray-700 dark:text-gray-400"
+              >Ссылка на страницу <span class="text-purple-700">*</span></span
+            >
+            <div class="relative flex mt-1">
+              <span
+                class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
+              >
+                http://domains/page/
+              </span>
+              <input
+                v-model="url"
+                type="text"
+                required
+                maxlength="20"
+                class="block w-full text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input-two"
+                placeholder="polet-normalny"
+              />
+            </div>
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"
+              >Ник в Instagram <span class="text-purple-700">*</span></span
+            >
+            <input
+              v-model="instagram"
+              type="text"
+              required
+              maxlength="20"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Bred Pit"
+            />
+          </label>
+
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"> Домен </span>
             <select
+              v-model="domain_id"
               class="block w-full mt-1 form-select focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
             >
+              <option disabled value="">Выберите один из вариантов</option>
               <option>$1,000</option>
               <option>$5,000</option>
               <option>$10,000</option>
@@ -30,16 +75,16 @@
             </select>
           </label>
 
-          <label class="block mt-4 text-sm">
+          <!-- <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400">Message</span>
             <textarea
               class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
               rows="3"
               placeholder="Enter some long form content."
             ></textarea>
-          </label>
+          </label> -->
 
-          <div class="flex mt-6 text-sm">
+          <!-- <div class="flex mt-6 text-sm">
             <label class="flex items-center dark:text-gray-400">
               <input
                 type="checkbox"
@@ -50,12 +95,112 @@
                 <span class="underline">privacy policy</span>
               </span>
             </label>
-          </div>
+          </div> -->
+        </div>
+        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+          Страница приветствия
+        </h4>
+        <div
+          class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+        >
+          <label class="block text-sm">
+            <span class="text-gray-700 dark:text-gray-400"
+              >Заголовок <span class="text-purple-700">*</span></span
+            >
+            <input
+              v-model="title_ad"
+              type="text"
+              required
+              maxlength="255"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Подпишись"
+            />
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">Описание</span>
+            <textarea
+              v-model="description_ad"
+              type="text"
+              class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              rows="3"
+              placeholder="Тут братан нужно продать"
+            ></textarea>
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"
+              >Картинка для обложки</span
+            >
+            <label
+              class="relative border-dashed border-2 border-gray-200 h-40 mt-1 w-full flex flex-col items-center px-4 py-6 rounded-lg cursor-pointer"
+            >
+              <svg class="text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <div class="flex text-sm text-gray-600">
+                <label
+                  for="file-upload"
+                  class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
+                >
+                  <span>Upload a file</span>
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    accept="image/png,image/gif,image/jpeg,image/jpg"
+                    max-file-size="5242880"
+                    class="sr-only"
+                  />
+                </label>
+              </div>
+              <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+            </label>
+          </label>
+
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">
+              Дизайн-шаблон
+            </span>
+            <select
+              v-model="template_id"
+              class="block w-full mt-1 form-select focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            >
+              <option disabled value="">Выберите один из вариантов</option>
+              <option>$1,000</option>
+            </select>
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"
+              >Текст на кнопке <span class="text-purple-700">*</span></span
+            >
+            <input
+              v-model="btn_ad"
+              type="text"
+              required
+              maxlength="30"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Получить материал"
+            />
+          </label>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">Facebook PIXEL</span>
+            <textarea
+              v-model="fb_pixel"
+              type="text"
+              class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              rows="3"
+              placeholder="Должно начинаться так: "
+            ></textarea>
+          </label>
         </div>
 
         <!-- Validation inputs -->
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-          Validation
+          Страница Успеха
         </h4>
         <div
           class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
@@ -63,222 +208,125 @@
           <!-- Invalid input -->
           <label class="block text-sm">
             <span class="text-gray-700 dark:text-gray-400">
-              Invalid input
+              Заголовок
+              <span class="text-purple-700">*</span>
             </span>
             <input
-              class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input"
-              placeholder="Jane Doe"
+              v-model="title_success"
+              type="text"
+              required
+              maxlength="60"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Спасибо за подписку"
             />
-            <span class="text-xs text-red-600 dark:text-red-400">
+            <span
+              class="text-xs text-red-600 dark:text-red-400"
+            >
               Your password is too short.
             </span>
           </label>
 
           <!-- Valid input -->
           <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400"> Valid input </span>
+            <span class="text-gray-700 dark:text-gray-400"> Описание </span>
             <input
-              class="block w-full mt-1 text-sm border-green-600 dark:text-gray-300 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green form-input"
-              placeholder="Jane Doe"
+              v-model="description_success"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Описание"
             />
-            <span class="text-xs text-green-600 dark:text-green-400">
-              Your password is strong.
-            </span>
           </label>
-
-          <!-- Helper text -->
           <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400"> Helper text </span>
+            <span class="text-gray-700 dark:text-gray-400">
+              Текст на кнопке <span class="text-purple-700">*</span>
+            </span>
             <input
-              class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-              placeholder="Jane Doe"
+              v-model="btn_success"
+              type="text"
+              required
+              maxlength="40"
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="Получить материалы"
             />
-            <span class="text-xs text-gray-600 dark:text-gray-400">
-              Your password must be at least 6 characters long.
+          </label>
+          <!-- Ссылка на скачивание -->
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">
+              Ссылка на скачивание материала
             </span>
+            <input
+              v-model="link_download"
+              type="text"
+              required
+              class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
+              placeholder="http:/example.com/"
+            />
           </label>
         </div>
 
-        <!-- Inputs with icons -->
-        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-          Icons
-        </h4>
-        <div
-          class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+        <button
+          type="submit"
+          class="inline-block px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
         >
-          <label class="block text-sm">
-            <span class="text-gray-700 dark:text-gray-400">Icon left</span>
-            <!-- focus-within sets the color for the icon when input is focused -->
-            <div
-              class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
-            >
-              <input
-                class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                placeholder="Jane Doe"
-              />
-              <div
-                class="absolute inset-y-0 flex items-center ml-3 pointer-events-none"
-              >
-                <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-          </label>
-
-          <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400">Icon right</span>
-            <!-- focus-within sets the color for the icon when input is focused -->
-            <div
-              class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
-            >
-              <input
-                class="block w-full pr-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                placeholder="Jane Doe"
-              />
-              <div
-                class="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none"
-              >
-                <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-          </label>
-        </div>
-
-        <!-- Inputs with buttons -->
-        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-          Buttons
-        </h4>
-        <div
-          class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
-        >
-          <label class="block text-sm">
-            <span class="text-gray-700 dark:text-gray-400"> Button left </span>
-            <div class="relative">
-              <input
-                class="block w-full pl-20 mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                placeholder="Jane Doe"
-              />
-              <button
-                class="absolute inset-y-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-l-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-              >
-                Click
-              </button>
-            </div>
-          </label>
-
-          <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400"> Button right </span>
-            <div class="relative text-gray-500 focus-within:text-purple-600">
-              <input
-                class="block w-full pr-20 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                placeholder="Jane Doe"
-              />
-              <button
-                class="absolute inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-                Click
-              </button>
-            </div>
-          </label>
-        </div>
-      </div>
+          Создать
+        </button>
+      </form>
     </main>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+
+export default {
+  name: "CreatePage",
+  data() {
+    return {
+      name: "",
+      url: "",
+      instagram: "",
+      domain_id: "",
+      title_ad:
+        "Подпишись на мой инстаграм и ссылка для скачивания материалов станет доступна",
+      description_ad: "",
+      img_cover: "",
+      template_id: "",
+      btn_ad: "Получить материал",
+      timer: false,
+      fb_pixel: "",
+      title_success: "Спасибо за подписку",
+      description_success: "",
+      btn_success: "Получить материал",
+      link_download: "",
+    };
+  },
+  computed: {},
+  methods: {
+    ...mapActions(["API_ADD_PAGE"]),
+    submit() {
+      this.API_ADD_PAGE({
+        name: this.name,
+        status: 1,
+        url: this.url,
+        instagram: this.instagram,
+        domain_id: this.domain_id,
+        title_ad: this.title_ad,
+        description_ad: this.description_ad,
+        img_cover: this.img_cover,
+        template_id: this.template_id,
+        btn_ad: this.btn_ad,
+        timer: this.timer,
+        fb_pixel: this.fb_pixel,
+        title_success: this.title_success,
+        description_success: this.description_success,
+        btn_success: this.btn_success,
+        link_download: this.link_download,
+      });
+      this.$router.push({ name: 'Home'});
+    },
+  },
+};
 </script>
 
 <style>
-.form-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: #fff;
-  border-color: #e2e8f0;
-  border-width: 1px;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.form-select {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0aec0'%3E%3Cpath d='M15.3 9.3a1 1 0 011.4 1.4l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4l3.3 3.29 3.3-3.3z'/%3E%3C/svg%3E");
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-print-color-adjust: exact;
-  color-adjust: exact;
-  background-repeat: no-repeat;
-  background-color: #fff;
-  border-color: #e2e8f0;
-  border-width: 1px;
-  border-radius: 0.25rem;
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  background-position: right 0.5rem center;
-  background-size: 1.5em 1.5em;
-}
-.form-textarea {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: #fff;
-  border-color: #e2e8f0;
-  border-width: 1px;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.form-checkbox {
-  display: inline-block;
-  vertical-align: middle;
-  background-origin: border-box;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  flex-shrink: 0;
-  height: 1em;
-  width: 1em;
-  border-width: 1px;
-  border-radius: 0.25rem;
-}
-.form-checkbox:checked {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L7 8.586 5.707 7.293z'/%3E%3C/svg%3E");
-    border-color: transparent;
-    background-color: currentColor;
-    background-size: 100% 100%;
-    background-position: 50%;
-    background-repeat: no-repeat;
-}
 
 </style>
