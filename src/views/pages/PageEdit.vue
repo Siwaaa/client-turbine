@@ -270,7 +270,7 @@
           type="submit"
           class="inline-block px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
         >
-          Создать
+          Сохранить
         </button>
       </form>
     </main>
@@ -278,6 +278,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "PageEdit",
   data() {
@@ -286,19 +288,44 @@ export default {
       url: "",
       instagram: "",
       domain_id: "",
-      title_ad:
-        "Подпишись на мой инстаграм и ссылка для скачивания материалов станет доступна",
+      title_ad: "",
       description_ad: "",
       img_cover: "",
       template_id: "",
-      btn_ad: "Получить материал",
-      timer: false,
+      btn_ad: "",
+      timer: "",
       fb_pixel: "",
-      title_success: "Спасибо за подписку",
+      title_success: "",
       description_success: "",
-      btn_success: "Получить материал",
+      btn_success: "",
       link_download: "",
     };
+  },
+  computed: {
+    ...mapGetters(["allPages"]),
+    searchPageObj() {
+      return this.allPages.find((item) => item.url == this.$route.params.url);
+    },
+  },
+  methods: {
+
+  },
+  created() {
+    this.name = this.searchPageObj.name;
+    this.url = this.searchPageObj.url;
+    this.instagram= this.searchPageObj.instagram;
+    this.domain_id= this.searchPageObj.domain_id;
+    this.title_ad= this.searchPageObj.title_ad;
+    this.description_ad= this.searchPageObj.description_ad;
+    this.img_cover= this.searchPageObj.img_cover;
+    this.template_id= this.searchPageObj.template_id;
+    this.btn_ad= this.searchPageObj.btn_ad;
+    this.timer= this.searchPageObj.timer;
+    this.fb_pixel= this.searchPageObj.fb_pixel;
+    this.title_success= this.searchPageObj.title_success;
+    this.description_success= this.searchPageObj.description_success;
+    this.btn_success= this.searchPageObj.btn_success;
+    this.link_download= this.searchPageObj.link_download;
   },
 };
 </script>

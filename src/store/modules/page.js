@@ -1,10 +1,10 @@
 export default {
   state: {
-    pages: [],
+    pages: JSON.parse(localStorage.getItem('pages_arr')) || null,
   },
   mutations: {
     updatePageAll(state, pages) {
-        state.pages = pages
+      state.pages = pages
     },
     addpage(state, newpages) {
       state.pages.unshift(newpages)
@@ -29,7 +29,10 @@ export default {
         }
         
         const page = (await res.json()).data
-        ctx.commit('updatePageAll', page)
+        if(page) {
+          localStorage.setItem('pages_arr', JSON.stringify(page))
+          ctx.commit('updatePageAll', page) 
+        }
 
       } catch (error) {
         alert('Данные с сервера не получены')
@@ -94,21 +97,6 @@ export default {
   getters: {
     allPages(state) {
       return state.pages
-    },
-    filterPagesDate: state => date => {
-      if (date.length >1) {
-        const newpage = state.pages.filter(
-          page => page.date >= date[0] && page.date <= date[1])
-        return newpage
-      }
-    },
-    namePagesArray(state) {
-      const nameArray = []
-      state.pages.forEach(function(item) {
-        nameArray.push(item.name)
-      }) 
-      // убираем повторяющиеся значения с помощью коллекции ES6
-      return Array.from(new Set(nameArray)) 
     },
     countPages(state) {
       return state.pages.length
