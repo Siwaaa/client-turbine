@@ -31,7 +31,7 @@
           <div>
             <p class="font-semibold">Hans Burger</p>
             <p class="text-xs text-gray-600 dark:text-gray-400">
-              10x Developer
+              Тариф до 12.02.2021
             </p>
           </div>
         </div>

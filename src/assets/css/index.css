@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Скролл кастом */
+body {
+  --grid-unit: 2.5vw;
+  --scrollbar-rgb: 0,0,0;
+  --scrollbar-track: rgba(var(--scrollbar-rgb),0.03);
+  --scrollbar-thumb: rgba(var(--scrollbar-rgb),0.1);
+  --scrollbar-thumb-hover: rgba(var(--scrollbar-rgb),0.15);
+  --scrollbar-thumb-active: rgba(var(--scrollbar-rgb),0.2);
+  --scrollbar-size: calc(0.25*var(--grid-unit));
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+* {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+body::-webkit-scrollbar, body ::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  background-color: transparent;
+  border-radius: 40px;
+  -webkit-transition: background-color .25s ease;
+  transition: background-color .25s ease;
+}
+body::-webkit-scrollbar-thumb, body ::-webkit-scrollbar-thumb {
+  width: calc(0.5*var(--scrollbar-size));
+  min-height: calc(0.1*var(--grid-unit));
+  background-clip: content-box;
+  background-color:transparent;
+  border-radius: 4px;
+  -webkit-transition: background-color .25s ease;
+  transition: background-color .25s ease;
+}
+body:hover::-webkit-scrollbar-thumb, body :hover::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+}
+body:hover::-webkit-scrollbar, body :hover::-webkit-scrollbar {
+  background-color: var(--scrollbar-track);
+}
+body::-webkit-scrollbar-button {
+  display: none;
+}
+
 .form-input {
   -webkit-appearance: none;
   -moz-appearance: none;

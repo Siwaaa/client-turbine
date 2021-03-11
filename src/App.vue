@@ -13,7 +13,6 @@ export default {
   components: {DashboardLayout, LoginLayout},
   computed: {
     currentTabComponent() {
-      console.log(this.$route.meta.layout)
       return (this.$route.meta.layout || 'dashboard') + '-layout'
     }
   },

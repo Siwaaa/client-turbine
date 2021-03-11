@@ -45,6 +45,24 @@ const routes = [
     component: () => import('@/views/pages/CreatePage.vue')
   },
   {
+    path: '/dashboard/:url',
+    name: 'PageEdit',
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/pages/PageEdit.vue')
+  },
+  {
+    path: '/dashboard/:url/statistics',
+    name: 'PageStatistics',
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/pages/PageStatistics.vue')
+  },
+  {
     path: '/settings',
     name: 'Settings',
     meta: {

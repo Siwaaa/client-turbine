@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="df pb-4">
-      <h1 class="text-4xl font-semibold">Title</h1>
+      <h1 class="text-4xl font-semibold">Подписные страницы</h1>
     </header>
 
     <router-link
@@ -28,17 +28,27 @@
     </router-link>
 
     <div class="grid gap-6 mb-8 grid-cols-1 max-w-2xl">
-      <Card />
+      <Card v-for="page in allPages" :key="page.id" :pageProps="page"/>
     </div>
   </div>
 </template>
 
 <script>
 import Card from "../../components/Card.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
   components: { Card },
+  computed: {
+    ...mapGetters(["allPages"]),
+  },
+  methods: {
+    ...mapActions(["API_GET_PAGES"]),
+  },
+  mounted() {
+    this.API_GET_PAGES();
+  },
 };
 </script>
 

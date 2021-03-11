@@ -2,21 +2,30 @@
   <div class="min-w-0 bg-white border rounded-lg shadow-xs dark:bg-gray-800">
     <div class="body-card p-4">
       <h4 class="mb-4 font-semibold text-3xl text-gray-700 dark:text-gray-300">
-        Revenue
+        {{ pageProps.name }}
       </h4>
       <div class="ctr mb-10 flex flex-col text-gray-600 dark:text-gray-400">
-        <span><span class="text-gray-800 font-semibold">10%</span> CTR</span>
-        <span><span class="text-gray-800 font-semibold">4</span> просмотры</span>
-        <span><span class="text-gray-800 font-semibold">2</span> подписчики</span>
+        <span
+          ><span class="text-gray-800 font-semibold">{{ ctr }}%</span> CTR</span
+        >
+        <span
+          ><span class="text-gray-800 font-semibold">{{
+            pageProps.count_prosmotr || 0
+          }}</span>
+          просмотры</span
+        >
+        <span
+          ><span class="text-gray-800 font-semibold">{{
+            pageProps.count_podpis || 0
+          }}</span>
+          подписчики</span
+        >
       </div>
       <div class="inst-and-url">
         <a href="/" target="_blank" class="inst">
-
-          <span>siwaa</span> 
+          <span>{{ pageProps.instagram }}</span>
         </a>
-        <div class="url">
-
-        </div>
+        <div class="url"></div>
       </div>
     </div>
     <div
@@ -43,7 +52,13 @@
         <span class="ml-1">Открыть</span>
       </router-link>
       <router-link
-        to="#"
+        :to="{
+          name: 'PageStatistics',
+          params: {
+            id: pageProps.id,
+            url: pageProps.url,
+          },
+        }"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
       >
         <svg
@@ -63,7 +78,13 @@
         <span class="ml-1">Статистика</span>
       </router-link>
       <router-link
-        to="#"
+        :to="{
+          name: 'PageEdit',
+          params: {
+            id: pageProps.id,
+            url: pageProps.url,
+          },
+        }"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
       >
         <svg
@@ -149,6 +170,21 @@
 <script>
 export default {
   name: "Card",
+  props: {
+    pageProps: {
+      type: Object,
+      default: function () {
+        return {};
+      },
+    },
+  },
+  computed: {
+    ctr() {
+      if (this.pageProps.count_podpis && this.pageProps.count_prosmotr) {
+        return this.pageProps.count_podpis / this.pageProps.count_prosmotr;
+      } else return 0;
+    },
+  },
 };
 </script>
 
