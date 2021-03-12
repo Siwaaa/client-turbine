@@ -1,7 +1,7 @@
 <template>
   <div class="a">
     <header class="pb-4 mb-4">
-      <h1 class="text-4xl font-semibold">Создание страницы</h1>
+      <h1 class="text-4xl font-semibold">Редактирование страницы</h1>
       <!-- <button @click="$router.back()">Назад</button> -->
     </header>
     <main class="h-full pb-16 overflow-y-auto">
@@ -265,25 +265,34 @@
             />
           </label>
         </div>
-
+        <div class="flex justify-end">
+          <router-link
+          :to="{name: 'Home'}"
+          class="inline-block mr-4 px-5 py-3 font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 "
+        >
+          Отменить
+        </router-link>
         <button
           type="submit"
           class="inline-block px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
         >
           Сохранить
         </button>
+        </div>
+        
       </form>
     </main>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "PageEdit",
   data() {
     return {
+      id: "",
       name: "",
       url: "",
       instagram: "",
@@ -308,9 +317,32 @@ export default {
     },
   },
   methods: {
-
+    ...mapActions(["API_UPDATE_PAGE"]),
+    submit() {
+      this.API_UPDATE_PAGE({
+        id: this.id,
+        name: this.name,
+        status: 1,
+        url: this.url,
+        instagram: this.instagram,
+        domain_id: this.domain_id,
+        title_ad: this.title_ad,
+        description_ad: this.description_ad,
+        img_cover: this.img_cover,
+        template_id: this.template_id,
+        btn_ad: this.btn_ad,
+        timer: this.timer,
+        fb_pixel: this.fb_pixel,
+        title_success: this.title_success,
+        description_success: this.description_success,
+        btn_success: this.btn_success,
+        link_download: this.link_download,
+      });
+      this.$router.push({ name: 'Home'});
+    },
   },
   created() {
+    this.id = this.searchPageObj.id;
     this.name = this.searchPageObj.name;
     this.url = this.searchPageObj.url;
     this.instagram= this.searchPageObj.instagram;

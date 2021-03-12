@@ -1,5 +1,11 @@
 <template>
-  <line-chart :chartdata="chartData" :options="chartOptions" />
+  <div>
+     <header class="df pb-4">
+      <h1 class="text-4xl font-semibold">Статистика страницы "{{this.$route.params.url}}"</h1>
+    </header>
+    <line-chart :chartdata="chartData" :options="chartOptions" />
+  </div>
+  
 </template>
 
 <script>

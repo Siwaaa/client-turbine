@@ -112,8 +112,8 @@
         </svg>
         <span class="ml-1">Изменить</span>
       </router-link>
-      <router-link
-        to="#"
+      <button
+        @click="pageDuplicate"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
       >
         <svg
@@ -131,9 +131,10 @@
           ></path>
         </svg>
         <span class="ml-1">Дублировать</span>
-      </router-link>
-      <router-link
-        to="#"
+      </button>
+      <button
+        type="button"
+        @click="openDelete"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
       >
         <svg
@@ -151,7 +152,7 @@
           ></path>
         </svg>
         <span class="ml-1">Удалить</span>
-      </router-link>
+      </button>
       <router-link
         to="#"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
@@ -197,6 +198,14 @@ export default {
       } else return 0;
     },
   },
+  methods: {
+    openDelete() {
+      this.$emit('deletePage', this.pageProps.id);
+    },
+    pageDuplicate() {
+      this.$emit('duplicatePage', this.pageProps.id)
+    }
+  }
 };
 </script>
 

@@ -251,7 +251,7 @@
           <!-- Ссылка на скачивание -->
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400">
-              Ссылка на скачивание материала
+              Ссылка на скачивание материала <span class="text-purple-700">*</span>
             </span>
             <input
               v-model="link_download"
@@ -284,14 +284,14 @@ export default {
       name: "",
       url: "",
       instagram: "",
-      domain_id: "",
+      domain_id: null,
       title_ad:
         "Подпишись на мой инстаграм и ссылка для скачивания материалов станет доступна",
       description_ad: "",
       img_cover: "",
-      template_id: "",
+      template_id: 1,
       btn_ad: "Получить материал",
-      timer: false,
+      timer: 0,
       fb_pixel: "",
       title_success: "Спасибо за подписку",
       description_success: "",

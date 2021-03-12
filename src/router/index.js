@@ -80,12 +80,40 @@ const routes = [
     },
     component: () => import('@/views/Domains.vue')
   },
+  // User PAGES
+  {
+    path: '/q/id',
+    name: 'UserStart',
+    meta: {
+      layout: 'user',
+    },
+    component: () => import('@/views/q/UserStart.vue')
+  },
+  {
+    path: '/q/id/checkout',
+    name: 'UserInst',
+    meta: {
+      layout: 'user',
+    },
+    component: () => import('@/views/q/UserInst.vue')
+  },
+  // {
+  //   path: '/q/id',
+  //   name: 'UserStart',
+  //   meta: {
+  //     layout: 'user',
+  //   },
+  //   component: () => import('@/views/q/UserStart.vue')
+  // },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  }
 })
 
 export default router

@@ -6,7 +6,7 @@ export default {
     updatePageAll(state, pages) {
       state.pages = pages
     },
-    addpage(state, newpages) {
+    addPage(state, newpages) {
       state.pages.unshift(newpages)
     },
   },
@@ -42,7 +42,7 @@ export default {
     async API_ADD_PAGE(ctx, data) {
       try {
         console.log(data)
-        const res = await fetch("https://bu.emocia.com/v1/api/pages", {
+        const res = await fetch("http://127.0.0.1:8000/api/pages", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -51,15 +51,15 @@ export default {
           body: JSON.stringify(data)
         });
         console.log(res)
-        ctx.commit('addpage', data)
+        ctx.commit('addPage', data)
 
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
     },
-    async API_update_pageation(ctx, data) {
+    async API_UPDATE_PAGE(ctx, data) {
       try {
-        const res = await fetch(`https://bu.emocia.com/v1/api/pages/${data.id}`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/pages/${data.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -69,15 +69,15 @@ export default {
         });
 
         console.log(res, "выполнение action")
-        ctx.dispatch('fechpages')
+        ctx.dispatch('API_GET_PAGES')
 
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
     },
-    async API_delete_pageation(ctx, id) {
+    async API_DELETE_PAGE(ctx, id) {
       try {
-        const res = await fetch(`https://bu.emocia.com/v1/api/pages/${id}`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/pages/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export default {
         });
 
         console.log(res, "удаление")
-        ctx.dispatch('fechpages')
+        ctx.dispatch('API_GET_PAGES')
 
       } catch (error) {
         alert(error, "Андрей, исправь")
