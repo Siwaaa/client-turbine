@@ -1,6 +1,6 @@
 <template>
   <div class="a">
-    <header class="df pb-4">
+        <header class="df pb-4">
       <h1 id="title" class="text-4xl font-semibold">Домены</h1>
     </header>
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
@@ -90,45 +90,15 @@
         </div>
       </label>
     </div>
-    <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-      Если домена еще нет
-    </h4>
-    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-      <p>
-        Если у вас нет доменного имени, вы можете зарегестрирвоать его в REG.RU
-        Для подключения сначала добавьте новую А-запись для вашего домена с IP,
-        а затем введите ваш домен и нажмите “Подключить домен”,
-      </p>
-
-      <label class="block mt-4 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">A-запись</span>
-        <input
-          v-model="a"
-          type="text"
-          required
-          readonly
-          maxlength="20"
-          class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none form-input"
-        />
-      </label>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Domains',
-  data() {
-    return {
-      a: '46.4.70.151',
-      domain: '',
-    }
-  }
-};
+
+}
 </script>
 
 <style>
-input:read-only {
-  background-color: rgb(225, 225, 225);
-}
+
 </style>

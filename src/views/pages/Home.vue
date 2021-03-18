@@ -135,6 +135,7 @@ export default {
       if (this.confirmDeletion) {
         this.API_DELETE_PAGE(id);
         this.closeModal();
+        this.confirmDeletion = false
       }
     },
     duplicatePage(id) {

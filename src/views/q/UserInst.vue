@@ -1,11 +1,14 @@
 <template>
   <div
-    class="pb-6 px-6 relative md:flex min-h-screen md:h-full md:shadow-lg md:rounded-lg bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
+    class="pb-6 pt-12 px-6 w-full relative min-h-screen md:h-full md:shadow-lg md:rounded-lg text-white"
+    style="
+      background: linear-gradient(225deg, rgb(170, 7, 107), rgb(97, 4, 95));
+    "
   >
     <div class="inst w-full flex items-center flex-col">
-      <img src="" alt="" />
-      <h4>Kaled slad</h4>
-      <span>
+      <img src="@/assets/ava.svg" alt="avatar" class="h-20 overflow-hidden" />
+      <h4 class="font-bold mt-2">Kaled slad</h4>
+      <span class="flex items-center">
         <svg class="inline mr-2" viewBox="0 0 48 48" width="24px" height="24px">
           <radialGradient
             id="yOrnnhliCrdS2gy~4tD8ma"
@@ -50,58 +53,115 @@
             fill="#fff"
             d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"
           /></svg
-        >kaled slad
+        >kaledslad
       </span>
     </div>
-    <main class="">
+    <main class="my-mt">
       <!-- Первый вариант -->
-      <form v-if="ds" class="input-container w-full mt-4">
-        <h2 class="font-bold">
+      <form
+        v-if="!checkFirstScreen"
+        class="input-container w-full md:max-w-xs md:m-auto mt-4 text-center"
+      >
+        <h2 class="font-bold text-xl leading-5">
           Подпишись на мой инстаграм и ссылка для скачивания материалов станет
           доступна
         </h2>
         <a
-          href=""
+          href="https://www.instagram.com/kaledslad/"
           target="_black"
-          class="inline-block text-center w-full px-4 py-2 font-medium text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
+          @click.prevent="warning"
+          class="inline-block w-full mt-6 px-4 py-2 font-medium text-white transition-colors duration-150 bg-gradient-to-r from-pink-500 to-pink-700 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
         >
           Подписаться
         </a>
-        <button class="inline w-full underline text-center">Я подписался</button>
+        <button
+          @click.prevent="setCheck"
+          type="button"
+          class="inline w-full mt-2 underline"
+        >
+          Я подписался
+        </button>
         <!-- Modal -->
         <div
           v-show="isModalOpen"
           @click.self="closeModal"
-          class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+          class="fixed inset-0 z-30 flex bg-black bg-opacity-50 items-center sm:justify-center"
         >
           <div
             @keydown.escape="closeModal"
-            class="w-full px-6 py-4 z-50 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+            class="w-full px-6 py-4 z-50 overflow-hidden bg-white rounded-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
             role="dialog"
             id="modal"
           >
             <!-- Modal body -->
             <div class="mt-4 mb-6">
+              <!-- Modal title -->
+              <p
+                class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300"
+              >
+                Идет переадресация...
+              </p>
               <!-- Modal description -->
               <p class="text-sm text-gray-700 dark:text-gray-400">
-                После подписки на инст вернитесь на эту страницу
+                После подписки вернись на эту страницу для подтверждения, нажав
+                кнопку "назад" в браузере
               </p>
             </div>
           </div>
         </div>
-        
       </form>
       <!-- Второй вариант -->
-      <form v-else class="input-container w-full mt-4">
-        <h2>Введите ваш логин инстаграма для проверки подписки:</h2>
-        <input type="text" class="w-full form-input" v-model="inst" />
+      <form
+        v-else
+        @submit.prevent="searchAk"
+        class="input-container w-full md:max-w-xs md:m-auto mt-4 text-center"
+      >
+        <h2 class="font-bold text-xl leading-5">
+          Введите ваш логин инстаграма для проверки подписки:
+        </h2>
+        <input
+          v-model="inst"
+          type="text"
+          maxlength="24"
+          required
+          class="w-full form-input mt-8 text-black"
+        />
         <button
-          class="inline-block w-full px-4 py-2 font-medium text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
+          type="submit"
+          class="inline-block w-full mt-2 px-4 py-2 font-medium text-white transition-colors duration-150 bg-gradient-to-r from-pink-500 to-pink-700 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
         >
-          Я подписался
+          Проверить
         </button>
-
-        После подписки на инст вернитесь на эту страницу
+        <a
+          href="https://www.instagram.com/kaledslad/"
+          target="_black"
+          class="inline-block w-full mt-2 underline"
+        >
+          Не подписан?
+        </a>
+        <!-- Modal -->
+        <div
+          v-show="isModalOpen"
+          class="fixed inset-0 z-30 flex bg-black bg-opacity-50 items-center sm:justify-center"
+        >
+          <div
+            class="w-full px-6 py-4 z-50 overflow-hidden bg-white rounded-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+            role="dialog"
+            id="modal"
+          >
+            <!-- Modal body -->
+            <div class="mt-4 mb-6">
+              <!-- Modal title -->
+              <p
+                class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300"
+              >
+                {{ textResponse }}
+              </p>
+              <!-- Modal description -->
+              <p class="text-sm text-gray-700 dark:text-gray-400"></p>
+            </div>
+          </div>
+        </div>
       </form>
 
       <label class="inline-block absolute bottom-2 inset-x-0 text-center"
@@ -120,13 +180,85 @@ export default {
       ds: true,
       isModalOpen: false,
       inst: "",
+      checkFirstScreen: false,
+      textResponse: "Идет поиск вашего аккаунта...",
     };
+  },
+  computed: {},
+  created() {
+    this.checkFirstScreen = localStorage.getItem("check-first-screen");
   },
   methods: {
     closeModal() {
       this.isModalOpen = false;
     },
-  }
+    openModal() {
+      this.isModalOpen = true;
+    },
+    check() {
+      localStorage.getItem("check-first-screen")
+        ? (this.checkFirstScreen = true)
+        : (this.checkFirstScreen = false);
+    },
+    setCheck() {
+      localStorage.setItem("check-first-screen", true);
+      this.checkFirstScreen = true;
+    },
+    warning(event) {
+      this.openModal();
+      this.$Progress.start();
+      const a = setTimeout(() => {
+        this.$Progress.finish();
+        window.location.href = event.target.href;
+      }, 5000);
+      //проверка на отмену пользователем переадрисации
+      setTimeout(
+        () =>
+          this.isModalOpen
+            ? localStorage.setItem("check-first-screen", true)
+            : (clearTimeout(a), this.$Progress.fail()),
+        4000
+      );
+    },
+    searchAk() {
+      this.openModal();
+      this.$Progress.start();
+      console.log(this.inst);
+      fetch(`http://127.0.0.1:8000/api/super/check`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: this.inst,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            this.$Progress.fail();
+            return response.json();
+          }
+          this.$Progress.finish();
+          return response.json();
+        })
+        .then((result) => {
+          if (result.subscribed) {
+            this.textResponse = "Аккаунт найдет!";
+            setTimeout(() => {
+              this.$router.push({name: 'UserUspech'})
+              this.textResponse = "Идет поиск вашего аккаунта...";
+            }, 2000);
+          } else {
+            this.textResponse = "Аккаунт НЕ найдет!";
+            setTimeout(() => {
+              this.closeModal();
+              this.textResponse = "Идет поиск вашего аккаунта...";
+            }, 2000);
+          }
+        });
+    },
+  },
 };
 </script>
 
@@ -138,5 +270,8 @@ export default {
   .size {
     max-height: calc(100vw / 16 * 9);
   }
+}
+.my-mt {
+  margin-top: 16vh;
 }
 </style>

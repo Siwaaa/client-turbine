@@ -1,14 +1,15 @@
 <template>
   <div
-    class="pb-6 relative min-h-screen md:h-full md:shadow-lg md:rounded-lg bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
+    class="pb-6 relative min-h-screen md:h-full md:shadow-lg md:rounded-lg"
+    style="background: linear-gradient(225deg, rgb(170, 7, 107), rgb(97, 4, 95));"
   >
     <div class="img overflow-hidden size z-20">
       <img src="@/assets/as.jpeg" class="" />
     </div>
-    <header class="mt-4 px-6">
+    <header class="mt-4 px-6 text-white	">
       <h1 class="text-3xl font-semibold">Title</h1>
     </header>
-    <main class="mt-4 px-6 flex flex-col">
+    <main class="mt-4 px-6 flex flex-col text-white	">
       <div class="decription">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia totam
         ipsam quia ab rerum maiores praesentium, iure esse debitis! Voluptate,
@@ -17,8 +18,8 @@
       </div>
       <div v-if="ds" class="mt-4">Timer ?</div>
       <router-link
-        to=""
-        class="inline-block mx-auto mt-6 px-4 py-2 font-medium text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
+        :to="{name: 'UserInst'}"
+        class="inline-block mx-auto mt-6 px-4 py-2 font-medium text-white transition-colors duration-150 bg-gradient-to-r from-pink-500 to-pink-700 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
         >Btn</router-link
       >
 
@@ -35,11 +36,13 @@ export default {
   name: "UserStart",
   data() {
     return {
-      ds: true,
+      ds: false,
       className: "bg-purple-600",
-    };
+    }
   },
-  mounted: {},
+  mounted() {
+
+  }
 };
 </script>
 

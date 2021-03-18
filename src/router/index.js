@@ -80,6 +80,15 @@ const routes = [
     },
     component: () => import('@/views/Domains.vue')
   },
+  {
+    path: '/templates',
+    name: 'Templates',
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/DesignTemplate.vue')
+  },
   // User PAGES
   {
     path: '/q/id',
@@ -97,14 +106,14 @@ const routes = [
     },
     component: () => import('@/views/q/UserInst.vue')
   },
-  // {
-  //   path: '/q/id',
-  //   name: 'UserStart',
-  //   meta: {
-  //     layout: 'user',
-  //   },
-  //   component: () => import('@/views/q/UserStart.vue')
-  // },
+  {
+    path: '/q/id/good',
+    name: 'UserUspech',
+    meta: {
+      layout: 'user',
+    },
+    component: () => import('@/views/q/UserUspech.vue')
+  },
 ]
 
 const router = new VueRouter({
