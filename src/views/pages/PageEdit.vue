@@ -1,27 +1,28 @@
 <template>
-  <div class="a">
+  <div>
     <header class="pb-4 mb-4">
       <h1 class="text-4xl font-semibold">Редактирование страницы</h1>
-      <!-- <button @click="$router.back()">Назад</button> -->
     </header>
     <main class="h-full pb-16 overflow-y-auto">
-      <form @submit.prevent="submit" class="container px-6 mx-auto grid">
+      <form
+        @submit.prevent="submit"
+        enctype="multipart/form-data"
+        class="container px-6 mx-auto grid"
+      >
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-          Настройка проекта
+          Внутренние настройки
         </h4>
-        <div
-          class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
-        >
+        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
           <label class="block text-sm">
             <span class="text-gray-700 dark:text-gray-400"
               >Название
               <span class="text-purple-700">*</span>
             </span>
             <input
-              v-model="name"
+              v-model.trim="name"
               type="text"
               required
-              maxlength="40"
+              maxlength="32"
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
               placeholder="Client turbine"
             />
@@ -38,7 +39,8 @@
                 http://domains/page/
               </span>
               <input
-                v-model="url"
+                v-model.trim="url"
+                @change="checkUrl"
                 type="text"
                 required
                 maxlength="20"
@@ -46,6 +48,9 @@
                 placeholder="polet-normalny"
               />
             </div>
+            <span v-if="!urlValid" class="text-xs text-red-600">
+              Допустимые символы: "a-z", "0-9", "-", "_"
+            </span>
           </label>
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400"
@@ -53,12 +58,16 @@
             >
             <input
               v-model="instagram"
+              @change="checkInst"
               type="text"
               required
-              maxlength="20"
+              maxlength="50"
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
               placeholder="Bred Pit"
             />
+            <span v-if="!instValid" class="text-xs text-red-600">
+              {{ instErrorText }}
+            </span>
           </label>
 
           <label class="block mt-4 text-sm">
@@ -131,8 +140,17 @@
               >Картинка для обложки</span
             >
             <label
-              class="relative border-dashed border-2 border-gray-200 h-40 mt-1 w-full flex flex-col items-center px-4 py-6 rounded-lg cursor-pointer"
+              class="img-unload relative border-dashed border-2 border-gray-200 mt-1 w-full flex flex-col items-center px-4 py-6 rounded-lg cursor-pointer overflow-hidden"
             >
+              <div v-if="srcImg" class="absolute top-0 w-full z-30">
+                <img :src="srcImg" alt="backgroud" class="w-full" />
+                <span
+                  @click.capture="deleteImg"
+                  class="absolute top-3 right-3 inline-block px-3 py-1 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none z-40"
+                  >Удалить</span
+                >
+              </div>
+
               <svg
                 class="text-gray-500"
                 fill="none"
@@ -151,18 +169,19 @@
                   for="file-upload"
                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
                 >
-                  <span>Upload a file</span>
+                  <span>Загрузить файл</span>
                   <input
                     id="file-upload"
                     name="file-upload"
                     type="file"
                     accept="image/png,image/gif,image/jpeg,image/jpg"
                     max-file-size="5242880"
+                    @change="setImg"
                     class="sr-only"
                   />
                 </label>
               </div>
-              <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+              <p class="text-xs text-gray-500">PNG, JPG, GIF не более 5MB</p>
             </label>
           </label>
 
@@ -224,9 +243,6 @@
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
               placeholder="Спасибо за подписку"
             />
-            <span class="text-xs text-red-600 dark:text-red-400">
-              Your password is too short.
-            </span>
           </label>
 
           <!-- Valid input -->
@@ -267,19 +283,19 @@
         </div>
         <div class="flex justify-end">
           <router-link
-          :to="{name: 'Home'}"
-          class="inline-block mr-4 px-5 py-3 font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 "
-        >
-          Отменить
-        </router-link>
-        <button
-          type="submit"
-          class="inline-block px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-        >
-          Сохранить
-        </button>
+            :to="{ name: 'Home' }"
+            class="inline-block mr-4 px-5 py-3 font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500"
+          >
+            Отменить
+          </router-link>
+          <button
+            type="submit"
+            :disabled="disabled"
+            class="inline-block disabled:opacity-50 px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+          >
+            Сохранить
+          </button>
         </div>
-        
       </form>
     </main>
   </div>
@@ -308,6 +324,12 @@ export default {
       description_success: "",
       btn_success: "",
       link_download: "",
+      // переменные валидации
+      urlValid: true,
+      instValid: true,
+      instErrorText: "",
+      urlAPI: "http://127.0.0.1:8000",
+      srcImg: null,
     };
   },
   computed: {
@@ -315,11 +337,69 @@ export default {
     searchPageObj() {
       return this.allPages.find((item) => item.url == this.$route.params.url);
     },
+    disabled() {
+      return Boolean(!(this.urlValid && this.instValid));
+    },
+    // srcImg() {
+    //   return
+    // }
   },
   methods: {
     ...mapActions(["API_UPDATE_PAGE"]),
+    checkUrl(e) {
+      const res = e.target.value.match(/[a-z0-9_-]/g);
+      res && res.length == e.target.value.length
+        ? (this.urlValid = true)
+        : (this.urlValid = false);
+    },
+    checkInst(e) {
+      const inst = e.target.value;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ inst: inst }),
+      };
+      fetch("http://127.0.0.1:8000/api/check-inst", options)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.success) {
+            res.data.is_private
+              ? ((this.instErrorText =
+                  "Аккаунт закрытый, необходимо перевести в открытый"),
+                (this.instValid = false))
+              : (this.instValid = true);
+          } else {
+            this.instValid = false;
+            this.instErrorText = "Аккаунт не найден";
+          }
+        });
+    },
+    setImg(event) {
+      let file = event.target.files[0];
+      console.log(file);
+      if (file && file.size / 1024 / 1024 < 5) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.srcImg = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.img_cover = file;
+      } else {
+        alert("Файл больше 5 MB. Попробуйте сжать");
+      }
+    },
+    deleteImg(e) {
+      e.preventDefault();
+      this.srcImg = null;
+    },
     submit() {
-      this.API_UPDATE_PAGE({
+      let formData = new FormData();
+      formData.append('_method', 'PUT')
+      formData.append("img_cover", this.img_cover);
+      const allData = JSON.stringify({
         id: this.id,
         name: this.name,
         status: 1,
@@ -338,26 +418,32 @@ export default {
         btn_success: this.btn_success,
         link_download: this.link_download,
       });
-      this.$router.push({ name: 'Home'});
+      formData.append("data", allData);
+
+      this.API_UPDATE_PAGE(formData);
+      this.$router.push({ name: "Home" });
     },
   },
   created() {
     this.id = this.searchPageObj.id;
     this.name = this.searchPageObj.name;
     this.url = this.searchPageObj.url;
-    this.instagram= this.searchPageObj.instagram;
-    this.domain_id= this.searchPageObj.domain_id;
-    this.title_ad= this.searchPageObj.title_ad;
-    this.description_ad= this.searchPageObj.description_ad;
-    this.img_cover= this.searchPageObj.img_cover;
-    this.template_id= this.searchPageObj.template_id;
-    this.btn_ad= this.searchPageObj.btn_ad;
-    this.timer= this.searchPageObj.timer;
-    this.fb_pixel= this.searchPageObj.fb_pixel;
-    this.title_success= this.searchPageObj.title_success;
-    this.description_success= this.searchPageObj.description_success;
-    this.btn_success= this.searchPageObj.btn_success;
-    this.link_download= this.searchPageObj.link_download;
+    this.instagram = this.searchPageObj.instagram;
+    this.domain_id = this.searchPageObj.domain_id;
+    this.title_ad = this.searchPageObj.title_ad;
+    this.description_ad = this.searchPageObj.description_ad;
+    this.img_cover = this.searchPageObj.img_cover;
+    this.template_id = this.searchPageObj.template_id;
+    this.btn_ad = this.searchPageObj.btn_ad;
+    this.timer = this.searchPageObj.timer;
+    this.fb_pixel = this.searchPageObj.fb_pixel;
+    this.title_success = this.searchPageObj.title_success;
+    this.description_success = this.searchPageObj.description_success;
+    this.btn_success = this.searchPageObj.btn_success;
+    this.link_download = this.searchPageObj.link_download;
+    this.searchPageObj.img_cover
+      ? (this.srcImg = this.urlAPI + "/images/" + this.img_cover)
+      : (this.srcImg = null);
   },
 };
 </script>

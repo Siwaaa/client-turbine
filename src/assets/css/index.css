@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+:disabled {
+  cursor: no-drop;
+}
 /* Скролл кастом */
 body {
   --grid-unit: 2.5vw;
@@ -119,4 +122,8 @@ body::-webkit-scrollbar-button {
   background-size: 100% 100%;
   background-position: 50%;
   background-repeat: no-repeat;
+}
+
+.img-unload {
+  height: calc(100vw / 16 * 9 / 2);
 }

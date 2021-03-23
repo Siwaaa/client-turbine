@@ -126,22 +126,20 @@ export default {
   methods: {
     ...mapActions(["API_GET_PAGES", "API_DELETE_PAGE", "API_ADD_PAGE"]),
     deletePage(id) {
-      // let result = confirm("Вы точно хотите удалить эту страницу?");
-      // if (result) {
-      //   this.API_DELETE_PAGE(id);
-      // }
       this.isModalOpen = true;
       this.idDelete = id;
       if (this.confirmDeletion) {
         this.API_DELETE_PAGE(id);
         this.closeModal();
-        this.confirmDeletion = false
+        this.confirmDeletion = false;
       }
     },
     duplicatePage(id) {
       const pageObj = this.allPages.find((item) => item.id == id);
       if (pageObj) {
-        this.API_ADD_PAGE({
+        let formData = new FormData();
+        formData.append("img_cover", pageObj.img_cover);
+        const allData = JSON.stringify({
           name: pageObj.name + "-copy" + (Date.now() % 7777),
           status: 1,
           url: pageObj.url + "-copy" + (Date.now() % 7777),
@@ -158,8 +156,11 @@ export default {
           description_success: pageObj.description_success,
           btn_success: pageObj.btn_success,
           link_download: pageObj.link_download,
-        }).then(this.API_GET_PAGES());
-        this.scrollBehavior()
+        });
+        formData.append("data", allData);
+
+        this.API_ADD_PAGE(formData).then(this.API_GET_PAGES());
+        this.scrollBehavior();
       }
     },
     closeModal() {
@@ -170,8 +171,8 @@ export default {
       this.deletePage(this.idDelete);
     },
     scrollBehavior() {
-        document.getElementById('title').scrollIntoView();
-    }
+      document.getElementById("title").scrollIntoView();
+    },
   },
   mounted() {
     this.API_GET_PAGES();

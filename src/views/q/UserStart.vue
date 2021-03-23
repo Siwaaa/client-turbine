@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 export default {
   name: "UserStart",
   data() {
@@ -39,6 +40,9 @@ export default {
       ds: false,
       className: "bg-purple-600",
     }
+  },
+  computed: {
+    ...mapGetters(["allPages"])
   },
   mounted() {
 

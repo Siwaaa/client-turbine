@@ -36,8 +36,8 @@
     <div
       class="footer-card p-4 bg-indigo-50 text-gray-400 bg-opacity-75 flex flex-wrap"
     >
-      <router-link
-        :to="{ name: 'UserStart' }"
+      <a
+        :href="linkToPage"
         target="_blank"
         id="route-open"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
@@ -57,7 +57,7 @@
           ></path>
         </svg>
         <span class="ml-1">Открыть</span>
-      </router-link>
+      </a>
       <router-link
         :to="{
           name: 'PageStatistics',
@@ -151,10 +151,9 @@
         </svg>
         <span class="ml-1">Удалить</span>
       </button>
-      <router-link
-        :to="{ name: 'UserStart' }"
-        event
-        @click.native.prevent="copyLink"
+      <button
+        type="button"
+        @click="copyLink"
         class="item p-2 hover:text-gray-600 flex items-center mr-4 animate"
       >
         <svg
@@ -171,8 +170,8 @@
             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
           ></path>
         </svg>
-        <span class="ml-1">Скопировать ссылку</span>
-      </router-link>
+        <span :data-urlcopy="linkToPage" class="ml-1">Скопировать ссылку</span>
+      </button>
     </div>
   </div>
 </template>
@@ -192,6 +191,9 @@ export default {
     linkInst() {
       return "https://www.instagram.com/" + this.pageProps.instagram;
     },
+    linkToPage() {
+      return `https://localhost:8000/${this.pageProps.url}`
+    },
     ctr() {
       if (this.pageProps.count_podpis && this.pageProps.count_prosmotr) {
         return this.pageProps.count_podpis / this.pageProps.count_prosmotr;
@@ -207,9 +209,9 @@ export default {
     },
     copyLink(event) {
       navigator.clipboard
-        .writeText(event.target.href)
+        .writeText(event.target.dataset.urlcopy)
         .then(() => {
-          // Получилось!
+          alert("Ссылка скопирована");
         })
         .catch((err) => {
           console.log("Something went wrong", err);

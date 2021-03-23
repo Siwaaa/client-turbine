@@ -16,20 +16,11 @@
         </router-link>
         <div class="flex px-6 mt-4 items-center text-sm">
           <!-- Avatar with inset shadow -->
-          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-            <img
-              class="object-cover w-full h-full rounded-full"
-              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-              alt=""
-              loading="lazy"
-            />
-            <div
-              class="absolute inset-0 rounded-full shadow-inner"
-              aria-hidden="true"
-            ></div>
+          <div class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow bg-indigo-300">
+              <span class="font-bold text-lg text-white ">{{name[0].toUpperCase()}}</span>
           </div>
           <div>
-            <p class="font-semibold">Hans Burger</p>
+            <p class="font-semibold text-gray-800">{{name.toLowerCase() }}</p>
             <p class="text-xs text-gray-600 dark:text-gray-400">
               Тариф до 12.02.2021
             </p>
@@ -342,7 +333,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DashboardLayout",
@@ -356,6 +347,10 @@ export default {
       dark: false,
       trapCleanup: null,
     };
+  },
+  computed: {
+    ...mapGetters(["name"]),
+
   },
   methods: {
     ...mapActions(["destroyToken"]),

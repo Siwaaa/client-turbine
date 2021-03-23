@@ -41,17 +41,18 @@ export default {
     },
     async API_ADD_PAGE(ctx, data) {
       try {
-        console.log(data)
+        const hadlerData = JSON.parse(data.get("data"))
         const res = await fetch("http://127.0.0.1:8000/api/pages", {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
-          body: JSON.stringify(data)
+          body: data
         });
         console.log(res)
-        ctx.commit('addPage', data)
+        ctx.commit('addPage', hadlerData)
 
       } catch (error) {
         alert(error, "Андрей, исправь")
@@ -59,13 +60,15 @@ export default {
     },
     async API_UPDATE_PAGE(ctx, data) {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/pages/${data.id}`, {
-          method: 'PUT',
+        const hadlerData = JSON.parse(data.get("data"))
+        const res = await fetch(`http://127.0.0.1:8000/api/pages/${hadlerData.id}`, {
+          // POST для фикс бага от php, который не давал получать $request
+          method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            // 'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
-          body: JSON.stringify(data)
+          body: data
         });
 
         console.log(res, "выполнение action")
