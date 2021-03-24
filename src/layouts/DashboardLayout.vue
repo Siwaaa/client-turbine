@@ -143,13 +143,6 @@
             </router-link>
           </li>
         </ul>
-        <div class="px-6 my-6">
-          <button
-            class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-300 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-lg hover:from-pink-500 hover:to-yellow-500"
-          >
-            Крутой курс по наставничеству. Кликай, чтобы узнать подробнее ->
-          </button>
-        </div>
         <button
           class="inline-block fixed bottom-0 w-64 px-6 py-3"
           @click.prevent="logout"

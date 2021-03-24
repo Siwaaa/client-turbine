@@ -1,33 +1,33 @@
 <template>
   <div>
     <header class="df pb-4">
-      <h1 id="title" class="text-4xl font-semibold">Подписные страницы</h1>
+      <h1 id="title" class="text-4xl font-semibold mb-4">Подписные страницы</h1>
     </header>
 
-    <router-link
-      :to="{
-        name: 'CreatePage',
-      }"
-      class="inline-flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mb-4"
-    >
-      <svg
-        class="w-4 h-4 mr-2 -ml-1"
-        fill="currentColor"
-        viewBox="0 0 22 22"
-        stroke="currentColor"
+    <div class="flex flex-wrap mb-6">
+      <router-link
+        :to="{
+          name: 'CreatePage',
+        }"
+        class="inline-flex mr-4 mb-6 w-44 h-52 items-center justify-between mb-4 px-4 py-2 text-white font-bold bg-white border border-gray-100 rounded-lg hover:opacity-90 transition-opacity duration-300"
+        style="background-color: rgb(4, 135, 175)"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        />
-      </svg>
+        <svg
+          class="w-4 h-4 mr-2 -ml-1"
+          fill="currentColor"
+          viewBox="0 0 22 22"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
 
-      <span>Создать страницу</span>
-    </router-link>
-
-    <div class="grid gap-6 mb-8 grid-cols-1 max-w-2xl">
+        <span>Создать страницу</span>
+      </router-link>
       <Card
         v-for="page in allPages"
         :key="page.id"
@@ -36,20 +36,17 @@
         @duplicatePage="duplicatePage"
       />
     </div>
-
+    <!-- Modal -->
     <div
       v-show="isModalOpen"
       @click.self="closeModal"
       class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
     >
-      <!-- Modal -->
       <div
-        @keydown.escape="closeModal"
         class="w-full px-6 py-4 z-50 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
         role="dialog"
         id="modal"
       >
-        <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
         <header class="flex justify-end">
           <button
             class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
@@ -77,12 +74,13 @@
           <p
             class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300"
           >
-            Modal header
+            Удалить эту страницу?
           </p>
           <!-- Modal description -->
           <p class="text-sm text-gray-700 dark:text-gray-400">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum et
-            eligendi repudiandae voluptatem tempore!
+            Вы собираетесь удалить страницу.
+            <br>
+            Она исчезнет навсегда, и мы не сможем ее вернуть.
           </p>
         </div>
         <footer
@@ -92,13 +90,13 @@
             @click="closeModal"
             class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
           >
-            Cancel
+            Отмена
           </button>
           <button
             @click.prevent="realyDelete"
-            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none"
           >
-            Accept
+            Да, удалить
           </button>
         </footer>
       </div>

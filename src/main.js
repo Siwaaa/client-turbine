@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import './assets/css/index.css'
 import VueProgressBar from 'vue-progressbar'
+import vClickOutside from 'v-click-outside'
+
+Vue.use(vClickOutside)
 
 const options = {
   color: '#bd9bff',
