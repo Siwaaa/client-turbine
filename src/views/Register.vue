@@ -84,13 +84,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-      .then(response => {
-        if (response) {
-          this.$router.push( {name: 'Home'})
-        } else {
-          alert('Неверный логин или пароль')
-        }
-      })
+      this.$router.push( {name: 'Home'})
     }
   }
 };

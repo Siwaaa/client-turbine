@@ -1,6 +1,6 @@
 export default {
   state: {
-    templates: JSON.parse(localStorage.getItem('templates_arr')) || null,
+    templates: null,
   },
   mutations: {
     updateTemplateAll(state, templates) {
@@ -10,6 +10,7 @@ export default {
   actions: {
     async API_GET_TEMPLATES(ctx) {
       let res = await fetch("http://127.0.0.1:8000/api/templates", {
+        method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         }
@@ -17,16 +18,14 @@ export default {
 
       const template = (await res.json()).data
       if (template) {
-        localStorage.setItem('templates_arr', JSON.stringify(template))
         ctx.commit('updateTemplateAll', template)
       }
+    },
 
   },
-
-},
-getters: {
-  alltemplates(state) {
-    return state.templates
-  },
-}
+  getters: {
+    allTemplates(state) {
+      return state.templates
+    },
+  }
 }

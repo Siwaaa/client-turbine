@@ -5,7 +5,7 @@
         Статистика страницы "{{ this.$route.params.url }}"
       </h1>
     </header>
-    <line-chart v-if="data" :chartdata="chartData" :options="chartOptions" />
+    <line-chart v-if="chartData.data" :chartdata="chartData" :options="chartOptions" />
     <div class="h-52 bg-white">
       <div class="px-4">
         <h2 class="font-medium">Цифры</h2>

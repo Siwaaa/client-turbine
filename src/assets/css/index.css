@@ -125,7 +125,7 @@ body::-webkit-scrollbar-button {
 }
 
 .img-unload {
-  height: calc(100vw / 16 * 9 / 2);
+  height: calc(24rem / 16 * 9);
 }
 
 
@@ -178,6 +178,14 @@ body::-webkit-scrollbar-button {
 }
 
 
+.size {
+  max-height: calc(100vw / 16 * 9 / 2);
+}
+@media (max-width: 640px) {
+  .size {
+    max-height: calc(100vw / 16 * 9);
+  }
+}
 
 
 

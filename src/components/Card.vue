@@ -8,9 +8,9 @@
         id: pageProps.id,
         url: pageProps.url,
       },
-    }" class="body-card flex flex-col items-center justify-center h-3/4 p-4">
+    }" class="body-card flex flex-col items-center justify-center leading-4	h-3/4 p-4">
       <h4
-        class="overflow-hidden max-w-full font-medium text-base leading-none"
+        class="overflow-hidden max-w-full font-medium text-base leading-5"
         style="overflow-wrap: break-word"
       >
         {{ pageProps.name }}

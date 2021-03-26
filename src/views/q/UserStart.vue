@@ -51,12 +51,5 @@ export default {
 
 <style>
 
-.size {
-  max-height: calc(100vw / 16 * 9 / 2);
-}
-@media (max-width: 640px) {
-  .size {
-    max-height: calc(100vw / 16 * 9);
-  }
-}
+
 </style>

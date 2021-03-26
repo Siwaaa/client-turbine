@@ -17,10 +17,10 @@
         <div class="flex px-6 mt-4 items-center text-sm">
           <!-- Avatar with inset shadow -->
           <div class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow bg-indigo-300">
-              <span class="font-bold text-lg text-white ">{{name[0].toUpperCase()}}</span>
+              <span class="font-bold text-lg text-white ">{{name ? name[0].toUpperCase() : 'A'}}</span>
           </div>
           <div>
-            <p class="font-semibold text-gray-800">{{name.toLowerCase() }}</p>
+            <p class="font-semibold text-gray-800">{{name }}</p>
             <p class="text-xs text-gray-600 dark:text-gray-400">
               Тариф до 12.02.2021
             </p>
@@ -51,6 +51,33 @@
                   ></path>
                 </svg>
                 <span class="ml-4">Страницы</span>
+              </span>
+            </router-link>
+          </li>
+                    <li>
+            <router-link
+              class="inline-block w-full relative px-6 py-3"
+              to="/domains"
+              exact=""
+              active-class="border-r-4 border-purple-600 text-gray-800"
+            >
+              <span
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
+                </svg>
+                <span class="ml-4">Домены</span>
               </span>
             </router-link>
           </li>
@@ -87,61 +114,7 @@
               </span>
             </router-link>
           </li>
-          <li>
-            <router-link
-              class="inline-block w-full relative px-6 py-3"
-              to="/domains"
-              exact=""
-              active-class="border-r-4 border-purple-600 text-gray-800"
-            >
-              <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
-              >
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                  />
-                </svg>
-                <span class="ml-4">Домены</span>
-              </span>
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              class="inline-block w-full relative px-6 py-3"
-              to="/templates"
-              exact=""
-              active-class="border-r-4 border-purple-600 text-gray-800"
-            >
-              <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
-              >
-                <svg
-                  class="w-5 h-5"
-                  
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg> 
-                <span class="ml-4">Шаблоны дизайна</span>
-              </span>
-            </router-link>
-          </li>
+
         </ul>
         <button
           class="inline-block fixed bottom-0 w-64 px-6 py-3"
@@ -348,9 +321,8 @@ export default {
   methods: {
     ...mapActions(["destroyToken"]),
     logout() {
-      this.destroyToken().then((response) => {
+      this.destroyToken().then(() => {
         this.$router.push({ name: "Login" });
-        console.log(response);
       });
     },
     openModal() {
