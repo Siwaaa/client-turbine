@@ -1,5 +1,9 @@
 # client-turbine
 
+## Подключаемся по ssh
+< git clone https://github.com/Siwaaa/client-turbine.git .
+
+
 ## Project setup
 ```
 npm install
