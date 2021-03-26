@@ -1,9 +1,6 @@
 <template>
   <div
-    class="pb-6 pt-12 px-6 w-full relative min-h-screen md:h-full md:shadow-lg md:rounded-lg text-white"
-    style="
-      background: linear-gradient(225deg, rgb(170, 7, 107), rgb(97, 4, 95));
-    "
+    class="template__04 pb-6 pt-12 px-6 w-full relative min-h-screen md:h-full md:shadow-lg md:rounded-lg"
   >
     <div class="inst w-full flex items-center flex-col">
       <img src="@/assets/ava.svg" alt="avatar" class="h-20 overflow-hidden" />
@@ -70,7 +67,7 @@
           href="https://www.instagram.com/kaledslad/"
           target="_black"
           @click.prevent="warning"
-          class="inline-block w-full mt-6 px-4 py-2 font-medium text-white transition-colors duration-150 bg-gradient-to-r from-pink-500 to-pink-700 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
+          class="btn-color inline-block w-full mt-6 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
         >
           Подписаться
         </a>
@@ -124,11 +121,11 @@
           type="text"
           maxlength="24"
           required
-          class="w-full form-input mt-8 text-black"
+          class="w-full form-input mt-8 text-black focus:outline-none"
         />
         <button
           type="submit"
-          class="inline-block w-full mt-2 px-4 py-2 font-medium text-white transition-colors duration-150 bg-gradient-to-r from-pink-500 to-pink-700 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none"
+          class="btn-color inline-block w-full mt-2 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
         >
           Проверить
         </button>

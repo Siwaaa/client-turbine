@@ -340,9 +340,6 @@ export default {
     disabled() {
       return Boolean(!(this.urlValid && this.instValid));
     },
-    // srcImg() {
-    //   return
-    // }
   },
   methods: {
     ...mapActions(["API_UPDATE_PAGE"]),
