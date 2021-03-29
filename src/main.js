@@ -6,8 +6,6 @@ import './assets/css/index.css'
 import VueProgressBar from 'vue-progressbar'
 import vClickOutside from 'v-click-outside'
 
-Vue.use(vClickOutside)
-
 const options = {
   color: '#bd9bff',
   failedColor: '#874b4b',
@@ -21,11 +19,11 @@ const options = {
 }
 
 Vue.use(VueProgressBar, options)
+Vue.use(vClickOutside)
 
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.loggedIn) {
       next({

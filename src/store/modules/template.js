@@ -9,7 +9,7 @@ export default {
   },
   actions: {
     async API_GET_TEMPLATES(ctx) {
-      let res = await fetch("http://127.0.0.1:8000/api/templates", {
+      let res = await fetch(`${this.state.urlAPI}/api/templates`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),

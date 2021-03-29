@@ -15,13 +15,13 @@ export default {
       try {
         let res = ''
         if(date) {
-          res = await fetch("http://127.0.0.1:8000/api/pages", {
+          res = await fetch(`${this.state.urlAPI}/api/pages`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
             }
           })
         } else {
-          res = await fetch("http://127.0.0.1:8000/api/pages", {
+          res = await fetch(`${this.state.urlAPI}/api/pages`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
             }
@@ -42,7 +42,7 @@ export default {
     async API_ADD_PAGE(ctx, data) {
       try {
         const hadlerData = JSON.parse(data.get("data"))
-        const res = await fetch("http://127.0.0.1:8000/api/pages", {
+        const res = await fetch(`${this.state.urlAPI}/api/pages`, {
           method: 'POST',
           headers: {
             // 'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export default {
     async API_UPDATE_PAGE(ctx, data) {
       try {
         const hadlerData = JSON.parse(data.get("data"))
-        const res = await fetch(`http://127.0.0.1:8000/api/pages/${hadlerData.id}`, {
+        const res = await fetch(`${this.state.urlAPI}/api/pages/${hadlerData.id}`, {
           // POST для фикс бага от php, который не давал получать $request
           method: 'POST',
           headers: {
@@ -80,7 +80,7 @@ export default {
     },
     async API_DELETE_PAGE(ctx, id) {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/pages/${id}`, {
+        const res = await fetch(`${this.state.urlAPI}/api/pages/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

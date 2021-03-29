@@ -8,12 +8,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    urlAPI: process.env.VUE_APP_ROOT_API
   },
   mutations: {
   },
   actions: {
   },
-
   modules: {
     page,
     auth,

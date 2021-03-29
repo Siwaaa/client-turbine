@@ -558,7 +558,7 @@ export default {
         },
         body: JSON.stringify({ inst: inst }),
       };
-      fetch("http://127.0.0.1:8000/api/check-inst", options)
+      fetch("https://api.client-turbine.ru/api/check-inst", options)
         .then((response) => response.json())
         .then((res) => {
           if (res.success) {
@@ -595,7 +595,7 @@ export default {
     submit() {
       let formData = new FormData();
       formData.append("img_cover", this.img_cover);
-      // fetch("http://127.0.0.1:8000/api/file-upload", {
+      // fetch("https://api.client-turbine.ru/api/file-upload", {
       //   mode: "no-cors",
       //   method: "POST",
       //   body: formData,

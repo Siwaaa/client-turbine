@@ -174,6 +174,7 @@ export default {
   },
   mounted() {
     this.API_GET_PAGES();
+    console.log(process.env.VUE_APP_ROOT_API)
   },
 };
 </script>

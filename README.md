@@ -1,7 +1,22 @@
 # client-turbine
 
-## Подключаемся по ssh
-  git clone https://github.com/Siwaaa/client-turbine.git .
+## Создание. С нуля 
+Клонируем в (!)пустую директорию файлы репозитория:
+```
+cd www/admin.client-turbine.ru
+rm *
+git clone https://github.com/Siwaaa/client-turbine.git .
+```
+Добавляем файл:
+```
+git clone https://github.com/Siwaaa/client-turbine.git .
+```
+
+## Обновление 
+Клонируем в (!)пустую директорию файлы репозитория:
+```
+git pull
+```
 
 
 ## Project setup

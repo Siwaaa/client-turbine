@@ -30,7 +30,7 @@ export default {
   actions: {
     async registerToken(ctx, data) {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/register", {
+        const res = await fetch(`${this.state.urlAPI}/api/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default {
     },
     async getToken(ctx, data) {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/login", {
+        const res = await fetch(`${this.state.urlAPI}/api/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ export default {
     },
     async destroyToken(ctx) {
       // Здесь ошибка при смене паролей. Сначала удаляются все токены на серваке, потом он в этой функции не может найти токен
-      await fetch("http://127.0.0.1:8000/api/logout", {
+      await fetch(`${this.state.urlAPI}/api/logout`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -137,7 +137,7 @@ export default {
 
     //USER 
     async updateNameAndEmail(ctx, data) {
-      await fetch("http://127.0.0.1:8000/api/user/id", {
+      await fetch(`${this.state.urlAPI}/api/user/id`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ export default {
       )
     },
     async changePassword(ctx, data) {
-      await fetch("http://127.0.0.1:8000/api/user/pas", {
+      await fetch(`${this.state.urlAPI}/api/user/pas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

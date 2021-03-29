@@ -553,7 +553,7 @@ export default {
       urlValid: true,
       instValid: true,
       instErrorText: "",
-      urlAPI: "http://127.0.0.1:8000",
+      urlAPI: "https://api.client-turbine.ru",
       srcImg: null,
       slide: 1,
       checkFirstScreen: false,
@@ -601,7 +601,7 @@ export default {
         },
         body: JSON.stringify({ inst: inst }),
       };
-      fetch("http://127.0.0.1:8000/api/check-inst", options)
+      fetch("https://api.client-turbine.ru/api/check-inst", options)
         .then((response) => response.json())
         .then((res) => {
           if (res.success) {
