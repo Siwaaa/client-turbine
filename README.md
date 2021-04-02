@@ -11,6 +11,8 @@ git clone https://github.com/Siwaaa/client-turbine.git .
 ## Обновление 
 ```
 npm run build
+git add .
+
 ```
 Подтягиваем изменения с репозитория
 ```
