@@ -287,7 +287,7 @@ export default {
       return "https://www.instagram.com/" + this.pageProps.instagram;
     },
     linkToPage() {
-      return `https://localhost:8000/${this.pageProps.url}`;
+      return `https://clturbine.site/${this.pageProps.url}`;
     },
     ctr() {
       if (this.pageProps.count_podpis && this.pageProps.count_prosmotr) {

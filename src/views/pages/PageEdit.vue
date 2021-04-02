@@ -79,28 +79,6 @@
               <option disabled value="">Выберите один из вариантов</option>
             </select>
           </label>
-
-          <!-- <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400">Message</span>
-            <textarea
-              class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
-              rows="3"
-              placeholder="Enter some long form content."
-            ></textarea>
-          </label> -->
-
-          <!-- <div class="flex mt-6 text-sm">
-            <label class="flex items-center dark:text-gray-400">
-              <input
-                type="checkbox"
-                class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 checked:bg-blue-600 checked:border-transparent appearance-none"
-              />
-              <span class="ml-2">
-                I agree to the
-                <span class="underline">privacy policy</span>
-              </span>
-            </label>
-          </div> -->
         </div>
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
           Страница приветствия
@@ -190,7 +168,9 @@
               class="block w-full mt-1 form-select focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
             >
               <option disabled value="">Выберите один из вариантов</option>
-              <option v-for="template in allTemplates" :key="template.id">{{template.id}}</option>
+              <option v-for="template in allTemplates" :key="template.id">
+                {{ template.id }}
+              </option>
             </select>
           </label>
           <label class="block mt-4 text-sm">
@@ -553,7 +533,7 @@ export default {
       urlValid: true,
       instValid: true,
       instErrorText: "",
-      urlAPI: "https://api.client-turbine.ru",
+      urlAPI: process.env.VUE_APP_ROOT_API,
       srcImg: null,
       slide: 1,
       checkFirstScreen: false,
@@ -601,7 +581,7 @@ export default {
         },
         body: JSON.stringify({ inst: inst }),
       };
-      fetch("https://api.client-turbine.ru/api/check-inst", options)
+      fetch(`${this.urlAPI}/api/check-inst`, options)
         .then((response) => response.json())
         .then((res) => {
           if (res.success) {
@@ -647,7 +627,7 @@ export default {
         domain_id: this.domain_id,
         title_ad: this.title_ad,
         description_ad: this.description_ad,
-        img_cover: this.img_cover,
+        img_cover: this.srcImg ? this.img_cover : null,
         template_id: this.template_id,
         btn_ad: this.btn_ad,
         timer: this.timer,
@@ -680,9 +660,24 @@ export default {
     this.description_success = this.searchPageObj.description_success;
     this.btn_success = this.searchPageObj.btn_success;
     this.link_download = this.searchPageObj.link_download;
-    this.searchPageObj.img_cover
-      ? (this.srcImg = this.urlAPI + "/images/" + this.img_cover)
-      : (this.srcImg = null);
+    if (this.searchPageObj.img_cover) {
+      // (this.srcImg = this.urlAPI + "/images/" + this.img_cover),
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(`${this.urlAPI}/api/${this.searchPageObj.url}/img`, options)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.success) {
+            this.srcImg = res.img;
+          }
+        });
+    } else {
+      this.srcImg = null;
+    }
   },
   mounted() {
     this.API_GET_TEMPLATES();

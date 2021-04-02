@@ -527,6 +527,7 @@ export default {
       instErrorText: "",
       slide: 1,
       checkFirstScreen: false,
+      urlAPI: process.env.VUE_APP_ROOT_API
     };
   },
   computed: {
@@ -558,7 +559,7 @@ export default {
         },
         body: JSON.stringify({ inst: inst }),
       };
-      fetch("https://api.client-turbine.ru/api/check-inst", options)
+      fetch(`${this.urlAPI}/api/check-inst`, options)
         .then((response) => response.json())
         .then((res) => {
           if (res.success) {
