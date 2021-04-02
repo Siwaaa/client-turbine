@@ -3,7 +3,7 @@
     class="template__01 pb-6 relative min-h-screen md:h-full md:shadow-lg md:rounded-lg"
   >
     <div class="img w-full overflow-hidden size z-20">
-      <img src="@/assets/fearless.gif" class="w-full" />
+      <img src="" class="w-full" />
     </div>
     <header class="mt-4 px-6 ">
       <h1 class="template-text-color text-3xl font-semibold	">Title</h1>

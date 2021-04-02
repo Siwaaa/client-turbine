@@ -627,7 +627,7 @@ export default {
         domain_id: this.domain_id,
         title_ad: this.title_ad,
         description_ad: this.description_ad,
-        img_cover: this.srcImg ? this.img_cover : null,
+        img_cover: this.srcImg ? this.img_cover.name : null,
         template_id: this.template_id,
         btn_ad: this.btn_ad,
         timer: this.timer,

@@ -576,7 +576,7 @@ export default {
     },
     setImg(event) {
       let file = event.target.files[0];
-      console.log(file);
+      console.log(file.name);
       if (file && file.size / 1024 / 1024 < 5) {
         let reader = new FileReader();
         reader.onload = (e) => {
