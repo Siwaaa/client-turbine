@@ -83,8 +83,7 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
-      })
-      this.$router.push( {name: 'Home'})
+      }).then(() => this.$router.push( {name: 'Home'})) 
     }
   }
 };

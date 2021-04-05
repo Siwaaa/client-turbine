@@ -644,39 +644,43 @@ export default {
     },
   },
   created() {
-    this.id = this.searchPageObj.id;
-    this.name = this.searchPageObj.name;
-    this.url = this.searchPageObj.url;
-    this.instagram = this.searchPageObj.instagram;
-    this.domain_id = this.searchPageObj.domain_id;
-    this.title_ad = this.searchPageObj.title_ad;
-    this.description_ad = this.searchPageObj.description_ad;
-    this.img_cover = this.searchPageObj.img_cover;
-    this.template_id = this.searchPageObj.template_id;
-    this.btn_ad = this.searchPageObj.btn_ad;
-    this.timer = this.searchPageObj.timer;
-    this.fb_pixel = this.searchPageObj.fb_pixel;
-    this.title_success = this.searchPageObj.title_success;
-    this.description_success = this.searchPageObj.description_success;
-    this.btn_success = this.searchPageObj.btn_success;
-    this.link_download = this.searchPageObj.link_download;
-    if (this.searchPageObj.img_cover) {
-      // (this.srcImg = this.urlAPI + "/images/" + this.img_cover),
-      const options = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      fetch(`${this.urlAPI}/api/${this.searchPageObj.url}/img`, options)
-        .then((response) => response.json())
-        .then((res) => {
-          if (res.success) {
-            this.srcImg = res.img;
-          }
-        });
+    // если такой подпис. страницы не существует
+    if (!this.searchPageObj) {
+      this.$router.push({ name: "Home" });
     } else {
-      this.srcImg = null;
+      this.id = this.searchPageObj.id;
+      this.name = this.searchPageObj.name;
+      this.url = this.searchPageObj.url;
+      this.instagram = this.searchPageObj.instagram;
+      this.domain_id = this.searchPageObj.domain_id;
+      this.title_ad = this.searchPageObj.title_ad;
+      this.description_ad = this.searchPageObj.description_ad;
+      this.img_cover = this.searchPageObj.img_cover;
+      this.template_id = this.searchPageObj.template_id;
+      this.btn_ad = this.searchPageObj.btn_ad;
+      this.timer = this.searchPageObj.timer;
+      this.fb_pixel = this.searchPageObj.fb_pixel;
+      this.title_success = this.searchPageObj.title_success;
+      this.description_success = this.searchPageObj.description_success;
+      this.btn_success = this.searchPageObj.btn_success;
+      this.link_download = this.searchPageObj.link_download;
+      if (this.searchPageObj.img_cover) {
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(`${this.urlAPI}/api/${this.searchPageObj.url}/img`, options)
+          .then((response) => response.json())
+          .then((res) => {
+            if (res.success) {
+              this.srcImg = res.img;
+            }
+          });
+      } else {
+        this.srcImg = null;
+      }
     }
   },
   mounted() {

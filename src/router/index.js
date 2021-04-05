@@ -90,38 +90,45 @@ const routes = [
     component: () => import('@/views/DesignTemplate.vue')
   },
   // User PAGES
-  {
-    path: '/q/id',
-    name: 'UserStart',
+  // {
+  //   path: '/q/id',
+  //   name: 'UserStart',
+  //   meta: {
+  //     layout: 'user',
+  //   },
+  //   component: () => import('@/views/q/UserStart.vue')
+  // },
+  // {
+  //   path: '/q/id/checkout',
+  //   name: 'UserInst',
+  //   meta: {
+  //     layout: 'user',
+  //   },
+  //   component: () => import('@/views/q/UserInst.vue')
+  // },
+  // {
+  //   path: '/q/id/good',
+  //   name: 'UserUspech',
+  //   meta: {
+  //     layout: 'user',
+  //   },
+  //   component: () => import('@/views/q/UserUspech.vue')
+  // },
+  { 
+    path: '*',
     meta: {
-      layout: 'user',
+      layout: 'dashboard',
+      requiresAuth: true,
     },
-    component: () => import('@/views/q/UserStart.vue')
-  },
-  {
-    path: '/q/id/checkout',
-    name: 'UserInst',
-    meta: {
-      layout: 'user',
-    },
-    component: () => import('@/views/q/UserInst.vue')
-  },
-  {
-    path: '/q/id/good',
-    name: 'UserUspech',
-    meta: {
-      layout: 'user',
-    },
-    component: () => import('@/views/q/UserUspech.vue')
-  },
+    component: () => import('@/views/NotFoundComponent.vue')
+  }
+
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-  scrollBehavior () {
-  }
 })
 
 export default router

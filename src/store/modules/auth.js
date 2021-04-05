@@ -30,40 +30,37 @@ export default {
   actions: {
     async registerToken(ctx, data) {
       try {
-        const res = await fetch(`${this.state.urlAPI}/api/register`, {
+        await fetch(`${this.state.urlAPI}/api/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
           body: JSON.stringify(data)
-        })
-        // .then((response) => response.json());
-        const jsonRes = await res.json()
+        }).then((response) => response.json())
+          .then(result => {
+            const token = result.token
+            if (token) {
+              localStorage.setItem('access_token', token)
+              ctx.commit('tokenUpdate', token)
+            }
 
-        const token = jsonRes.token
-        if (token) {
-          localStorage.setItem('access_token', token)
-          ctx.commit('tokenUpdate', token)
-        }
-
-        const name = jsonRes.name
-        if (name) {
-          localStorage.setItem('name_user', name)
-          ctx.commit('nameUpdate', name)
-        }
-        const email = jsonRes.email
-        if (email) {
-          localStorage.setItem('email_user', email)
-          ctx.commit('emailUpdate', email)
-        }
-        const created_at = jsonRes.created_at
-        if (created_at) {
-          localStorage.setItem('created_at_user', created_at)
-          ctx.commit('createdUpdate', created_at)
-        }
-
-        return res.ok
+            const name = result.name
+            if (name) {
+              localStorage.setItem('name_user', name)
+              ctx.commit('nameUpdate', name)
+            }
+            const email = result.email
+            if (email) {
+              localStorage.setItem('email_user', email)
+              ctx.commit('emailUpdate', email)
+            }
+            const created_at = result.created_at
+            if (created_at) {
+              localStorage.setItem('created_at_user', created_at)
+              ctx.commit('createdUpdate', created_at)
+            }
+          })
 
       } catch (error) {
         console.log('Регистрация не выполнена', error)

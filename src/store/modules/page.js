@@ -80,17 +80,14 @@ export default {
     },
     async API_DELETE_PAGE(ctx, id) {
       try {
-        const res = await fetch(`${this.state.urlAPI}/api/pages/${id}`, {
+        await fetch(`${this.state.urlAPI}/api/pages/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
-        });
-
-        console.log(res, "удаление")
-        ctx.dispatch('API_GET_PAGES')
-
+        }).then(() => ctx.dispatch('API_GET_PAGES'))
+        
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
@@ -101,8 +98,5 @@ export default {
     allPages(state) {
       return state.pages
     },
-    countPages(state) {
-      return state.pages.length
-    }
   }
 }

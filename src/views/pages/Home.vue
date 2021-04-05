@@ -157,8 +157,7 @@ export default {
         });
         formData.append("data", allData);
 
-        this.API_ADD_PAGE(formData).then(this.API_GET_PAGES());
-        this.scrollBehavior();
+        this.API_ADD_PAGE(formData).then(() => this.API_GET_PAGES());
       }
     },
     closeModal() {
@@ -174,8 +173,6 @@ export default {
   },
   mounted() {
     this.API_GET_PAGES();
-    // Не забыть удалить
-    console.log(process.env.VUE_APP_ROOT_API)
   },
 };
 </script>
