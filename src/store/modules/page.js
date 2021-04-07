@@ -42,7 +42,7 @@ export default {
     async API_ADD_PAGE(ctx, data) {
       try {
         const hadlerData = JSON.parse(data.get("data"))
-        const res = await fetch(`${this.state.urlAPI}/api/pages`, {
+        await fetch(`${this.state.urlAPI}/api/pages`, {
           method: 'POST',
           headers: {
             // 'Content-Type': 'application/json',
@@ -50,10 +50,8 @@ export default {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
           body: data
-        });
-        console.log(res)
-        ctx.commit('addPage', hadlerData)
-
+        }).then(() => ctx.commit('addPage', hadlerData))
+        
       } catch (error) {
         alert(error, "Андрей, исправь")
       }
@@ -61,7 +59,7 @@ export default {
     async API_UPDATE_PAGE(ctx, data) {
       try {
         const hadlerData = JSON.parse(data.get("data"))
-        const res = await fetch(`${this.state.urlAPI}/api/pages/${hadlerData.id}`, {
+        await fetch(`${this.state.urlAPI}/api/pages/${hadlerData.id}`, {
           // POST для фикс бага от php, который не давал получать $request
           method: 'POST',
           headers: {
@@ -69,10 +67,7 @@ export default {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
           },
           body: data
-        });
-
-        console.log(res, "выполнение action")
-        ctx.dispatch('API_GET_PAGES')
+        }).then(() => ctx.dispatch('API_GET_PAGES'))
 
       } catch (error) {
         alert(error, "Андрей, исправь")

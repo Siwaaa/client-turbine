@@ -15,7 +15,7 @@ const routes = [
       layout: 'dashboard',
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "about" */ '@/views/pages/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue')
   },
   {
     path: '/login',

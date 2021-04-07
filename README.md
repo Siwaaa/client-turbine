@@ -16,6 +16,7 @@ git add .
 ```
 Подтягиваем изменения с репозитория
 ```
+cd /var/www/admin.client-turbine.ru/
 git pull
 ```
 

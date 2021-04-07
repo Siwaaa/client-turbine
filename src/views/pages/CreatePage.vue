@@ -2,7 +2,6 @@
   <div>
     <header class="pb-4 mb-4">
       <h1 class="text-4xl font-semibold">Создание страницы</h1>
-      <!-- <button @click="$router.back()">Назад</button> -->
     </header>
     <main class="h-full flex pb-16 overflow-y-auto">
       <form
@@ -20,7 +19,7 @@
               <span class="text-purple-700">*</span>
             </span>
             <input
-              v-model.trim="name"
+              v-model.trim="page.name"
               type="text"
               required
               maxlength="32"
@@ -40,7 +39,7 @@
                 http://domains.com/
               </span>
               <input
-                v-model.trim="url"
+                v-model.trim="page.url"
                 @change="checkUrl"
                 type="text"
                 required
@@ -58,7 +57,7 @@
               >Ник в Instagram <span class="text-purple-700">*</span></span
             >
             <input
-              v-model.trim="instagram"
+              v-model.trim="page.instagram"
               @change="checkInst"
               type="text"
               required
@@ -74,7 +73,7 @@
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400"> Домен </span>
             <select
-              v-model="domain_id"
+              v-model="page.domain_id"
               class="block w-full mt-1 form-select focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
             >
               <option disabled value="">Выберите один из вариантов</option>
@@ -92,7 +91,7 @@
               >Заголовок <span class="text-purple-700">*</span></span
             >
             <input
-              v-model="title_ad"
+              v-model="page.title_ad"
               type="text"
               required
               maxlength="255"
@@ -103,7 +102,7 @@
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400">Описание</span>
             <textarea
-              v-model="description_ad"
+              v-model="page.description_ad"
               type="text"
               class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
               rows="3"
@@ -111,14 +110,18 @@
             ></textarea>
           </label>
           <label class="block mt-4 text-sm">
-            <span class="text-gray-700 dark:text-gray-400"
+            <span class="text-gray-700"
               >Картинка для обложки</span
+            >
+            <br>
+            <span class="text-xs text-gray-500"
+              >Рекомендуемый размер 1920х1080</span
             >
             <label
               class="img-unload relative border-dashed border-2 border-gray-200 mt-1 w-full flex flex-col items-center px-4 py-6 rounded-lg cursor-pointer overflow-hidden"
             >
-              <div v-if="srcImg" class="absolute top-0 w-full z-30">
-                <img :src="srcImg" alt="backgroud" class="w-full" />
+              <div v-if="page.srcImg" class="absolute top-0 w-full z-30">
+                <img :src="page.srcImg" alt="backgroud" class="w-full" />
                 <span
                   @click.capture="deleteImg"
                   class="absolute top-3 right-3 inline-block px-3 py-1 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none z-40"
@@ -165,11 +168,13 @@
               Дизайн-шаблон
             </span>
             <select
-              v-model="template_id"
+              v-model="page.template_id"
               class="block w-full mt-1 form-select focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
             >
               <option disabled value="">Выберите один из вариантов</option>
-              <option v-for="template in allTemplates" :key="template.id">{{template.id}}</option>
+              <option v-for="template in allTemplates" :key="template.id">
+                {{ template.id }}
+              </option>
             </select>
           </label>
           <label class="block mt-4 text-sm">
@@ -177,7 +182,7 @@
               >Текст на кнопке <span class="text-purple-700">*</span></span
             >
             <input
-              v-model="btn_ad"
+              v-model="page.btn_ad"
               type="text"
               required
               maxlength="32"
@@ -188,7 +193,7 @@
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400">Facebook PIXEL</span>
             <textarea
-              v-model="fb_pixel"
+              v-model="page.fb_pixel"
               type="text"
               class="block w-full mt-1 text-sm form-textarea focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300"
               rows="3"
@@ -211,7 +216,7 @@
               <span class="text-purple-700">*</span>
             </span>
             <input
-              v-model="title_success"
+              v-model="page.title_success"
               type="text"
               required
               maxlength="50"
@@ -224,7 +229,7 @@
           <label class="block mt-4 text-sm">
             <span class="text-gray-700 dark:text-gray-400"> Описание </span>
             <input
-              v-model="description_success"
+              v-model="page.description_success"
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
               placeholder="Описание"
             />
@@ -234,7 +239,7 @@
               Текст на кнопке <span class="text-purple-700">*</span>
             </span>
             <input
-              v-model="btn_success"
+              v-model="page.btn_success"
               type="text"
               required
               maxlength="32"
@@ -249,7 +254,7 @@
               <span class="text-purple-700">*</span>
             </span>
             <input
-              v-model="link_download"
+              v-model="page.link_download"
               type="text"
               required
               class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-300 form-input"
@@ -266,280 +271,53 @@
           Создать
         </button>
       </form>
-      <section class="flex-none min-w-max w-5/12 hidden lg:block ">
-        <div class="fixed 2xl:right-52 xl:right-32 right-16 w-56">
-          <div class="strelki mb-2 flex items-center justify-between">
-            <span class="text-lg font-semibold text-gray-600">Предпросмотр</span>
-            <div class="inline-flex bg-white text-gray-400 text-sm">
-              <button
-                :disabled="slide == 1"
-                @click="prevSlide"
-                class="border border-gray-300 hover:text-gray-300 px-2 rounded-l focus:outline-none disabled:opacity-50"
-              >
-                <svg
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button
-                :disabled="slide == 3"
-                @click="nextSlide"
-                class="border border-l-0 border-gray-300 hover:text-gray-300 px-2 rounded-r focus:outline-none disabled:opacity-50"
-              >
-                <svg
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div
-            class="phone w-full rounded-xl overflow-x-hidden shadow-lg"
-            style="height: 30rem"
-          >
-            <div
-              v-if="slide == 1"
-              class="template__01 pb-6 relative min-h-full"
-              :class="currentTemplate.css_class"
-            >
-              <div class="img w-full overflow-hidden size z-20">
-                <img :src="srcImg" class="w-full" />
-              </div>
-              <header class="mt-4 px-4">
-                <h1 class="text-xl font-semibold">{{title_ad}}</h1>
-              </header>
-              <main class="mt-4 px-4 flex flex-col text-xs">
-                <div class="decription">
-                 {{description_ad}}
-                </div>
-                <button
-                  class="btn-color inline-block mx-auto my-6 px-4 py-2 font-medium transition-all duration-300 rounded-lg focus:outline-none"
-                >
-                  {{btn_ad}}
-                </button>
-
-                <label
-                  class="inline-block absolute bottom-2 inset-x-0 text-center"
-                  >Сделано в
-                  <router-link to="" class="">ClientTurbine</router-link></label
-                >
-              </main>
-            </div>
-            <div
-              v-else-if="slide == 2"
-              class="py-6 px-4 relative min-h-full text-xs"
-              :class="currentTemplate.css_class"
-            >
-              <div class="inst w-full flex items-center flex-col">
-                <img
-                  src="@/assets/ava.svg"
-                  alt="avatar"
-                  class="h-10 overflow-hidden"
-                />
-                <h4 class="font-bold mt-2">Full name</h4>
-                <span class="flex items-center">
-                  <svg
-                    class="inline mr-2"
-                    viewBox="0 0 48 48"
-                    width="24px"
-                    height="24px"
-                  >
-                    <radialGradient
-                      id="yOrnnhliCrdS2gy~4tD8ma"
-                      cx="19.38"
-                      cy="42.035"
-                      r="44.899"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop offset="0" stop-color="#fd5" />
-                      <stop offset=".328" stop-color="#ff543f" />
-                      <stop offset=".348" stop-color="#fc5245" />
-                      <stop offset=".504" stop-color="#e64771" />
-                      <stop offset=".643" stop-color="#d53e91" />
-                      <stop offset=".761" stop-color="#cc39a4" />
-                      <stop offset=".841" stop-color="#c837ab" />
-                    </radialGradient>
-                    <path
-                      fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
-                      d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"
-                    />
-                    <radialGradient
-                      id="yOrnnhliCrdS2gy~4tD8mb"
-                      cx="11.786"
-                      cy="5.54"
-                      r="29.813"
-                      gradientTransform="matrix(1 0 0 .6663 0 1.849)"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop offset="0" stop-color="#4168c9" />
-                      <stop
-                        offset=".999"
-                        stop-color="#4168c9"
-                        stop-opacity="0"
-                      />
-                    </radialGradient>
-                    <path
-                      fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
-                      d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"
-                    />
-                    <path
-                      fill="#fff"
-                      d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"
-                    />
-                    <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
-                    <path
-                      fill="#fff"
-                      d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"
-                    /></svg
-                  >{{instagram}}
-                </span>
-              </div>
-              <main class="mt-12">
-                <!-- Первый вариант -->
-                <form
-                  v-if="!checkFirstScreen"
-                  class="input-container w-full mt-4 text-center"
-                >
-                  <h2 class="font-bold text-sm leading-4">
-                    Подпишись на мой инстаграм и ссылка для скачивания
-                    материалов станет доступна
-                  </h2>
-                  <a
-                    href="#"
-                    class="btn-color inline-block w-full mt-6 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
-                  >
-                    Подписаться
-                  </a>
-                  <button
-                    @click.prevent="checkFirstScreen = true"
-                    type="button"
-                    class="inline w-full mt-2 underline"
-                  >
-                    Я подписался
-                  </button>
-                </form>
-                <!-- Второй вариант -->
-                <form
-                  @submit.prevent
-                  v-else
-                  class="input-container w-full mt-4 text-center"
-                >
-                  <h2 class="font-bold text-sm leading-4">
-                    Введите ваш логин инстаграма для проверки подписки:
-                  </h2>
-                  <input
-                    type="text"
-                    maxlength="24"
-                    required
-                    class="w-full form-input mt-6 text-black focus:outline-none"
-                    style="line-height: 1"
-                  />
-                  <button
-                    type="button"
-                    class="btn-color inline-block w-full mt-2 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
-                  >
-                    Проверить
-                  </button>
-                  <a
-                    @click.prevent="checkFirstScreen = false"
-                    class="inline-block w-full mt-2 underline"
-                  >
-                    Не подписан?
-                  </a>
-                </form>
-
-                <label
-                  class="inline-block absolute bottom-2 inset-x-0 text-center"
-                  >Сделано в
-                  <router-link to="" class="">ClientTurbine</router-link></label
-                >
-              </main>
-            </div>
-            <div
-              v-else-if="slide == 3"
-              class="px-4 relative text-xs min-h-full flex items-center"
-              :class="currentTemplate.css_class"
-            >
-              <div
-                class="card flex flex-col w-full items-center p-4 rounded-lg bg-white bg-opacity-10 shadow-2xl"
-              >
-                <h4 class="mb-4 font-semibold">{{title_success}}</h4>
-                <p class="">
-                  {{description_success}}
-                </p>
-                <a
-                  href="#"
-                  class="btn-color inline-block mx-auto mt-6 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
-                  >{{btn_success}}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section class="flex-none min-w-max w-5/12 hidden lg:block">
+        <Phone :phoneProps="page" />
       </section>
     </main>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Phone from "@/components/Phone.vue";
 
 export default {
+  components: { Phone },
   name: "CreatePage",
   data() {
     return {
-      name: "",
-      url: "",
-      instagram: "",
-      domain_id: null,
-      title_ad:
-        "Как скачать материал?",
-      description_ad: "Все проще, чем кажется",
-      img_cover: "",
-      srcImg: null,
-      template_id: 1,
-      btn_ad: "Получить материал",
-      timer: 0,
-      fb_pixel: "",
-      title_success: "Спасибо за подписку",
-      description_success: "Жми на кнопку, чтобы забрать приз",
-      btn_success: "Получить материал",
-      link_download: "",
+      page: {
+        name: "",
+        url: "",
+        instagram: "",
+        domain_id: null,
+        title_ad: "Как скачать материал?",
+        description_ad: "Все проще, чем кажется",
+        img_cover: "",
+        srcImg: null,
+        template_id: 1,
+        btn_ad: "Получить материал",
+        timer: 0,
+        fb_pixel: "",
+        title_success: "Спасибо за подписку",
+        description_success: "Жми на кнопку, чтобы забрать приз",
+        btn_success: "Получить материал",
+        link_download: "",
+      },
       // переменные валидации
       urlValid: true,
       instValid: true,
       instErrorText: "",
-      slide: 1,
-      checkFirstScreen: false,
-      urlAPI: process.env.VUE_APP_ROOT_API
+      urlAPI: process.env.VUE_APP_ROOT_API,
     };
   },
   computed: {
-    ...mapGetters(['allTemplates']),
+    ...mapGetters(["allTemplates"]),
     disabled: function () {
       return Boolean(!(this.urlValid && this.instValid));
     },
-    currentTemplate() {
-      if(this.allTemplates) {
-        return this.allTemplates.find(item => item.id == this.template_id)
-      } else return {css_class: 'template__01'}
-    }
   },
   methods: {
     ...mapActions(["API_ADD_PAGE", "API_GET_TEMPLATES"]),
@@ -576,66 +354,52 @@ export default {
     },
     setImg(event) {
       let file = event.target.files[0];
-      console.log(file.name);
       if (file && file.size / 1024 / 1024 < 5) {
         let reader = new FileReader();
         reader.onload = (e) => {
-          this.srcImg = e.target.result;
+          this.page.srcImg = e.target.result;
         };
         reader.readAsDataURL(file);
-        this.img_cover = file;
+        this.page.img_cover = file;
       } else {
         alert("Файл больше 5 MB. Попробуйте сжать");
       }
     },
     deleteImg(e) {
       e.preventDefault();
-      this.srcImg = null;
+      this.page.srcImg = null;
     },
 
     submit() {
+      this.$Progress.start();
       let formData = new FormData();
-      formData.append("img_cover", this.img_cover);
-      // fetch("https://api.client-turbine.ru/api/file-upload", {
-      //   mode: "no-cors",
-      //   method: "POST",
-      //   body: formData,
-      // });
+      formData.append("img_cover", this.page.img_cover);
       const allData = JSON.stringify({
-        name: this.name,
+        name: this.page.name,
         status: 1,
-        url: this.url,
-        instagram: this.instagram,
-        domain_id: this.domain_id,
-        title_ad: this.title_ad,
-        description_ad: this.description_ad,
-        template_id: this.template_id,
-        btn_ad: this.btn_ad,
-        timer: this.timer,
-        fb_pixel: this.fb_pixel,
-        title_success: this.title_success,
-        description_success: this.description_success,
-        btn_success: this.btn_success,
-        link_download: this.link_download,
+        url: this.page.url,
+        instagram: this.page.instagram,
+        domain_id: this.page.domain_id,
+        title_ad: this.page.title_ad,
+        description_ad: this.page.description_ad,
+        template_id: this.page.template_id,
+        btn_ad: this.page.btn_ad,
+        timer: this.page.timer,
+        fb_pixel: this.page.fb_pixel,
+        title_success: this.page.title_success,
+        description_success: this.page.description_success,
+        btn_success: this.page.btn_success,
+        link_download: this.page.link_download,
       });
       formData.append("data", allData);
 
-      this.API_ADD_PAGE(formData);
-      this.$router.push({ name: "Home" });
-    },
-    prevSlide() {
-      if(this.slide > 1) {
-        this.slide--
-      }
-    },
-    nextSlide() {
-      if(this.slide < 3) {
-        this.slide++
-      }
+      this.API_ADD_PAGE(formData).then(() => {
+        this.$router.push({ name: "Home" }), this.$Progress.finish();
+      });
     },
   },
   mounted() {
-    this.API_GET_TEMPLATES()
+    this.API_GET_TEMPLATES();
   },
 };
 </script>
