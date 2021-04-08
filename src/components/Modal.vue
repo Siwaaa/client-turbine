@@ -3,10 +3,10 @@
     <div
       v-show="isModalOpen"
       @click.self="closeModal"
-      class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+      class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-75 sm:items-center sm:justify-center"
     >
       <div
-        class="w-full px-6 py-4 z-50 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+        class="w-full px-8 py-4 z-50 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-lg"
         role="dialog"
         id="modal"
       >
@@ -17,7 +17,7 @@
             @click="closeModal"
           >
             <svg
-              class="w-4 h-4"
+              class="w-6 h-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               role="img"
@@ -32,35 +32,19 @@
           </button>
         </header>
         <!-- Modal body -->
-        <div class="mt-4 mb-6">
+        <main class="mt-2 mb-4">
           <!-- Modal title -->
-          <p
-            class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300"
-          >
-            Удалить эту страницу?
-          </p>
+          <header class="mb-1 text-2xl font-medium text-black">
+            <slot name="header"></slot>
+          </header>
+
           <!-- Modal description -->
-          <p class="text-sm text-gray-700 dark:text-gray-400">
-            Вы собираетесь удалить страницу.
-            <br />
-            Она исчезнет навсегда, и мы не сможем ее вернуть.
-          </p>
-        </div>
+          <slot name="description" :close="closeModal" class="text-sm text-gray-700"></slot>
+        </main>
         <footer
-          class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800"
+          class="flex items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50"
         >
-          <button
-            @click="closeModal"
-            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-          >
-            Отмена
-          </button>
-          <button
-            @click.prevent="realyDelete"
-            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none"
-          >
-            Да, удалить
-          </button>
+          <slot name="footer"></slot>
         </footer>
       </div>
     </div>
@@ -68,7 +52,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Modal",
+  props: [],
+  data() {
+    return {
+      isModalOpen: true,
+    };
+  },
+  methods: {
+    closeModal() {
+      this.isModalOpen = false;
+    },
+  },
+};
 </script>
 
 <style>

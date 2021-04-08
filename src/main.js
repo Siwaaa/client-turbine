@@ -6,9 +6,10 @@ import './assets/css/index.css'
 import VueProgressBar from 'vue-progressbar'
 import vClickOutside from 'v-click-outside'
 
+
 const options = {
-  color: '#bd9bff',
-  failedColor: '#874b4b',
+  color: '#0487af',
+  failedColor: '#8d2828',
   thickness: '5px',
   transition: {
     speed: '0.2s',

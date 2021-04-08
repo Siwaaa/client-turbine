@@ -1,40 +1,26 @@
 <template>
   <div
-    class="flex h-screen bg-gray-50 dark:bg-gray-900"
+    class="flex h-screen bg-gray-50"
     :class="{ 'overflow-hidden': isSideMenuOpen }"
   >
     <!-- Desktop sidebar -->
     <aside
-      class="z-20 hidden w-64 overflow-y-auto border-r bg-white dark:bg-gray-800 md:block flex-shrink-0"
+      class="z-20 hidden w-60 overflow-y-auto border-r bg-white md:block flex-shrink-0"
     >
-      <div class="py-4 text-gray-500 h-full dark:text-gray-400">
-        <router-link
-          class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-          to="/"
-        >
-          Logo
+      <div class="text-gray-500 h-full">
+        <router-link class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-bold text-gray-800 border-b" to="/">
+          Client Turbine
         </router-link>
-        <div class="flex px-6 mt-4 items-center text-sm">
-          <!-- Avatar with inset shadow -->
-          <div class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow bg-indigo-300">
-              <span class="font-bold text-lg text-white ">{{name ? name[0].toUpperCase() : 'A'}}</span>
-          </div>
-          <div>
-            <p class="font-semibold text-gray-800">{{name }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400">
-              Тариф до 12.02.2021
-            </p>
-          </div>
-        </div>
-        <ul class="mt-6 border-b border-t">
+
+        <ul class="mt-10">
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3"
+              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/dashboard"
-              active-class="border-r-4 border-purple-600 text-gray-800"
+              active-class="bg-gray-100 text-gray-800"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-normal "
               >
                 <svg
                   class="w-5 h-5"
@@ -54,15 +40,15 @@
               </span>
             </router-link>
           </li>
-                    <li>
+          <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3"
+              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/domains"
               exact=""
-              active-class="border-r-4 border-purple-600 text-gray-800"
+              active-class="bg-gray-100 text-gray-800"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-normal "
               >
                 <svg
                   class="w-5 h-5"
@@ -83,13 +69,13 @@
           </li>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3"
+              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/settings"
               exact=""
-              active-class="border-r-4 border-purple-600 text-gray-800"
+              active-class="bg-gray-100 text-gray-800"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-normal "
               >
                 <svg
                   class="w-5 h-5"
@@ -114,14 +100,13 @@
               </span>
             </router-link>
           </li>
-
         </ul>
         <button
-          class="inline-block fixed bottom-0 w-64 px-6 py-3"
+          class="inline-block fixed border-t bottom-0 w-60 px-6 py-3"
           @click.prevent="logout"
         >
           <span
-            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+            class="inline-flex items-center w-full text-sm font-normal transition-colors duration-300 hover:text-gray-800"
           >
             <svg
               class="w-5 h-5"
@@ -180,7 +165,7 @@
               active-class="border-r-4 border-purple-600 text-gray-800"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-normal transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
               >
                 <svg
                   class="w-5 h-5"
@@ -208,7 +193,7 @@
               active-class="border-r-4 border-purple-600 text-gray-800"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-normal transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
               >
                 <svg
                   class="w-5 h-5"
@@ -238,11 +223,11 @@
           </button>
         </div>
         <button
-          class="inline-block fixed bottom-0 w-64 px-6 py-3"
+          class="inline-block fixed border-t bottom-0 w-64 px-6 py-3"
           @click.prevent="logout"
         >
           <span
-            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
+            class="inline-flex items-center w-full text-sm font-normal transition-colors duration-300 hover:text-gray-800 dark:hover:text-gray-200"
           >
             <svg
               class="w-5 h-5"
@@ -263,9 +248,9 @@
       </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">
-      <header class="z-10 py-4 bg-white shadow-sm md:hidden dark:bg-gray-800">
+      <header class="z-10 md:h-14 py-4 bg-white border-b">
         <div
-          class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+          class="container mx-auto h-full w-full flex items-center md:justify-end justify-between  px-6"
         >
           <!-- Mobile hamburger -->
           <button
@@ -286,10 +271,24 @@
               ></path>
             </svg>
           </button>
+          <!-- USER -->
+          <div class="flex items-center text-sm">
+            <!-- Avatar with inset shadow -->
+            <div
+              class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm bg-indigo-300"
+            >
+              <span class="font-bold text-lg text-white">{{
+                name ? name[0].toUpperCase() : "C"
+              }}</span>
+            </div>
+            <div class="hidden md:block">
+              <p class="text-gray-800">{{ name }}</p>
+            </div>
+          </div>
         </div>
       </header>
       <main class="h-full overflow-y-auto">
-        <div class="container px-6 md:py-16 py-10 mx-auto grid">
+        <div class="container mx-auto px-6 md:py-10 py-8 grid">
           <router-view />
           <vue-progress-bar></vue-progress-bar>
         </div>
@@ -316,7 +315,6 @@ export default {
   },
   computed: {
     ...mapGetters(["name"]),
-
   },
   methods: {
     ...mapActions(["destroyToken"]),

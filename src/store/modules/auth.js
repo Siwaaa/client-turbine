@@ -171,7 +171,14 @@ export default {
         body: JSON.stringify(data)
       }).then(
         function () {
-          ctx.dispatch("destroyToken")
+          localStorage.removeItem('access_token')
+          localStorage.removeItem('name_user')
+          localStorage.removeItem('email_user')
+          localStorage.removeItem('created_at_user')
+
+          localStorage.removeItem('pages_arr')
+          ctx.commit('destroyTokenAndName')
+          ctx.commit('destroyPages')
         },
         function (error) {
           alert('Ошибка смены пароля', error)

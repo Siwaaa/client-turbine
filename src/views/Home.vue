@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="df pb-4">
-      <h1 id="title" class="text-4xl font-semibold mb-4">Подписные страницы</h1>
+      <h1 id="title" class="text-2xl font-medium mb-4">Подписные страницы</h1>
     </header>
 
     <div class="flex flex-wrap mb-6">
@@ -9,21 +9,25 @@
         :to="{
           name: 'CreatePage',
         }"
-        class="inline-flex mr-4 mb-6 w-44 h-52 items-center justify-between mb-4 px-4 py-2 text-white font-bold bg-white border border-gray-100 rounded-lg hover:opacity-90 transition-opacity duration-300"
+        class="inline-flex mr-4 mb-6 px-4 py-2 w-44 h-52 items-center text-lg text-white font-bold bg-white border border-gray-100 rounded-lg hover:opacity-90 transition-opacity duration-300"
         style="background-color: rgb(4, 135, 175)"
       >
         <svg
-          class="w-4 h-4 mr-2 -ml-1"
-          fill="currentColor"
-          viewBox="0 0 22 22"
-          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+          viewBox="0 0 10 10"
+          fill="white"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0 6c0-1.10457.89543-2 2-2h8c0 1.10457-.89543 2-2 2H0z"
+          ></path>
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M6 0v8c0 1.10457-.89543 2-2 2V2c0-1.104569.89543-2 2-2z"
+          ></path>
         </svg>
 
         <span>Создать страницу</span>
@@ -79,7 +83,7 @@
           <!-- Modal description -->
           <p class="text-sm text-gray-700 dark:text-gray-400">
             Вы собираетесь удалить страницу.
-            <br>
+            <br />
             Она исчезнет навсегда, и мы не сможем ее вернуть.
           </p>
         </div>
