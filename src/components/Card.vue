@@ -325,7 +325,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .animate {
   @apply transition-colors duration-300;
 }

@@ -36,6 +36,15 @@ const routes = [
     component: () => import('@/views/Register.vue')
   },
   {
+    path: '/form/create',
+    name: 'EditorPage',
+    meta: {
+      layout: 'editor',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/pages/EditorPage.vue')
+  },
+  {
     path: '/dashboard/create',
     name: 'CreatePage',
     meta: {

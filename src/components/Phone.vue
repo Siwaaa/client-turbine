@@ -1,53 +1,59 @@
 <template>
-  <div class="fixed 2xl:right-52 xl:right-32 right-16 w-56">
-    <div class="strelki mb-2 flex items-center justify-between">
-      <span class="text-lg font-semibold text-gray-600">Предпросмотр</span>
-      <div class="inline-flex bg-white text-gray-400 text-sm">
-        <button
-          :disabled="slide == 1"
-          @click="prevSlide"
-          class="border border-gray-300 hover:text-gray-300 px-2 rounded-l focus:outline-none disabled:opacity-50"
-        >
-          <svg
-            class="h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-        <button
-          :disabled="slide == 3"
-          @click="nextSlide"
-          class="border border-l-0 border-gray-300 hover:text-gray-300 px-2 rounded-r focus:outline-none disabled:opacity-50"
-        >
-          <svg
-            class="h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
+  <div class="w-full pt-12">
     <div
-      class="phone transform scale-50 break-words rounded-xl overflow-x-hidden shadow-lg"
+      class="phone relative transform scale-60 break-words shadow-lg"
       style="height: 812px; width: 375px"
     >
       <div
+        class="strelki z-10 absolute -top-11 w-full h-12 px-3 rounded-t-xl bg-gray-800 flex items-center justify-between"
+      >
+        <div class="cicles flex ">
+          <div class="one"></div>
+          <div class="one"></div>
+          <div class="one"></div>
+        </div>
+        <div class="cont inline-flex bg-gray-700 text-gray-400 h-7">
+          <button
+            :disabled="slide == 1"
+            @click="prevSlide"
+            class="border border-gray-300 hover:text-gray-300 px-2 rounded-l focus:outline-none disabled:opacity-50"
+          >
+            <svg
+              class="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            :disabled="slide == 3"
+            @click="nextSlide"
+            class="border border-l-0 border-gray-300 hover:text-gray-300 px-2 rounded-r focus:outline-none disabled:opacity-50"
+          >
+            <svg
+              class="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
         v-if="slide == 1"
-        class="template__01 pb-6 relative min-h-full"
+        class="pb-6 relative min-h-full rounded-b-xl"
         :class="currentTemplate.css_class"
       >
         <div class="img w-full overflow-hidden size z-20">
@@ -74,7 +80,7 @@
       </div>
       <div
         v-else-if="slide == 2"
-        class="py-6 px-6 relative min-h-full"
+        class="py-6 px-6 relative min-h-full rounded-b-xl"
         :class="currentTemplate.css_class"
       >
         <div class="inst w-full flex items-center flex-col">
@@ -199,7 +205,7 @@
       </div>
       <div
         v-else-if="slide == 3"
-        class="px-4 relative min-h-full flex items-center"
+        class="px-4 relative min-h-full flex items-center rounded-b-xl"
         :class="currentTemplate.css_class"
       >
         <div
@@ -243,7 +249,9 @@ export default {
     ...mapGetters(["allTemplates"]),
     currentTemplate() {
       if (this.allTemplates) {
-        return this.allTemplates.find((item) => item.id == this.phoneProps.template_id);
+        return this.allTemplates.find(
+          (item) => item.id == this.phoneProps.template_id
+        );
       } else return { css_class: "template__01" };
     },
   },
@@ -262,10 +270,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .phone {
   position: relative;
   top: -180px;
   left: -70px;
+}
+.one {
+  @apply w-2 h-2 rounded-full bg-white mr-3;
 }
 </style>

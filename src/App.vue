@@ -7,12 +7,13 @@
 </template>
 <script>
 import DashboardLayout from './layouts/DashboardLayout.vue'
+import EditorLayout from './layouts/EditorLayout.vue'
 import LoginLayout from './layouts/LoginLayout.vue'
 import UserLayout from './layouts/UserLayout.vue'
 
 export default {
   name: 'App',
-  components: {DashboardLayout, LoginLayout, UserLayout},
+  components: {DashboardLayout, EditorLayout, LoginLayout,  UserLayout,},
   computed: {
     currentTabComponent() {
       return (this.$route.meta.layout || 'dashboard') + '-layout'
