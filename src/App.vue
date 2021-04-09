@@ -2,6 +2,7 @@
   <div id="app">
     <!-- v-if здесь для того чтобы пофиксить проблему с отсутствием в this.$route.meta.layout значения. Оно подгружается через определенное время. Через какое я не нашел -->
     <component v-if="this.$route.meta.layout" :is="currentTabComponent" />
+    <vue-progress-bar/>
   </div>
 </template>
 <script>

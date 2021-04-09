@@ -7,7 +7,7 @@
     <aside
       class="z-20 hidden w-60 overflow-y-auto border-r bg-white md:block flex-shrink-0"
     >
-      <div class="text-gray-500 h-full">
+      <div class="text-gray-600 h-full">
         <router-link class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-bold text-gray-800 border-b" to="/">
           Client Turbine
         </router-link>
@@ -17,7 +17,7 @@
             <router-link
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/dashboard"
-              active-class="bg-gray-100 text-gray-800"
+              active-class="bg-gray-100 text-black"
             >
               <span
                 class="inline-flex items-center w-full text-sm font-normal "
@@ -45,7 +45,7 @@
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/domains"
               exact=""
-              active-class="bg-gray-100 text-gray-800"
+              active-class="bg-gray-100 text-black"
             >
               <span
                 class="inline-flex items-center w-full text-sm font-normal "
@@ -72,7 +72,7 @@
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
               to="/settings"
               exact=""
-              active-class="bg-gray-100 text-gray-800"
+              active-class="bg-gray-100 text-black"
             >
               <span
                 class="inline-flex items-center w-full text-sm font-normal "

@@ -1,8 +1,7 @@
 <template>
   <transition>
     <div
-      v-show="isModalOpen"
-      @click.self="closeModal"
+      @click.self="close"
       class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-75 sm:items-center sm:justify-center"
     >
       <div
@@ -14,7 +13,7 @@
           <button
             class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
             aria-label="close"
-            @click="closeModal"
+            @click="close"
           >
             <svg
               class="w-6 h-6"
@@ -39,7 +38,7 @@
           </header>
 
           <!-- Modal description -->
-          <slot name="description" :close="closeModal" class="text-sm text-gray-700"></slot>
+          <slot name="description" class="text-sm text-gray-700"></slot>
         </main>
         <footer
           class="flex items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50"
@@ -55,18 +54,14 @@
 export default {
   name: "Modal",
   props: [],
-  data() {
-    return {
-      isModalOpen: true,
-    };
-  },
   methods: {
-    closeModal() {
-      this.isModalOpen = false;
+    close() {
+      this.$emit('close');
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+
 </style>

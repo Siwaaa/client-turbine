@@ -60,11 +60,14 @@
         </button>
       </div>
     </div>
-    <Modal>
+    <Modal
+      v-if="modalOpen == 'name' || modalOpen == 'email'"
+      @close="closeModal"
+    >
       <template v-slot:header>
-        <h1>Смена имени</h1>
+        <h1>Смена имени и email</h1>
       </template>
-      <template v-slot:description="desProps">
+      <template v-slot:description>
         <form @submit.prevent="updateNameEmail" class="py-3 text-gray-800">
           <label class="block">
             <span>Никнейм </span>
@@ -92,7 +95,7 @@
           <div class="w-full flex justify-end">
             <button
               type="button"
-              @click.prevent="desProps.close"
+              @click="closeModal"
               class="inline-block mt-4 mr-2 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
             >
               Отмена
@@ -107,11 +110,11 @@
         </form>
       </template>
     </Modal>
-    <Modal>
+    <Modal v-if="modalOpen == 'pass'" @close="closeModal">
       <template v-slot:header>
-        <h1>Смена имени</h1>
+        <h1>Смена пароля</h1>
       </template>
-      <template v-slot:description="desProps">
+      <template v-slot:description>
         <form @submit.prevent="updatePassword" class="py-3 text-gray-800">
           <label class="block">
             <span>Старый пароль </span>
@@ -150,7 +153,7 @@
           <div class="w-full flex justify-end">
             <button
               type="button"
-              @click.prevent="desProps.close"
+              @click="closeModal"
               class="inline-block mt-4 mr-2 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
             >
               Отмена
@@ -184,7 +187,7 @@ export default {
       newPassword: "",
       newPasswordCheck: "",
       //modal переменные
-      modalNumber: 0,
+      modalOpen: "",
     };
   },
   computed: {
@@ -197,21 +200,25 @@ export default {
   methods: {
     ...mapActions(["changePassword", "updateNameAndEmail"]),
     updateNameEmail() {
+      this.$Progress.start();
       this.updateNameAndEmail({
         name: this.nameLocal,
         email: this.emailLocal,
-      }).then(() => this.$router.push({ name: "Home" }));
+      }).then(() => {this.$Progress.finish(), this.$router.push({ name: "Home" })});
     },
     updatePassword() {
+      this.$Progress.start();
       this.changePassword({
         current_password: this.password,
         new_password: this.newPassword,
-      }).then(() => this.$router.push({ name: "Login" }));
+      }).then(() => {this.$Progress.finish(), this.$router.push({ name: "Login" })});
     },
+    // методы модалки
     openModal(e) {
-      if (e.target.name == "name" || e.target.name == "email") {
-        this.modalNumber = 1;
-      } else this.modalNumber = 2;
+      this.modalOpen = e.target.name;
+    },
+    closeModal() {
+      this.modalOpen = "";
     },
   },
 };

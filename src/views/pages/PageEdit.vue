@@ -281,7 +281,6 @@
         <Phone :phoneProps="page" />
       </section>
     </main>
-    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
