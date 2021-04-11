@@ -272,7 +272,7 @@
             </svg>
           </button>
           <!-- USER -->
-          <div class="flex items-center text-sm">
+          <div class="flex items-center text-sm font-medium">
             <!-- Avatar with inset shadow -->
             <div
               class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm bg-indigo-300"

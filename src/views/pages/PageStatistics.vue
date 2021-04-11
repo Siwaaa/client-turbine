@@ -1,8 +1,8 @@
 <template>
   <div>
     <header class="df pb-4">
-      <h1 class="text-4xl font-semibold">
-        Статистика страницы "{{ this.$route.params.url }}"
+      <h1 class="text-2xl font-medium">
+        Статистика страницы "{{ searchPageObj.name }}"
       </h1>
     </header>
     <!-- <line-chart
@@ -10,7 +10,7 @@
       :chartdata="chartData"
       :options="chartOptions"
     /> -->
-    <div class="xl:h-52 bg-white">
+    <div class="xl:h-52 bg-white rounded-lg shadow-lg">
       <div class="px-4 py-6">
         <h2 class="text-xl	font-medium">Цифры шепчут</h2>
         <div
@@ -112,7 +112,7 @@ export default {
           (this.searchPageObj.count_podpis /
             this.searchPageObj.count_prosmotr) *
           100
-        ).toFixed(1);
+        ).toFixed(2);
       } else return 0;
     },
   },

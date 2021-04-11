@@ -144,7 +144,6 @@ export default {
         const allData = JSON.stringify({
           name: pageObj.name + "-copy" + (Date.now() % 7777),
           status: 1,
-          url: pageObj.url + "-copy" + (Date.now() % 7777),
           instagram: pageObj.instagram,
           domain_id: pageObj.domain_id,
           title_ad: pageObj.title_ad,

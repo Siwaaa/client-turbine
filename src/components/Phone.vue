@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full pt-12">
+  <div class="h-full pt-12 xl:ml-36 lg:ml-32 md:ml-28">
     <div
-      class="phone relative transform scale-60 break-words shadow-lg"
+      class="phone relative transform mx-auto scale-60 break-words shadow-xl"
       style="height: 812px; width: 375px"
     >
       <div
@@ -11,6 +11,13 @@
           <div class="one"></div>
           <div class="one"></div>
           <div class="one"></div>
+        </div>
+        <div class="curent_name text-white">
+          <span v-if="slide == 1">
+            Приветствие
+          </span>
+          <span v-if="slide == 2">Проверка</span>
+          <span v-if="slide == 3">Успех</span>
         </div>
         <div class="cont inline-flex bg-gray-700 text-gray-400 h-7">
           <button
@@ -51,6 +58,7 @@
           </button>
         </div>
       </div>
+      <!-- Страницы -->
       <div
         v-if="slide == 1"
         class="pb-6 relative min-h-full rounded-b-xl"
@@ -212,7 +220,7 @@
           class="card flex flex-col w-full items-center p-4 rounded-lg bg-white bg-opacity-10 shadow-2xl"
         >
           <h4 class="mb-4 font-semibold">{{ phoneProps.title_success }}</h4>
-          <p class="">
+          <p class="text-center">
             {{ phoneProps.description_success }}
           </p>
           <a

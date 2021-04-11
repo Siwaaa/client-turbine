@@ -42,7 +42,7 @@ const routes = [
       layout: 'editor',
       requiresAuth: true,
     },
-    component: () => import('@/views/pages/EditorPage.vue')
+    component: () => import('@/views/pages/EditorPage.vue'),
   },
   {
     path: '/dashboard/create',
