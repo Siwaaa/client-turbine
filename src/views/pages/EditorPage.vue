@@ -143,7 +143,7 @@
                             >Удалить</span
                           >
                         </div>
-
+                        
                         <svg
                           class="text-gray-500"
                           fill="none"
@@ -444,8 +444,8 @@ export default {
         name: "",
         instagram: "",
         domain_id: null,
-        title_ad: "Как скачать материал?",
-        description_ad: "Все проще, чем кажется",
+        title_ad: "Это пример подписной страницы",
+        description_ad: "С помощью нее Вы сможете настроить автоматическую выдачу материала за подписку на Instagram\n\nУдачного запуска😉",
         img_cover: "",
         srcImg: null,
         template_id: 1,
@@ -467,7 +467,7 @@ export default {
       visiblePrivet: false,
       visibleUspech: false,
       visibleNoti: false,
-      textNotification: "Упсс... Не все поля заполнены корректно",
+      textNotification: "Упсс... Не все поля со звездочкой заполнены",
     };
   },
   computed: {
@@ -593,17 +593,5 @@ export default {
 <style lang="postcss">
 .btn-edit {
   @apply w-full h-10 mb-2 flex justify-center items-center rounded transition-colors duration-300 ease-in-out;
-}
-
-.slide-leave-active, .slide-enter-active {
-  transition: all 0.4s cubic-bezier(0.45, 0.25, 0.60, 0.95);
-}
-.slide-enter {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-.slide-leave-to {
-  transform: translateY(20px);
-  opacity: 0;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-1 w-full flex justify-center">
+    <div class="fixed z-50 left-0 top-1 w-full flex justify-center">
       <div
         class="container w-96 h-10 bg-black bg-opacity-90 text-white rounded-md h-full p-3 flex justify-between items-center"
         role="alert"

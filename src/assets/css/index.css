@@ -259,5 +259,17 @@ body::-webkit-scrollbar-button {
   }
 }
 
+.slide-leave-active, .slide-enter-active {
+  transition: all 0.4s cubic-bezier(0.45, 0.25, 0.60, 0.95);
+}
+.slide-enter {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+.slide-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
 
 

@@ -179,14 +179,7 @@ export default {
       this.$emit("duplicatePage", this.pageProps.id);
     },
     copyLink(event) {
-      navigator.clipboard
-        .writeText(event.target.dataset.urlcopy)
-        .then(() => {
-          alert("Ссылка скопирована");
-        })
-        .catch((err) => {
-          console.log("Something went wrong", err);
-        });
+      this.$emit("copyLinkPage", event.target.dataset.urlcopy)
     },
     openModal() {
       this.isOpen = true;

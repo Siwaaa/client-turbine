@@ -11,7 +11,7 @@
       >
         <header class="flex justify-end">
           <button
-            class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+            class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded hover:text-gray-700"
             aria-label="close"
             @click="close"
           >
@@ -33,18 +33,18 @@
         <!-- Modal body -->
         <main class="mt-2 mb-4">
           <!-- Modal title -->
-          <header class="mb-1 text-2xl font-medium text-black">
+          <header class="mb-1 text-xl font-medium text-black">
             <slot name="header"></slot>
           </header>
 
           <!-- Modal description -->
           <slot name="description" class="text-sm text-gray-700"></slot>
         </main>
-        <!-- <footer
-          class="flex items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50"
+        <footer
+          class="flex items-center justify-end px-4 py-3 -mx-6 -mb-4 space-x-2 bg-gray-50"
         >
           <slot name="footer"></slot>
-        </footer> -->
+        </footer>
       </div>
     </div>
   </transition>

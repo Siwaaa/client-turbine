@@ -9,6 +9,7 @@
     >
       <div class="text-gray-600 h-full">
         <router-link class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-bold text-gray-800 border-b" to="/">
+          <!-- <img src="@/assets/logo.png" alt="logo" class="h-full "> -->
           Client Turbine
         </router-link>
 
