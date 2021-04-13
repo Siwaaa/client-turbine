@@ -1,7 +1,7 @@
 <template>
   <div class="a">
     <header class="df pb-4">
-      <h1 id="title" class="text-2xl font-medium">Домены</h1>
+      <h1 id="title" class="text-2xl font-normal">Домены</h1>
     </header>
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
       Подключение домена

@@ -37,7 +37,7 @@ export default {
             'Accept': 'application/json',
           },
           body: JSON.stringify(data)
-        }).then((response) => response.json())
+        }).then(response => response.ok ? response.json() : Promise.reject(response))
           .then(result => {
             const token = result.token
             if (token) {
@@ -63,7 +63,8 @@ export default {
           })
 
       } catch (error) {
-        console.log('Регистрация не выполнена', error)
+        console.log(error)
+        throw error
       }
     },
     async getToken(ctx, data) {
@@ -104,11 +105,11 @@ export default {
         return res.ok
 
       } catch (error) {
-        console.log('Вход не выполнен', error)
+        console.log('Не верный логин или пароль')
+        throw error
       }
     },
     async destroyToken(ctx) {
-      // Здесь ошибка при смене паролей. Сначала удаляются все токены на серваке, потом он в этой функции не может найти токен
       await fetch(`${this.state.urlAPI}/api/logout`, {
         method: 'POST',
         headers: {

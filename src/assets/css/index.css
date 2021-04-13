@@ -195,9 +195,25 @@ body::-webkit-scrollbar-button {
   background-position: 50%;
   background-repeat: no-repeat;
 }
-
+.btn {
+  @apply inline-block px-3 py-2 text-sm leading-none transition-colors duration-300 border border-transparent rounded focus:outline-none
+}
+.btn-cancel {
+  @apply text-black bg-gray-200 hover:bg-gray-100 active:bg-gray-300
+}
+.btn-danger {
+  @apply text-white bg-red-800 hover:bg-red-700  active:bg-red-900
+}
+.btn-save {
+  @apply text-white bg-black hover:bg-gray-700 active:bg-gray-800
+}
 .img-unload {
   height: calc(24rem / 16 * 9);
+}
+.ava {
+  background: url("~@/assets/ava_admin.svg") no-repeat cadetblue;
+  background-position: center center;
+  background-size: contain;
 }
 
 
@@ -269,6 +285,9 @@ body::-webkit-scrollbar-button {
 .slide-leave-to {
   transform: translateY(20px);
   opacity: 0;
+}
+.slide-move {
+  transition: all .5s;
 }
 
 

@@ -395,17 +395,17 @@
             class="fixed z-20 left-0 bottom-0 w-full h-12 px-4 bg-white border-t"
           >
             <div
-              class="w-full h-full flex lg:pl-10 lg:justify-center justify-end items-center"
+              class="w-full h-full flex lg:pl-10 lg:justify-center justify-end items-center space-x-2"
             >
               <router-link
                 :to="{ name: 'Home' }"
-                class="inline-block mr-2 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+                class="btn btn-cancel"
               >
                 Отмена
               </router-link>
               <button
                 type="submit"
-                class="inline-block px-3 py-2 text-sm leading-none text-white transition-colors duration-150 bg-black rounded active:bg-gray-600 hover:bg-gray-700 focus:outline-none"
+                class="btn btn-save"
               >
                 Сохранить
               </button>
@@ -420,13 +420,8 @@
         <Phone :phoneProps="page" />
       </div>
     </main>
-    <transition name="slide">
-      <Notification v-if="visibleNoti" @close="closeNotification">
-        <template v-slot:body>
-          <span class="text-sm">{{ textNotification }}</span>
-        </template>
+      <Notification :notiProps="notiItems" @close="closeNotification">
       </Notification>
-    </transition>
   </div>
 </template>
 
@@ -466,8 +461,7 @@ export default {
       // перменные отображения
       visiblePrivet: false,
       visibleUspech: false,
-      visibleNoti: false,
-      textNotification: "Упсс... Не все поля со звездочкой заполнены",
+      notiItems: [],
     };
   },
   computed: {
@@ -533,8 +527,8 @@ export default {
     setDesign(id) {
       this.page.template_id = id;
     },
-    closeNotification() {
-      this.visibleNoti = false;
+    closeNotification(index) {
+      this.notiItems.splice(index, 1)
     },
 
     submit() {
@@ -551,10 +545,7 @@ export default {
           this.page.link_download
         )
       ) {
-        this.visibleNoti = true;
-        setTimeout(() => {
-          this.closeNotification();
-        }, 5000);
+        this.notiItems.unshift({text: 'Упсс... Не все поля со звездочкой заполнены', id: Date.now()})
         return false;
       }
 

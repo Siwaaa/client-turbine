@@ -1,62 +1,69 @@
 <template>
-  <form @submit.prevent="register" class="w-full">
-    <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-      Создание аккаунта
+  <form @submit.prevent="register" class="w-60">
+    <h1 class="mb-4 text-xl text-center font-semibold text-gray-700">
+      Регистрация
     </h1>
     <label class="block text-sm">
-      <span class="text-gray-700 dark:text-gray-400">Имя</span>
+      <span class="text-gray-700">Имя</span>
       <input
         v-model="name"
-        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        required
+        maxlength="12"
+        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
         placeholder="Bruce"
       />
     </label>
     <label class="block mt-4 text-sm">
-      <span class="text-gray-700 dark:text-gray-400">Email</span>
+      <span class="text-gray-700">Email</span>
       <input
+        required
         v-model="email"
-        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
         placeholder="bruce@wayne.com"
+        type="email"
       />
+      <span v-if="!validEmail" class="text-xs text-red-600">
+        Такой email уже зарегистрирован
+      </span>
     </label>
     <label class="block mt-4 text-sm">
-      <span class="text-gray-700 dark:text-gray-400">Пароль</span>
+      <span class="text-gray-700">Пароль</span>
       <input
         v-model="password"
-        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        required
+        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
         placeholder="*************"
         type="password"
       />
     </label>
     <label class="block mt-4 text-sm">
-      <span class="text-gray-700 dark:text-gray-400"> Подтверждение пароля </span>
+      <span class="text-gray-700"> Подтверждение пароля </span>
       <input
         v-model="password_confirm"
-        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        required
+        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
         placeholder="*************"
         type="password"
       />
+      <span v-if="password !== password_confirm" class="text-xs text-red-600">
+        Разные пароли
+      </span>
     </label>
 
     <div class="flex mt-6 text-xs text-gray-400">
       <label class="flex items-center">
-        <span class="ml-2">
-          Регистрируясь вы подтвержаете
+        <span>
+          Регистрируясь, Вы подтвержаете
           <router-link to="#" class="underline">политику конфет</router-link>
         </span>
       </label>
     </div>
-    <button
-      type="submit"
-      class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-    >
-      Создать
-    </button>
+    <button type="submit" class="btn btn-save w-full mt-6">Создать</button>
 
     <p class="mt-4">
       <router-link
-        class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-        :to="{name: 'Login'}"
+        class="text-sm font-medium text-gray-600 hover:text-gray-900 underline"
+        :to="{ name: 'Login' }"
       >
         Уже есть аккаунт? Войти
       </router-link>
@@ -65,27 +72,38 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 export default {
-  name: 'Register',
+  name: "Register",
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      password_confirm: ''
-    }
+      name: "",
+      email: "",
+      password: "",
+      password_confirm: "",
+      // переменные валидации
+      validEmail: true,
+    };
   },
-   methods: {
+  methods: {
     ...mapActions(["registerToken"]),
     register() {
-      this.registerToken({
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      }).then(() => this.$router.push( {name: 'Home'})) 
-    }
-  }
+      if (this.password == this.password_confirm) {
+        this.registerToken({
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
+          .then(() => this.$router.push({ name: "Home" }))
+          .catch((error) =>
+            error.status === 422 ? (this.validEmail = false) : false
+          );
+      } else {
+        // отображаем noti
+        
+      }
+    },
+  },
 };
 </script>
 

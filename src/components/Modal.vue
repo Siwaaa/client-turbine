@@ -1,5 +1,4 @@
 <template>
-  <transition>
     <div
       @click.self="close"
       class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-75 sm:items-center sm:justify-center"
@@ -33,7 +32,7 @@
         <!-- Modal body -->
         <main class="mt-2 mb-4">
           <!-- Modal title -->
-          <header class="mb-1 text-xl font-medium text-black">
+          <header class="mb-3 text-xl font-medium text-black">
             <slot name="header"></slot>
           </header>
 
@@ -47,7 +46,6 @@
         </footer>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>

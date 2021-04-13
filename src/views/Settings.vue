@@ -1,13 +1,13 @@
 <template>
   <div class="w-full lg:w-3/5 max-w-xl mx-auto">
     <header class="df pb-4">
-      <h1 id="title" class="text-2xl font-medium">Настройки аккаунта</h1>
+      <h1 id="title" class="text-2xl font-normal">Настройки аккаунта</h1>
     </header>
     <div class="px-6 py-8 mb-8 bg-white rounded-lg shadow-md divide-y">
       <div class="item w-full">
         <div class="flex items-center">
           <div
-            class="flex items-center justify-center w-10 h-10 mr-3 rounded-full shadow-sm bg-green-300"
+            class="ava flex items-center justify-center w-10 h-10 mr-3 rounded-full shadow-sm"
           >
             <span class="font-bold text-lg text-white">{{
               name ? name[0].toUpperCase() : "C"
@@ -21,7 +21,7 @@
           type="button"
           name="name"
           @click="openModal"
-          class="inline-block mt-4 mb-6 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+          class="btn btn-cancel mt-4 mb-6"
         >
           Изменить имя
         </button>
@@ -36,7 +36,7 @@
           type="button"
           name="email"
           @click="openModal"
-          class="inline-block mt-4 mb-6 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+          class="btn btn-cancel mt-4 mb-6"
         >
           Изменить email
         </button>
@@ -54,7 +54,7 @@
           type="button"
           name="pass"
           @click="openModal"
-          class="inline-block mt-4 mb-6 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+          class="btn btn-cancel mt-4"
         >
           Сменить
         </button>
@@ -68,7 +68,7 @@
         <h1>Смена имени и email</h1>
       </template>
       <template v-slot:description>
-        <form @submit.prevent="updateNameEmail" class="py-3 text-gray-800">
+        <form @submit.prevent="updateNameEmail" class="text-gray-800">
           <label class="block">
             <span>Никнейм </span>
             <input
@@ -92,17 +92,17 @@
               placeholder="email@ex.com"
             />
           </label>
-          <div class="w-full flex justify-end">
+          <div class="w-full mt-6 flex justify-end space-x-2">
             <button
               type="button"
               @click="closeModal"
-              class="inline-block mt-4 mr-2 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+              class="btn btn-cancel"
             >
               Отмена
             </button>
             <button
               type="submit"
-              class="inline-block mt-4 px-3 py-2 text-sm leading-none text-white transition-colors duration-150 bg-black border border-transparent rounded active:bg-gray-600 hover:bg-gray-900 focus:outline-none"
+              class="btn btn-save"
             >
               Сохранить
             </button>
@@ -115,7 +115,7 @@
         <h1>Смена пароля</h1>
       </template>
       <template v-slot:description>
-        <form @submit.prevent="updatePassword" class="py-3 text-gray-800">
+        <form @submit.prevent="updatePassword" class="text-gray-800">
           <label class="block">
             <span>Старый пароль </span>
             <input
@@ -150,17 +150,17 @@
               placeholder="***********"
             />
           </label>
-          <div class="w-full flex justify-end">
+          <div class="w-full mt-6 flex justify-end space-x-2">
             <button
               type="button"
               @click="closeModal"
-              class="inline-block mt-4 mr-2 px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+              class="btn btn-cancel"
             >
               Отмена
             </button>
             <button
               type="submit"
-              class="inline-block mt-4 px-3 py-2 text-sm leading-none text-white transition-colors duration-150 bg-black rounded active:bg-gray-600 hover:bg-gray-900 focus:outline-none"
+              class="btn btn-save"
             >
               Изменить
             </button>

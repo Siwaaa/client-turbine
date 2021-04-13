@@ -89,15 +89,6 @@ const routes = [
     },
     component: () => import('@/views/Domains.vue')
   },
-  {
-    path: '/templates',
-    name: 'Templates',
-    meta: {
-      layout: 'dashboard',
-      requiresAuth: true,
-    },
-    component: () => import('@/views/DesignTemplate.vue')
-  },
   // User PAGES
   // {
   //   path: '/q/id',

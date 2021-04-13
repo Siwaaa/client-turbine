@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="df pb-4">
-      <h1 id="title" class="text-2xl font-medium mb-4">Подписные страницы</h1>
+      <h1 id="title" class="text-2xl font-normal mb-4">Подписные страницы</h1>
     </header>
 
     <div class="flex flex-wrap mb-6">
@@ -47,7 +47,7 @@
         <h2>Удалить эту страницу?</h2>
       </template>
       <template v-slot:description>
-        <p class="text-sm text-gray-700 dark:text-gray-400">
+        <p class="text-sm text-gray-700 pb-4">
           Вы собираетесь удалить страницу.
           <br />
           Она исчезнет навсегда, и мы не сможем ее вернуть.
@@ -56,26 +56,21 @@
       <template v-slot:footer>
         <button
           @click="closeModal"
-          class="inline-block px-3 py-2 text-sm leading-none text-black transition-colors duration-150 bg-gray-200 border border-transparent rounded active:bg-gray-600 hover:bg-gray-100 focus:outline-none"
+          class="btn btn-cancel"
         >
           Отмена
         </button>
         <button
           @click.prevent="realyDelete"
-          class="inline-block px-3 py-2 text-sm leading-none text-white transition-colors duration-150 bg-red-800 border border-transparent rounded active:bg-red-600 hover:bg-red-700 focus:outline-none"
+          class="btn btn-danger"
         >
           {{textDeleting}}
         </button>
       </template>
     </Modal>
     <!-- Notification -->
-    <transition name="slide">
-      <Notification v-if="visibleNoti" @close="closeNotification">
-        <template v-slot:body>
-          <span class="text-sm">{{ textNotification }}</span>
-        </template>
-      </Notification>
-    </transition>
+    <Notification :notiProps="notiItems" @close="closeNotification">
+    </Notification>
   </div>
 </template>
 
@@ -97,9 +92,7 @@ export default {
       idDelete: "",
       textDeleting: 'Да, удалить',
       // noti переменные
-      visibleNoti: false,
-      textNotification: "Ссылка скопирована",
-      
+      notiItems: [],
     };
   },
   computed: {
@@ -107,8 +100,8 @@ export default {
   },
   methods: {
     ...mapActions(["API_GET_PAGES", "API_DELETE_PAGE", "API_ADD_PAGE"]),
-    closeNotification() {
-      this.visibleNoti = false;
+    closeNotification(index) {
+      this.notiItems.splice(index, 1)
     },
     deletePage(id) {
       this.isModalOpen = true;
@@ -120,11 +113,7 @@ export default {
           this.confirmDeletion = false;
           this.textDeleting = 'Да, удалить'
           // отображаем noti
-          this.textNotification = "Страница удалена"
-          this.visibleNoti = true
-          setTimeout(() => {
-          this.visibleNoti = false
-        }, 4000);
+          this.notiItems.unshift({text: 'Страница удалена', id: Date.now()})
         });
         
       }
@@ -160,14 +149,10 @@ export default {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          this.textNotification = "Ссылка скопирована";
-          this.visibleNoti = true;
-          setTimeout(() => {
-            this.visibleNoti = false;
-          }, 3000);
+          this.notiItems.unshift({text: 'Ссылка скопирована', id: Date.now()})
         })
         .catch((err) => {
-          console.log("Something went wrong", err);
+          console.log("Ошибка копирования ссылки", err);
         });
     },
     // методы модалки

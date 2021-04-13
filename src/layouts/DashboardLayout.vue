@@ -276,7 +276,7 @@
           <div class="flex items-center text-sm font-medium">
             <!-- Avatar with inset shadow -->
             <div
-              class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm bg-indigo-300"
+              class="ava relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm"
             >
               <span class="font-bold text-lg text-white">{{
                 name ? name[0].toUpperCase() : "C"
