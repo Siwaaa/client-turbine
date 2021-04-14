@@ -302,9 +302,9 @@
                       </button>
                     </div>
                     <div
-                      class="footer-card relative px-4 py-2 border-t text-gray-400 bg-opacity-75 flex flex-wrap"
+                      class="footer-card h-1/4 flex items-center px-2 border-t text-gray-400 bg-opacity-75 "
                     >
-                      <span class="text-gray-800">{{ temp.name }}</span>
+                      <span class="text-gray-800 leading-3">{{ temp.name }}</span>
                       <!-- Modal -->
                     </div>
                   </div>
