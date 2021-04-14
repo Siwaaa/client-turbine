@@ -1,7 +1,7 @@
 <template>
   <div class="w-full min-h-screen bg-gray-50">
     <header class="w-full h-12 flex justify-between border-b bg-white px-4">
-      <router-link to="/" class="back flex items-center hover:text-gray-900 text-gray-500">
+      <router-link :to="{name: 'Home'}" class="back flex items-center hover:text-gray-900 text-gray-500">
         <span class="mr-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,13 +18,13 @@
             />
           </svg>
         </span>
-        <span class="font-medium">Главная</span>
+        <span class="font-medium text-sm">Главная</span>
       </router-link>
       <!-- USER -->
       <div class="flex items-center text-sm font-medium">
         <!-- Avatar with inset shadow -->
         <div
-          class="relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm bg-indigo-300"
+          class="ava relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm "
         >
           <span class="font-bold text-lg text-white">{{
             name ? name[0].toUpperCase() : "C"

@@ -21,6 +21,7 @@
         class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
         placeholder="bruce@wayne.com"
         type="email"
+        @input="validEmail = true"
       />
       <span v-if="!validEmail" class="text-xs text-red-600">
         Такой email уже зарегистрирован
@@ -88,20 +89,19 @@ export default {
   methods: {
     ...mapActions(["registerToken"]),
     register() {
+      this.$Progress.start();
       if (this.password == this.password_confirm) {
         this.registerToken({
           name: this.name,
           email: this.email,
           password: this.password,
         })
-          .then(() => this.$router.push({ name: "Home" }))
-          .catch((error) =>
-            error.status === 422 ? (this.validEmail = false) : false
-          );
-      } else {
-        // отображаем noti
-        
-      }
+          .then(() => {this.$router.push({ name: "Home" }); this.$Progress.finish();})
+          .catch((error) => {
+            error.status === 422 ? (this.validEmail = false) : console.log('Ошибка', error)
+            this.$Progress.fail();
+          });
+      } else this.$Progress.fail();
     },
   },
 };

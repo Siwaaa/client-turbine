@@ -1,10 +1,10 @@
 <template>
   <div
-    class="mr-4 mb-6 w-44 h-52 text-sm bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 ease-in-out"
+    class="mr-4 mb-6 sm:w-44 sm:h-52 w-36 h-44 text-sm bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 ease-in-out"
   >
     <router-link
       :to="{
-        name: 'PageEdit',
+        name: 'EditorPage',
         params: {
           url: pageProps.url,
         },

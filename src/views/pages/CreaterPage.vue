@@ -5,7 +5,7 @@
         class="cont md:block md:w-10 md:shadow-none md:mx-auto md:pt-6 flex shadow"
       >
         <router-link
-          :to="{ name: 'EditorPage' }"
+          :to="{ name: 'CreaterPage' }"
           class="btn-edit hover:bg-gray-300"
           exact
           active-class="bg-gray-200"
@@ -21,7 +21,7 @@
           </svg>
         </router-link>
         <router-link
-          :to="{ name: 'EditorPage', hash: '#design' }"
+          :to="{ name: 'CreaterPage', hash: '#design' }"
           class="btn-edit hover:bg-gray-300"
           active-class="bg-gray-200"
         >
@@ -42,7 +42,7 @@
           </svg>
         </router-link>
         <router-link
-          :to="{ name: 'EditorPage', hash: '#settings' }"
+          :to="{ name: 'CreaterPage', hash: '#settings' }"
           class="btn-edit hover:bg-gray-300"
           active-class="bg-gray-200"
         >
@@ -143,7 +143,7 @@
                             >Удалить</span
                           >
                         </div>
-
+                        
                         <svg
                           class="text-gray-500"
                           fill="none"
@@ -397,10 +397,18 @@
             <div
               class="w-full h-full flex lg:pl-10 lg:justify-center justify-end items-center space-x-2"
             >
-              <router-link :to="{ name: 'Home' }" class="btn btn-cancel">
+              <router-link
+                :to="{ name: 'Home' }"
+                class="btn btn-cancel"
+              >
                 Отмена
               </router-link>
-              <button type="submit" class="btn btn-save">Сохранить</button>
+              <button
+                type="submit"
+                class="btn btn-save"
+              >
+                Сохранить
+              </button>
             </div>
           </footer>
         </form>
@@ -412,8 +420,8 @@
         <Phone :phoneProps="page" />
       </div>
     </main>
-    <Notification :notiProps="notiItems" @close="closeNotification">
-    </Notification>
+      <Notification :notiProps="notiItems" @close="closeNotification">
+      </Notification>
   </div>
 </template>
 
@@ -423,7 +431,7 @@ import Phone from "@/components/Phone.vue";
 import Notification from "@/components/Notification.vue";
 
 export default {
-  name: "EditorPage",
+  name: "CreaterPage",
   components: { Phone, Notification },
   data() {
     return {
@@ -431,17 +439,17 @@ export default {
         name: "",
         instagram: "",
         domain_id: null,
-        title_ad: "",
-        description_ad: "",
+        title_ad: "Это пример подписной страницы",
+        description_ad: "С помощью нее Вы сможете настроить автоматическую выдачу материала за подписку на Instagram\n\nУдачного запуска😉",
         img_cover: "",
         srcImg: null,
-        template_id: null,
-        btn_ad: "",
-        timer: null,
+        template_id: 1,
+        btn_ad: "Получить материал",
+        timer: 0,
         fb_pixel: "",
-        title_success: "",
-        description_success: "",
-        btn_success: "",
+        title_success: "Спасибо за подписку",
+        description_success: "Жми на кнопку, чтобы забрать приз",
+        btn_success: "Получить материал",
         link_download: "",
       },
       urlAPI: process.env.VUE_APP_ROOT_API,
@@ -457,13 +465,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allPages", "allTemplates"]),
-    searchPageObj() {
-      return this.allPages.find((item) => item.url == this.$route.params.url);
-    },
+    ...mapGetters(["allTemplates"]),
   },
   methods: {
-    ...mapActions(["API_UPDATE_PAGE", "API_GET_TEMPLATES"]),
+    ...mapActions(["API_ADD_PAGE", "API_GET_TEMPLATES"]),
     checkInst(e) {
       this.instStatus = "Идет поиск аккаунта...";
       this.instVisibleStatus = true;
@@ -523,7 +528,7 @@ export default {
       this.page.template_id = id;
     },
     closeNotification(index) {
-      this.notiItems.splice(index, 1);
+      this.notiItems.splice(index, 1)
     },
 
     submit() {
@@ -540,29 +545,20 @@ export default {
           this.page.link_download
         )
       ) {
-        this.notiItems.unshift({
-          text: "Упсс... Не все поля со звездочкой заполнены",
-          id: Date.now(),
-        });
+        this.notiItems.unshift({text: 'Упсс... Не все поля со звездочкой заполнены', id: Date.now()})
         return false;
       }
 
       this.$Progress.start();
       let formData = new FormData();
-      formData.append("_method", "PUT");
       formData.append("img_cover", this.page.img_cover);
       const allData = JSON.stringify({
-        id: this.page.id,
         name: this.page.name,
         status: 1,
-        url: this.page.url,
         instagram: this.page.instagram,
         domain_id: this.page.domain_id,
         title_ad: this.page.title_ad,
         description_ad: this.page.description_ad,
-        img_cover: this.page.srcImg
-          ? this.page.img_cover.name || this.page.img_cover
-          : null,
         template_id: this.page.template_id,
         btn_ad: this.page.btn_ad,
         timer: this.page.timer,
@@ -574,50 +570,10 @@ export default {
       });
       formData.append("data", allData);
 
-      this.API_UPDATE_PAGE(formData).then(() => {
+      this.API_ADD_PAGE(formData).then(() => {
         this.$router.push({ name: "Home" }), this.$Progress.finish();
       });
     },
-  },
-  created() {
-    // если такой подпис. страницы не существует
-    if (!this.searchPageObj) {
-      this.$router.push({ name: "Home" });
-    } else {
-      this.page.id = this.searchPageObj.id;
-      this.page.name = this.searchPageObj.name;
-      this.page.url = this.searchPageObj.url;
-      this.page.instagram = this.searchPageObj.instagram;
-      this.page.domain_id = this.searchPageObj.domain_id;
-      this.page.title_ad = this.searchPageObj.title_ad;
-      this.page.description_ad = this.searchPageObj.description_ad;
-      this.page.img_cover = this.searchPageObj.img_cover;
-      this.page.template_id = this.searchPageObj.template_id;
-      this.page.btn_ad = this.searchPageObj.btn_ad;
-      this.page.timer = this.searchPageObj.timer;
-      this.page.fb_pixel = this.searchPageObj.fb_pixel;
-      this.page.title_success = this.searchPageObj.title_success;
-      this.page.description_success = this.searchPageObj.description_success;
-      this.page.btn_success = this.searchPageObj.btn_success;
-      this.page.link_download = this.searchPageObj.link_download;
-      if (this.searchPageObj.img_cover) {
-        const options = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        fetch(`${this.urlAPI}/api/${this.searchPageObj.url}/img`, options)
-          .then((response) => response.json())
-          .then((res) => {
-            if (res.success) {
-              this.page.srcImg = res.img;
-            }
-          });
-      } else {
-        this.page.srcImg = null;
-      }
-    }
   },
   mounted() {
     this.API_GET_TEMPLATES();

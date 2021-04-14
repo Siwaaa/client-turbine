@@ -1,6 +1,8 @@
 <template>
-  <form @submit.prevent="login" class="w-60 ">
-    <h1 class="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200">
+  <form @submit.prevent="login" class="w-60">
+    <h1
+      class="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200"
+    >
       Вход
     </h1>
     <label class="block text-sm">
@@ -25,17 +27,12 @@
     </label>
 
     <!-- You should use a button here, as the anchor is only used for the example  -->
-    <button
-      type="submit"
-      class="btn btn-save w-full mt-6"
-    >
-      Войти
-    </button>
+    <button type="submit" class="btn btn-save w-full mt-6">Войти</button>
 
     <p class="mt-4">
       <router-link
         class="text-sm text-gray-500 font-medium underline hover:text-gray-900"
-        :to="{name: 'Register'}"
+        :to="{ name: 'Register' }"
       >
         Забыли пароль?
       </router-link>
@@ -43,41 +40,54 @@
     <p class="mt-1">
       <router-link
         class="text-sm text-gray-500 font-medium underline hover:text-gray-900"
-        :to="{name: 'Register'}"
+        :to="{ name: 'Register' }"
       >
         Создать аккаунт
       </router-link>
     </p>
+    <Notification :notiProps="notiItems" @close="closeNotification">
+    </Notification>
   </form>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
+import Notification from "@/components/Notification.vue";
 
 export default {
-  name: 'Login',
+  components: { Notification },
+  name: "Login",
   data() {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: "",
+      // noti переменные
+      notiItems: [],
+    };
   },
-    methods: {
+  methods: {
     ...mapActions(["getToken"]),
+    closeNotification(index) {
+      this.notiItems.splice(index, 1);
+    },
     login() {
       this.getToken({
         email: this.email,
         password: this.password,
       })
-      .then(response => {
-        if (response) {
-          this.$router.push( {name: 'Home'})
-        } else {
-          alert('Неверный логин или пароль')
-        }
-      })
-    }
-  }
+        .then(() => {
+          this.$router.push({ name: "Home" });
+        })
+        .catch((error) => {
+          if (error.status == 401) {
+            this.notiItems.unshift({
+              text: "Неверный логин или пароль",
+              id: Date.now(),
+            });
+          }
+        });
+    },
+  },
 };
 </script>
 

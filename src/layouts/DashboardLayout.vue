@@ -8,7 +8,7 @@
       class="z-20 hidden w-60 overflow-y-auto border-r bg-white md:block flex-shrink-0"
     >
       <div class="text-gray-600 h-full">
-        <router-link class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-bold text-gray-800 border-b" to="/">
+        <router-link class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-bold text-gray-800 border-b" :to="{name: 'Home'}">
           <!-- <img src="@/assets/logo.png" alt="logo" class="h-full "> -->
           Client Turbine
         </router-link>
@@ -17,7 +17,7 @@
           <li>
             <router-link
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
-              to="/dashboard"
+              :to="{name: 'Home'}"
               active-class="bg-gray-100 text-black"
             >
               <span
@@ -44,7 +44,7 @@
           <li>
             <router-link
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
-              to="/domains"
+              :to="{name: 'Domains'}"
               exact=""
               active-class="bg-gray-100 text-black"
             >
@@ -71,7 +71,7 @@
           <li>
             <router-link
               class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
-              to="/settings"
+              :to="{name: 'Settings'}"
               exact=""
               active-class="bg-gray-100 text-black"
             >

@@ -29,85 +29,77 @@ export default {
   },
   actions: {
     async registerToken(ctx, data) {
-      try {
-        await fetch(`${this.state.urlAPI}/api/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify(data)
-        }).then(response => response.ok ? response.json() : Promise.reject(response))
-          .then(result => {
-            const token = result.token
-            if (token) {
-              localStorage.setItem('access_token', token)
-              ctx.commit('tokenUpdate', token)
-            }
+      await fetch(`${this.state.urlAPI}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then(response => response.ok ? response.json() : Promise.reject(response))
+        .then(result => {
+          const token = result.token
+          if (token) {
+            localStorage.setItem('access_token', token)
+            ctx.commit('tokenUpdate', token)
+          }
 
-            const name = result.name
-            if (name) {
-              localStorage.setItem('name_user', name)
-              ctx.commit('nameUpdate', name)
-            }
-            const email = result.email
-            if (email) {
-              localStorage.setItem('email_user', email)
-              ctx.commit('emailUpdate', email)
-            }
-            const created_at = result.created_at
-            if (created_at) {
-              localStorage.setItem('created_at_user', created_at)
-              ctx.commit('createdUpdate', created_at)
-            }
-          })
+          const name = result.name
+          if (name) {
+            localStorage.setItem('name_user', name)
+            ctx.commit('nameUpdate', name)
+          }
+          const email = result.email
+          if (email) {
+            localStorage.setItem('email_user', email)
+            ctx.commit('emailUpdate', email)
+          }
+          const created_at = result.created_at
+          if (created_at) {
+            localStorage.setItem('created_at_user', created_at)
+            ctx.commit('createdUpdate', created_at)
+          }
+        })
 
-      } catch (error) {
-        console.log(error)
-        throw error
-      }
+        .catch((error) => {
+          throw error
+        })
     },
     async getToken(ctx, data) {
-      try {
-        const res = await fetch(`${this.state.urlAPI}/api/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify(data)
+      await fetch(`${this.state.urlAPI}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then((response) => response.ok ? response.json() : Promise.reject(response))
+        .then((result) => {
+          const token = result.token
+          if (token) {
+            localStorage.setItem('access_token', token)
+            ctx.commit('tokenUpdate', token)
+          }
+
+          const name = result.name
+          if (name) {
+            localStorage.setItem('name_user', name)
+            ctx.commit('nameUpdate', name)
+          }
+          const email = result.email
+          if (email) {
+            localStorage.setItem('email_user', email)
+            ctx.commit('emailUpdate', email)
+          }
+          const created_at = result.created_at
+          if (created_at) {
+            localStorage.setItem('created_at_user', created_at)
+            ctx.commit('createdUpdate', created_at)
+          }
         })
-        // .then((response) => response.json());
-        const jsonRes = await res.json()
-
-        const token = jsonRes.token
-        if (token) {
-          localStorage.setItem('access_token', token)
-          ctx.commit('tokenUpdate', token)
-        }
-
-        const name = jsonRes.name
-        if (name) {
-          localStorage.setItem('name_user', name)
-          ctx.commit('nameUpdate', name)
-        }
-        const email = jsonRes.email
-        if (email) {
-          localStorage.setItem('email_user', email)
-          ctx.commit('emailUpdate', email)
-        }
-        const created_at = jsonRes.created_at
-        if (created_at) {
-          localStorage.setItem('created_at_user', created_at)
-          ctx.commit('createdUpdate', created_at)
-        }
-
-        return res.ok
-
-      } catch (error) {
-        console.log('Не верный логин или пароль')
-        throw error
-      }
+        .catch((error) => {
+          throw error
+        })
     },
     async destroyToken(ctx) {
       await fetch(`${this.state.urlAPI}/api/logout`, {
@@ -116,21 +108,17 @@ export default {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         },
-      }).then(
-        function () {
-          localStorage.removeItem('access_token')
-          localStorage.removeItem('name_user')
-          localStorage.removeItem('email_user')
-          localStorage.removeItem('created_at_user')
+      }).then(() => {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('name_user')
+        localStorage.removeItem('email_user')
+        localStorage.removeItem('created_at_user')
 
-          localStorage.removeItem('pages_arr')
-          ctx.commit('destroyTokenAndName')
-          ctx.commit('destroyPages')
-        },
-        function (error) {
-          alert('Вход не выполнен', error)
-        }
-      )
+        localStorage.removeItem('pages_arr')
+        ctx.commit('destroyTokenAndName')
+        ctx.commit('destroyPages')
+      }).catch((error) => console.log(error))
+
     },
 
     //USER 

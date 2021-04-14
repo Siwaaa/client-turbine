@@ -36,34 +36,25 @@ const routes = [
     component: () => import('@/views/Register.vue')
   },
   {
-    path: '/form/create',
+    path: '/page/create',
+    name: 'CreaterPage',
+    meta: {
+      layout: 'editor',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/pages/CreaterPage.vue')
+  },
+  {
+    path: '/page/edit/:url',
     name: 'EditorPage',
     meta: {
       layout: 'editor',
       requiresAuth: true,
     },
-    component: () => import('@/views/pages/EditorPage.vue'),
+    component: () => import('@/views/pages/EditorPage.vue')
   },
   {
-    path: '/dashboard/create',
-    name: 'CreatePage',
-    meta: {
-      layout: 'dashboard',
-      requiresAuth: true,
-    },
-    component: () => import('@/views/pages/CreatePage.vue')
-  },
-  {
-    path: '/dashboard/:url',
-    name: 'PageEdit',
-    meta: {
-      layout: 'dashboard',
-      requiresAuth: true,
-    },
-    component: () => import('@/views/pages/PageEdit.vue')
-  },
-  {
-    path: '/dashboard/:url/statistics',
+    path: '/page/:url/statistics',
     name: 'PageStatistics',
     meta: {
       layout: 'dashboard',
@@ -117,7 +108,7 @@ const routes = [
   { 
     path: '*',
     meta: {
-      layout: 'dashboard',
+      layout: 'error',
       requiresAuth: true,
     },
     component: () => import('@/views/NotFoundComponent.vue')
