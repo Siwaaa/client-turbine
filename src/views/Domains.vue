@@ -129,6 +129,12 @@
                 </tr>
               </tbody>
             </table>
+            <div
+              v-if="!allDomains.length"
+              class="w-full h-10 flex justify-center items-center text-gray-400"
+            >
+              Нет подключенных доменов
+            </div>
           </div>
         </div>
       </div>
@@ -204,6 +210,11 @@
                   Скопировать
                 </button>
               </label>
+              <p class="text-xs text-gray-600">
+                Обязательное условие: наличие A-записей на основном домене. Если
+                их нет, то вместо CNAME записи создайте A-запись, указав
+                поддомен в поле 'subdomain'
+              </p>
             </li>
             <li></li>
             <li></li>
@@ -260,7 +271,7 @@
         <div v-else class="text-sm">
           <p>
             Домен привязан к нашему серверу. <br />
-            Сейчас мы генерируем SSL сертификат. Он нужен для того чтобы
+            Сейчас мы генерируем SSL сертификат. Он нужен для того, чтобы
             соединение было безопасным. <br />
             <br />
             Обычно сайт по адресу привязанного домена становится доступен через
@@ -289,7 +300,7 @@ export default {
   name: "Domains",
   data() {
     return {
-      ip: "46.4.70.151",
+      ip: "194.67.78.5",
       cname: "clturbine.site",
       domain: "",
       // modal
@@ -378,17 +389,17 @@ export default {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          this.notiItems.unshift({text: 'Скопировано', id: Date.now()})
+          this.notiItems.unshift({ text: "Скопировано", id: Date.now() });
         })
         .catch((err) => {
           console.log("Ошибка копирования ссылки", err);
         });
     },
     closeNotification(index) {
-      this.notiItems.splice(index, 1)
+      this.notiItems.splice(index, 1);
     },
   },
-  mounted() {
+  created() {
     this.API_GET_DOMAINS();
   },
 };
