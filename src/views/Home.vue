@@ -123,7 +123,7 @@ export default {
       const pageObj = this.allPages.find((item) => item.id == id);
       if (pageObj) {
         let formData = new FormData();
-        formData.append("img_cover", pageObj.img_cover);
+        // formData.append("img_cover", pageObj.img_cover);
         const allData = JSON.stringify({
           name: pageObj.name + "-copy" + (Date.now() % 7777),
           status: 1,
