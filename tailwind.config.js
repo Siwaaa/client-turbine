@@ -10,7 +10,7 @@ module.exports = {
       },
       scale: {
         '60': '.6',
-      }
+      },
     },
   },
   variants: {

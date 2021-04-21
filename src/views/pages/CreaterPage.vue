@@ -376,6 +376,7 @@
                       Выберите один из вариантов
                     </option>
                     <option selected value="null">clturbine.site</option>
+                    <option v-for="domain in allDomains" :key="domain.id" :value="domain.id">{{domain.url}}</option>
                   </select>
                 </label>
                 <label class="block mt-4 text-sm">
@@ -465,10 +466,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allTemplates"]),
+    ...mapGetters(["allTemplates", 'allDomains']),
   },
   methods: {
-    ...mapActions(["API_ADD_PAGE", "API_GET_TEMPLATES"]),
+    ...mapActions(["API_ADD_PAGE", "API_GET_TEMPLATES", "API_GET_DOMAINS"]),
     checkInst(e) {
       this.instStatus = "Идет поиск аккаунта...";
       this.instVisibleStatus = true;
@@ -577,6 +578,7 @@ export default {
   },
   mounted() {
     this.API_GET_TEMPLATES();
+    this.API_GET_DOMAINS()
   },
 };
 </script>

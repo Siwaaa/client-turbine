@@ -5,6 +5,7 @@
     <router-link
       :to="{
         name: 'EditorPage',
+        hash: '#settings',
         params: {
           url: pageProps.url,
         },
@@ -131,7 +132,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "Card",
@@ -149,7 +150,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allTemplates"]),
+    ...mapGetters(["allTemplates", "allDomains"]),
     currentTemplate() {
       if (this.allTemplates) {
         return this.allTemplates.find(
@@ -157,11 +158,19 @@ export default {
         );
       } else return { css_class: "template__01" };
     },
+    currentDomain() {
+      if (this.allDomains) {
+        const domainObj = this.allDomains.find(
+          (item) => item.id == this.pageProps.domain_id
+        )
+        return domainObj ? domainObj.url : 'clturbine.site'
+      } else return 'clturbine.site'
+    },
     linkInst() {
       return "https://www.instagram.com/" + this.pageProps.instagram;
     },
     linkToPage() {
-      return `https://clturbine.site/${this.pageProps.url}`;
+      return `https://${this.currentDomain}/${this.pageProps.url}`;
     },
     ctr() {
       if (this.pageProps.count_podpis && this.pageProps.count_prosmotr) {
@@ -172,6 +181,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["API_GET_DOMAINS"]),
     openDelete() {
       this.$emit("deletePage", this.pageProps.id);
     },

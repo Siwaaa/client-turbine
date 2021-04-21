@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import page from './modules/page'
 import auth from './modules/auth'
 import template from './modules/template'
+import domain from './modules/domain'
 
 Vue.use(Vuex)
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     page,
     auth,
     template,
+    domain
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full lg:w-3/5 max-w-xl mx-auto">
-    <header class="df pb-4">
+    <header class="pb-4">
       <h1 id="title" class="text-2xl font-normal">Настройки аккаунта</h1>
     </header>
     <div class="px-6 py-8 mb-8 bg-white rounded-lg shadow-md divide-y">

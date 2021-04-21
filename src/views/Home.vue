@@ -8,6 +8,7 @@
       <router-link
         :to="{
           name: 'CreaterPage',
+          hash: '#settings',
         }"
         class="inline-flex mr-4 mb-6 px-4 py-2 sm:w-44 sm:h-52 w-36 h-44 items-center text-lg text-white font-bold bg-white border border-gray-100 rounded-lg hover:opacity-90 transition-opacity duration-300"
         style="background-color: rgb(4, 135, 175)"
@@ -99,7 +100,7 @@ export default {
     ...mapGetters(["allPages"]),
   },
   methods: {
-    ...mapActions(["API_GET_PAGES", "API_DELETE_PAGE", "API_ADD_PAGE"]),
+    ...mapActions(["API_GET_PAGES", "API_DELETE_PAGE", "API_ADD_PAGE", "API_GET_DOMAINS"]),
     closeNotification(index) {
       this.notiItems.splice(index, 1)
     },
@@ -168,7 +169,8 @@ export default {
     },
   },
   mounted() {
-    this.API_GET_PAGES();
+    this.API_GET_PAGES()
+    this.API_GET_DOMAINS()
   },
 };
 </script>
