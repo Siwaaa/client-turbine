@@ -115,7 +115,7 @@
                         v-model="page.description_ad"
                         type="text"
                         class="block w-full mt-1 text-sm form-textarea focus:border-black focus:outline-none"
-                        rows="3"
+                        rows="5"
                         placeholder="Объясните почему стоит забрать материал"
                       ></textarea>
                     </label>
@@ -145,7 +145,7 @@
                         </div>
 
                         <svg
-                          class="text-gray-500"
+                          class="text-gray-400"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -153,16 +153,16 @@
                           <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2"
+                            stroke-width="1"
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                           />
                         </svg>
                         <div class="flex text-sm text-gray-600">
                           <label
                             for="file-upload"
-                            class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
+                            class="relative cursor-pointer rounded-md font-medium focus-within:outline-none"
                           >
-                            <span>Загрузить файл</span>
+                            <span class="color-accent">Загрузить файл</span>
                             <input
                               id="file-upload"
                               name="file-upload"
@@ -174,10 +174,46 @@
                             />
                           </label>
                         </div>
-                        <p class="mt-2 text-xs text-gray-500">
+                        <p class="mt-2 text-xs text-gray-900">
                           PNG, JPG, GIF не более 2MB
                         </p>
                       </label>
+                    </label>
+                    <label class="block mt-4 text-sm">
+                      <header class="mb-4 flex justify-between items-center">
+                        <span class="text-gray-700">Таймер</span>
+                        <switch-comp v-model="page.timer"></switch-comp>
+                      </header>
+                      <transition name="fade-switch-group">
+                        <section v-if="page.timer">
+                          <span class="text-gray-700"
+                            >Текст таймера
+                            <span class="text-red-800">*</span></span
+                          >
+                          <input
+                            v-model="page.timer_text"
+                            type="text"
+                            required
+                            maxlength="40"
+                            class="form-input block w-full mt-1 mb-4 text-sm focus:border-black focus:outline-none"
+                            placeholder="Материал станет недоступен"
+                          />
+                          <span class="text-gray-700"
+                            >Таймер в секундах <span class="text-red-800"
+                              >*</span
+                            ></span
+                          >
+                          <input
+                            v-model="page.timer_sec"
+                            type="number"
+                            min="1" 
+                            step="1"
+                            required
+                            class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
+                            placeholder="60"
+                          />
+                        </section>
+                      </transition>
                     </label>
                     <label class="block mt-4 text-sm">
                       <span class="text-gray-700 dark:text-gray-400"
@@ -302,9 +338,11 @@
                       </button>
                     </div>
                     <div
-                      class="footer-card h-1/4 flex items-center px-2 border-t text-gray-400 bg-opacity-75 "
+                      class="footer-card h-1/4 flex items-center px-2 border-t text-gray-400 bg-opacity-75"
                     >
-                      <span class="text-gray-800 leading-3">{{ temp.name }}</span>
+                      <span class="text-gray-800 leading-3">{{
+                        temp.name
+                      }}</span>
                       <!-- Modal -->
                     </div>
                   </div>
@@ -376,18 +414,28 @@
                       Выберите один из вариантов
                     </option>
                     <option selected value="null">clturbine.site</option>
-                    <option v-for="domain in allDomains" :key="domain.id" :value="domain.id">{{domain.url}}</option>
+                    <option
+                      v-for="domain in allDomains"
+                      :key="domain.id"
+                      :value="domain.id"
+                    >
+                      {{ domain.url }}
+                    </option>
                   </select>
                 </label>
                 <label class="block mt-4 text-sm">
-                  <span class="text-gray-700">Facebook PIXEL</span>
-                  <textarea
+                  <span class="text-gray-700">Facebook PIXEL ID</span>
+                  <br />
+                  <span class="text-xs text-gray-500"
+                    >События добавятся автоматически</span
+                  >
+                  <input
                     v-model="page.fb_pixel"
                     type="text"
-                    class="block w-full mt-1 text-sm form-textarea focus:border-black focus:outline-none"
-                    rows="3"
-                    placeholder="<!-- Facebook Pixel Code -->"
-                  ></textarea>
+                    maxlength="24"
+                    class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
+                    placeholder="141592653589793"
+                  />
                 </label>
               </main>
             </div>
@@ -422,10 +470,11 @@
 import { mapActions, mapGetters } from "vuex";
 import Phone from "@/components/Phone.vue";
 import Notification from "@/components/Notification.vue";
+import SwitchComp from '@/components/SwitchComp.vue';
 
 export default {
   name: "EditorPage",
-  components: { Phone, Notification },
+  components: { Phone, Notification, SwitchComp },
   data() {
     return {
       page: {
@@ -439,6 +488,8 @@ export default {
         template_id: null,
         btn_ad: "",
         timer: null,
+        timer_text: "",
+        timer_sec: null,
         fb_pixel: "",
         title_success: "",
         description_success: "",
@@ -567,6 +618,8 @@ export default {
         template_id: this.page.template_id,
         btn_ad: this.page.btn_ad,
         timer: this.page.timer,
+        timer_text: this.page.timer ? this.page.timer_text : null,
+        timer_sec: this.page.timer ? Number(this.page.timer_sec) : null,
         fb_pixel: this.page.fb_pixel,
         title_success: this.page.title_success,
         description_success: this.page.description_success,
@@ -595,7 +648,9 @@ export default {
       this.page.img_cover = this.searchPageObj.img_cover;
       this.page.template_id = this.searchPageObj.template_id;
       this.page.btn_ad = this.searchPageObj.btn_ad;
-      this.page.timer = this.searchPageObj.timer;
+      this.page.timer = Boolean(this.searchPageObj.timer);
+      this.page.timer_text = this.searchPageObj.timer_text;
+      this.page.timer_sec = this.searchPageObj.timer_sec;
       this.page.fb_pixel = this.searchPageObj.fb_pixel;
       this.page.title_success = this.searchPageObj.title_success;
       this.page.description_success = this.searchPageObj.description_success;
@@ -622,7 +677,7 @@ export default {
   },
   mounted() {
     this.API_GET_TEMPLATES();
-    this.API_GET_DOMAINS()
+    this.API_GET_DOMAINS();
   },
 };
 </script>

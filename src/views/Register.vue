@@ -3,6 +3,26 @@
     <h1 class="mb-4 text-xl text-center font-semibold text-gray-700">
       Регистрация
     </h1>
+    <p class="text-xs text-gray-600">
+      Сервис на стадии тестирования. Если Вы хотите присоединиться к
+      тестированию, напишите нам в
+      <a href="https://t.me/aaawis" target="_blank" class="underline"
+        >telegram</a
+      >
+    </p>
+    <label class="block mb-4 text-sm">
+      <span class="text-gray-700">Код доступа</span>
+      <input
+        v-model="codeSuccess"
+        @change="checkCode"
+        required
+        maxlength="12"
+        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
+      />
+      <span v-if="!validCode" class="text-xs text-red-600">
+        Неверный код
+      </span>
+    </label>
     <label class="block text-sm">
       <span class="text-gray-700">Имя</span>
       <input
@@ -54,8 +74,8 @@
     <div class="flex mt-6 text-xs text-gray-400">
       <label class="flex items-center">
         <span>
-          Регистрируясь, Вы подтвержаете
-          <router-link to="#" class="underline">политику конфет</router-link>
+          Регистрируясь, Вы принимаете
+          <router-link to="#" class="underline">политику конфиденциальности</router-link>
         </span>
       </label>
     </div>
@@ -78,27 +98,37 @@ export default {
   name: "Register",
   data() {
     return {
+      codeSuccess: '',
       name: "",
       email: "",
       password: "",
       password_confirm: "",
       // переменные валидации
       validEmail: true,
+      validCode: true,
     };
   },
   methods: {
     ...mapActions(["registerToken"]),
+    checkCode(e) {
+      e.target.value == "GROUP14" ? this.validCode = true : this.validCode = false
+    },
     register() {
       this.$Progress.start();
-      if (this.password == this.password_confirm) {
+      if (this.codeSuccess == "GROUP14" && this.password === this.password_confirm) {
         this.registerToken({
           name: this.name,
           email: this.email,
           password: this.password,
         })
-          .then(() => {this.$router.push({ name: "Home" }); this.$Progress.finish();})
+          .then(() => {
+            this.$router.push({ name: "Home" });
+            this.$Progress.finish();
+          })
           .catch((error) => {
-            error.status === 422 ? (this.validEmail = false) : console.log('Ошибка', error)
+            error.status === 422
+              ? (this.validEmail = false)
+              : console.log("Ошибка", error);
             this.$Progress.fail();
           });
       } else this.$Progress.fail();

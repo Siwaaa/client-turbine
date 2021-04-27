@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center min-h-screen sm:px-4 py-8 bg-gray-50">
     <header class="mt-10">
-      <a href="http://" class="uppercase font-bold">
+      <a href="https://client-turbine.ru" class="uppercase font-bold">
         <!-- <img src="@/assets/logo.png" alt="" class="h-10"> -->
         Client Turbine
       </a>

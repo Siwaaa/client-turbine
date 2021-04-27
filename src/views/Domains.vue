@@ -6,7 +6,7 @@
       <h1 id="title" class="text-2xl font-normal">Домены</h1>
       <span class="text-sm text-gray-600"
         >Процедура подключения домена непростая, но необходимая операция. Без
-        нее не получится использовать конверсионные стратегии от facebook</span
+        нее не получится использовать конверсионные стратегии от facebook на устройствах с ios 14</span
       >
     </header>
     <main>
@@ -167,9 +167,8 @@
                 А, АААА, CNAME.
               </p>
               <br />
-              Для доменов первого уровня:
               <label class="relative block w-64 text-sm">
-                <span class="text-xs text-gray-600">Создайте А-запись</span>
+                <span class="text-xs text-gray-600">IP для А-записи</span>
                 <input
                   v-model="ip"
                   type="text"
@@ -186,34 +185,16 @@
                   Скопировать
                 </button>
               </label>
-              <p class="text-xs text-gray-600">
+              <p class="mt-2 text-xs text-gray-600">
+                <span class="font-medium">Для доменов первого уровня:</span> 
+                <br>
                 Поле 'subdomain' оставляем пустым или добавляем символ '@'
                 (зависит от регистратора)
               </p>
-              <br />
-              Для поддоменов:
-              <label class="relative block w-64 text-sm">
-                <span class="text-xs text-gray-600">Создайте CNAME-запись</span>
-                <input
-                  v-model="cname"
-                  type="text"
-                  required
-                  readonly
-                  maxlength="20"
-                  class="block w-full mt-1 text-sm focus:outline-none form-input"
-                />
-                <button
-                  type="button"
-                  @click="copyLinkPage(cname)"
-                  class="absolute bottom-0 right-0 btn btn-save"
-                >
-                  Скопировать
-                </button>
-              </label>
-              <p class="text-xs text-gray-600">
-                Обязательное условие: наличие A-записей на основном домене. Если
-                их нет, то вместо CNAME записи создайте A-запись, указав
-                поддомен в поле 'subdomain'
+              <p class="mt-2 text-xs text-gray-600">
+                <span class="font-medium">Для поддоменов:</span> 
+                <br>
+                В поле 'subdomain' добавляем поддомен
               </p>
             </li>
             <li></li>
@@ -275,7 +256,7 @@
             соединение было безопасным. <br />
             <br />
             Обычно сайт по адресу привязанного домена становится доступен через
-            15 минут. Но может потребовать до 24 часов. Если сайт долгое время
+            15 минут. Но может потребоваться до 24 часов. Если сайт долгое время
             недоступен, Вы можете написать нам в поддержку
           </p>
           <button type="button" @click="closeModal" class="mt-2 btn btn-save">
@@ -301,7 +282,7 @@ export default {
   data() {
     return {
       ip: "194.67.78.5",
-      cname: "clturbine.site",
+      // cname: "clturbine.site",
       domain: "",
       // modal
       isModalOpen: false,

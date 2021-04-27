@@ -5,6 +5,7 @@ import store from './store'
 import './assets/css/index.css'
 import VueProgressBar from 'vue-progressbar'
 import vClickOutside from 'v-click-outside'
+import VueYandexMetrika from 'vue-yandex-metrika' 
 
 
 const options = {
@@ -19,6 +20,16 @@ const options = {
   autoRevert: true,
 }
 
+Vue.use(VueYandexMetrika, {
+  id: 76507261,
+  router: router,
+  env: process.env.NODE_ENV,
+  // other options
+  сlickmap:true,
+  trackLinks:true,
+  accurateTrackBounce:true,
+  webvisor:true
+})
 Vue.use(VueProgressBar, options)
 Vue.use(vClickOutside)
 

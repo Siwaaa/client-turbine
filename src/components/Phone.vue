@@ -7,15 +7,13 @@
       <div
         class="strelki z-10 absolute -top-11 w-full h-12 px-3 rounded-t-xl bg-gray-800 flex items-center justify-between"
       >
-        <div class="cicles flex ">
+        <div class="cicles flex">
           <div class="one"></div>
           <div class="one"></div>
           <div class="one"></div>
         </div>
         <div class="curent_name text-white">
-          <span v-if="slide == 1">
-            Приветствие
-          </span>
+          <span v-if="slide == 1"> Приветствие </span>
           <span v-if="slide == 2">Проверка</span>
           <span v-if="slide == 3">Успех</span>
         </div>
@@ -74,6 +72,11 @@
           <div class="decription">
             <p style="white-space: pre-wrap">{{ phoneProps.description_ad }}</p>
           </div>
+          <Timer
+            v-if="phoneProps.timer"
+            :timer_text="phoneProps.timer_text"
+            :timer_sec="Number(phoneProps.timer_sec)"
+          ></Timer>
           <button
             class="btn-color inline-block mx-auto my-6 px-4 py-2 font-medium transition-all duration-300 rounded-lg focus:outline-none"
           >
@@ -161,12 +164,12 @@
               Подпишись на мой инстаграм и ссылка для скачивания материалов
               станет доступна
             </h2>
-            <a
-              href="#"
+            <button
+              type="button"
               class="btn-color inline-block w-full mt-6 px-4 py-2 font-medium transition-colors duration-150 rounded-lg focus:outline-none"
             >
               Подписаться
-            </a>
+            </button>
             <button
               @click.prevent="checkFirstScreen = true"
               type="button"
@@ -236,8 +239,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Timer from "./Timer.vue";
 
 export default {
+  components: { Timer },
   name: "Phone",
   props: {
     phoneProps: {
