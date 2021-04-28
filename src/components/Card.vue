@@ -107,10 +107,10 @@
             <div class="hover:bg-gray-200 cursor-pointer">
               <button
                 type="button"
-                @click="copyLink"
+                @click="copyLink(linkToPage)"
                 class="inline-block px-4 py-2 focus:outline-none"
               >
-                <span :data-urlcopy="linkToPage">Скопировать ссылку</span>
+                <span >Скопировать ссылку</span>
               </button>
             </div>
           </div>
@@ -188,9 +188,9 @@ export default {
     pageDuplicate() {
       this.$emit("duplicatePage", this.pageProps.id);
     },
-    copyLink(event) {
-      console.log(event.target.dataset.urlcopy);
-      this.$emit("copyLinkPage", event.target.dataset.urlcopy)
+    copyLink(url) {
+      console.log(url);
+      this.$emit("copyLinkPage", url)
     },
     openModal() {
       this.isOpen = true;

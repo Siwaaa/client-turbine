@@ -81,7 +81,6 @@ export default {
         // POST для фикс бага от php, который не давал получать $request
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         },
