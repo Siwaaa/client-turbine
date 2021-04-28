@@ -40,19 +40,25 @@ export default {
         })
     },
     async API_ADD_PAGE(ctx, data) {
+        console.log(data.get('img_cover'), data.get('data'));
         // переменная для дубликата страницы (содержит только объект значений без файла картинки)
         const duplicateData = JSON.stringify({data: data.get("data")})
         // обработчик для vuex
         const hadlerData = JSON.parse(data.get("data"))
 
+        const currentData = data.get('img_cover') ? data : duplicateData
+        const headers = {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+        }
+        if (!data.get('img_cover')) {
+          headers['Content-Type'] = 'application/json'
+        }
+
         await fetch(`${this.state.urlAPI}/api/pages`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-          },
-          body: data.get("img_cover") ? data : duplicateData
+          headers: headers,
+          body: currentData,
         }).then(() => ctx.commit('addPage', hadlerData))
         .catch (error => {
           alert("Ошибка создания страницы")
@@ -75,6 +81,7 @@ export default {
         // POST для фикс бага от php, который не давал получать $request
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         },
