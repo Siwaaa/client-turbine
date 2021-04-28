@@ -677,7 +677,7 @@ export default {
   },
   mounted() {
     this.API_GET_TEMPLATES();
-    this.API_GET_DOMAINS();
+    this.API_GET_DOMAINS().catch((err) => err.status == 401 ? this.$router.push({ name: "Login" }) : false);
   },
 };
 </script>

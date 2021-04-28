@@ -14,6 +14,7 @@ export default {
     async API_GET_DOMAINS(ctx) {
       await fetch(`${this.state.urlAPI}/api/domains`, {
         headers: {
+          'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         }
       }).then((response) => response.ok ? response.json() : Promise.reject(response))
@@ -24,6 +25,16 @@ export default {
           }
         }).catch((error) => {
           alert('Ошибка загрузки доменов')
+          if (error.status == 401) {
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('name_user')
+            localStorage.removeItem('email_user')
+            localStorage.removeItem('created_at_user')
+
+            localStorage.removeItem('pages_arr')
+            ctx.commit('destroyTokenAndName')
+            ctx.commit('destroyPages')
+          }
           throw error
         })
     },
@@ -38,6 +49,16 @@ export default {
         body: JSON.stringify(data)
       }).then((res) => res.ok ? ctx.dispatch('API_GET_DOMAINS', data) : Promise.reject(res))
         .catch((error) => {
+          if (error.status == 401) {
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('name_user')
+            localStorage.removeItem('email_user')
+            localStorage.removeItem('created_at_user')
+
+            localStorage.removeItem('pages_arr')
+            ctx.commit('destroyTokenAndName')
+            ctx.commit('destroyPages')
+          }
           throw error
         })
 
@@ -46,10 +67,21 @@ export default {
       await fetch(`${this.state.urlAPI}/api/domains/${id}`, {
         method: 'PATCH',
         headers: {
+          'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         }
       }).then((res) => res.ok ? ctx.dispatch('API_GET_DOMAINS') : Promise.reject(res))
         .catch((error) => {
+          if (error.status == 401) {
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('name_user')
+            localStorage.removeItem('email_user')
+            localStorage.removeItem('created_at_user')
+
+            localStorage.removeItem('pages_arr')
+            ctx.commit('destroyTokenAndName')
+            ctx.commit('destroyPages')
+          }
           throw error
         })
     },
@@ -57,11 +89,22 @@ export default {
       await fetch(`${this.state.urlAPI}/api/domains/${id}`, {
         method: 'DELETE',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         },
       }).then((res) => res.ok ? ctx.dispatch('API_GET_DOMAINS') : Promise.reject(res))
         .catch((error) => {
+          if (error.status == 401) {
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('name_user')
+            localStorage.removeItem('email_user')
+            localStorage.removeItem('created_at_user')
+
+            localStorage.removeItem('pages_arr')
+            ctx.commit('destroyTokenAndName')
+            ctx.commit('destroyPages')
+          }
           throw error
         })
     },

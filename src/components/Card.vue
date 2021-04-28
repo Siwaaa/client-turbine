@@ -51,7 +51,7 @@
         </svg>
       </button>
       <!-- Modal -->
-      <transition name="fade">
+      
         <div
           v-if="isOpen"
           v-click-outside="onClickOutside"
@@ -126,7 +126,7 @@
             </div>
           </div>
         </div>
-      </transition>
+     
     </div>
   </div>
 </template>
@@ -189,6 +189,7 @@ export default {
       this.$emit("duplicatePage", this.pageProps.id);
     },
     copyLink(event) {
+      console.log(event.target.dataset.urlcopy);
       this.$emit("copyLinkPage", event.target.dataset.urlcopy)
     },
     openModal() {

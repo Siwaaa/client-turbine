@@ -135,6 +135,8 @@ export default {
           template_id: pageObj.template_id,
           btn_ad: pageObj.btn_ad,
           timer: pageObj.timer,
+          timer_text: pageObj.timer_text,
+          timer_sec:pageObj.timer_sec,
           fb_pixel: pageObj.fb_pixel,
           title_success: pageObj.title_success,
           description_success: pageObj.description_success,
@@ -169,7 +171,7 @@ export default {
     },
   },
   mounted() {
-    this.API_GET_PAGES()
+    this.API_GET_PAGES().catch((err) => err.status == 401 ? this.$router.push({ name: "Login" }) : false)
     this.API_GET_DOMAINS()
   },
 };

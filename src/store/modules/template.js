@@ -9,17 +9,32 @@ export default {
   },
   actions: {
     async API_GET_TEMPLATES(ctx) {
-      let res = await fetch(`${this.state.urlAPI}/api/templates`, {
+      await fetch(`${this.state.urlAPI}/api/templates`, {
         method: 'GET',
         headers: {
+          'Accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
         }
-      })
+      }).then((response) => response.ok ? response.json() : Promise.reject(response))
+        .then((json) => {
+          const template = json.data
+          if (template) {
+            ctx.commit('updateTemplateAll', template)
+          }
+        }).catch(error => {
+          alert('Данные с сервера не получены')
+          if (error.status == 401) {
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('name_user')
+            localStorage.removeItem('email_user')
+            localStorage.removeItem('created_at_user')
 
-      const template = (await res.json()).data
-      if (template) {
-        ctx.commit('updateTemplateAll', template)
-      }
+            localStorage.removeItem('pages_arr')
+            ctx.commit('destroyTokenAndName')
+            ctx.commit('destroyPages')
+          }
+          throw error
+        })
     },
 
   },
