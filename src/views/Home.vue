@@ -114,7 +114,7 @@ export default {
           this.confirmDeletion = false;
           this.textDeleting = 'Да, удалить'
           // отображаем noti
-          this.notiItems.unshift({text: 'Страница удалена', id: Date.now()})
+          this.notiItems.unshift({text: 'Страница удалена', type: 'success', id: Date.now()})
         });
         
       }
@@ -152,7 +152,7 @@ export default {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          this.notiItems.unshift({text: 'Ссылка скопирована', id: Date.now()})
+          this.notiItems.unshift({text: 'Ссылка скопирована', type: 'success', id: Date.now()})
         })
         .catch((err) => {
           console.log("Ошибка копирования ссылки", err);

@@ -90,6 +90,7 @@
                     <button
                       @click="updateDomain(domain.id)"
                       type="button"
+                      title="Обновить статус"
                       class="mr-2 rounded focus:outline-none active:bg-gray-200"
                     >
                       <svg
@@ -109,6 +110,7 @@
                     <button
                       @click="deleteDomain(domain.id)"
                       type="button"
+                      title="Удалить домен"
                       class="rounded focus:outline-none active:bg-gray-200"
                     >
                       <svg
@@ -370,7 +372,7 @@ export default {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          this.notiItems.unshift({ text: "Скопировано", id: Date.now() });
+          this.notiItems.unshift({ text: "Скопировано", type: 'success', id: Date.now() });
         })
         .catch((err) => {
           console.log("Ошибка копирования ссылки", err);

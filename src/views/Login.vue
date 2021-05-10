@@ -82,6 +82,7 @@ export default {
           if (error.status == 401) {
             this.notiItems.unshift({
               text: "Неверный логин или пароль",
+              type: 'error',
               id: Date.now(),
             });
           }

@@ -2,12 +2,13 @@
   <div class="fixed z-50 left-0 top-1 w-full flex justify-center">
     <transition-group name="slide" tag="div" class="flex flex-col space-y-2">
       <div
-        class="container sm:w-96 w-full h-full bg-black bg-opacity-90 text-white rounded-md p-3 flex justify-between items-center"
+        class="container sm:w-96 w-full h-full bg-black bg-opacity-90 text-sm text-white rounded-md p-3 flex justify-between items-center"
         role="alert"
         v-for="(message, index) in notiProps"
         :key="message.id"
       >
-        <span class="text-sm">{{ message.text }}</span>
+        <span>{{ typeMessage(index) }}</span>
+        <span>{{ message.text }}</span>
         <button
           type="button"
           @click="close(index)"
@@ -43,6 +44,9 @@ export default {
       },
     },
   },
+  computed: {
+   
+  },
   methods: {
     close(index) {
       this.$emit("close", index);
@@ -53,6 +57,18 @@ export default {
           ? this.notiProps.splice(this.notiProps.length - 1, 1)
           : false;
       }, 4000);
+    },
+     typeMessage(index) {
+      switch (this.notiProps[index].type) {
+        case 'success':
+          return "👍"
+        case 'warning':
+          return '⚠️'
+        case 'error':
+          return '💔'
+        default:
+          return ''
+      }
     },
   },
   watch: {

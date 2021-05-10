@@ -40,7 +40,6 @@ export default {
         })
     },
     async API_ADD_PAGE(ctx, data) {
-        console.log(data.get('img_cover'), data.get('data'));
         // переменная для дубликата страницы (содержит только объект значений без файла картинки)
         const duplicateData = JSON.stringify({data: data.get("data")})
         // обработчик для vuex

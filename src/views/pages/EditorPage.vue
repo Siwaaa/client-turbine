@@ -594,6 +594,7 @@ export default {
       ) {
         this.notiItems.unshift({
           text: "Упсс... Не все поля со звездочкой заполнены",
+          type: 'error',
           id: Date.now(),
         });
         return false;

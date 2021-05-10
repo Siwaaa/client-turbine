@@ -333,9 +333,9 @@
                       >
                         Текст
                       </h4>
-                      <button class="btn-color mt-2 p-1 rounded text-xs">
+                      <span class="btn-color mt-2 p-1 rounded text-xs">
                         Кнопка
-                      </button>
+                      </span>
                     </div>
                     <div
                       class="footer-card h-1/4 flex items-center px-2 border-t text-gray-400 bg-opacity-75"
@@ -495,7 +495,7 @@ export default {
         title_success: "Спасибо за подписку",
         description_success: "Жми на кнопку, чтобы забрать приз",
         btn_success: "Получить материал",
-        link_download: "",
+        link_download: "https://t.me/clturbine",
       },
       urlAPI: process.env.VUE_APP_ROOT_API,
       // переменные валидации
@@ -592,6 +592,7 @@ export default {
       ) {
         this.notiItems.unshift({
           text: "Упсс... Не все поля со звездочкой заполнены",
+          type: 'error',
           id: Date.now(),
         });
         return false;
