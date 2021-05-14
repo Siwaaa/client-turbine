@@ -5,6 +5,7 @@
         class="cont md:block md:w-10 md:shadow-none md:mx-auto md:pt-6 flex shadow"
       >
         <router-link
+          title="Редактирование текстов"
           :to="{ name: 'CreaterPage' }"
           class="btn-edit hover:bg-gray-300"
           exact
@@ -21,6 +22,7 @@
           </svg>
         </router-link>
         <router-link
+          title="Дизайн-шаблон"
           :to="{ name: 'CreaterPage', hash: '#design' }"
           class="btn-edit hover:bg-gray-300"
           active-class="bg-gray-200"
@@ -42,6 +44,7 @@
           </svg>
         </router-link>
         <router-link
+          title="Настройки"
           :to="{ name: 'CreaterPage', hash: '#settings' }"
           class="btn-edit hover:bg-gray-300"
           active-class="bg-gray-200"
@@ -199,14 +202,13 @@
                             placeholder="Материал станет недоступен"
                           />
                           <span class="text-gray-700"
-                            >Таймер в секундах <span class="text-red-800"
-                              >*</span
-                            ></span
+                            >Таймер в секундах
+                            <span class="text-red-800">*</span></span
                           >
                           <input
                             v-model="page.timer_sec"
                             type="number"
-                            min="1" 
+                            min="1"
                             step="1"
                             required
                             class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
@@ -375,6 +377,8 @@
                   <span class="text-gray-700"
                     >Ник в Instagram <span class="text-red-800">*</span></span
                   >
+                  <br />
+                  <span class="text-xs text-gray-500">Avatar и bio подгрузятся автоматически</span>
                   <div class="relative flex mt-1">
                     <span
                       class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
@@ -592,7 +596,7 @@ export default {
       ) {
         this.notiItems.unshift({
           text: "Упсс... Не все поля со звездочкой заполнены",
-          type: 'error',
+          type: "error",
           id: Date.now(),
         });
         return false;
@@ -628,7 +632,9 @@ export default {
   },
   mounted() {
     this.API_GET_TEMPLATES();
-    this.API_GET_DOMAINS().catch((err) => err.status == 401 ? this.$router.push({ name: "Login" }) : false);
+    this.API_GET_DOMAINS().catch((err) =>
+      err.status == 401 ? this.$router.push({ name: "Login" }) : false
+    );
   },
 };
 </script>

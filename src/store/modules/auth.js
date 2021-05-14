@@ -120,7 +120,42 @@ export default {
       }).catch((error) => console.log(error))
 
     },
-
+    // Facebook Auth
+    async GO_FACEBOOK(ctx, data) {
+      await fetch(`${this.state.urlAPI}/api/social-auth/facebook`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then((response) => response.ok ? response.json() : Promise.reject(response))
+        .then((result) => {
+          const token = result.token
+          if (token) {
+            localStorage.setItem('access_token', token)
+            ctx.commit('tokenUpdate', token)
+          }
+          const name = result.name
+          if (name) {
+            localStorage.setItem('name_user', name)
+            ctx.commit('nameUpdate', name)
+          }
+          const email = result.email
+          if (email) {
+            localStorage.setItem('email_user', email)
+            ctx.commit('emailUpdate', email)
+          }
+          const created_at = result.created_at
+          if (created_at) {
+            localStorage.setItem('created_at_user', created_at)
+            ctx.commit('createdUpdate', created_at)
+          }
+        })
+        .catch((error) => {
+          throw error
+        })
+    },
     //USER 
     async updateNameAndEmail(ctx, data) {
       await fetch(`${this.state.urlAPI}/api/user/id`, {

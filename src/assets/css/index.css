@@ -197,5 +197,24 @@ body::-webkit-scrollbar-button {
   opacity: 0;
 }
 
-
-
+.facebook_login {
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 30px 0px;
+}
+.facebook_login::before {
+  content: "ИЛИ";
+  position: absolute;
+  background: rgb(250, 250, 250);
+  padding: 0px 5px;
+  color: rgb(137, 137, 137);
+}
+.facebook_login::after {
+  content: "";
+  width: 100%;
+  border-top: 1px solid rgb(232, 232, 232);
+}

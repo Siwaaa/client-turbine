@@ -1,5 +1,17 @@
 <template>
-  <form @submit.prevent="login" class="w-60">
+  <form @submit.prevent="login" class="w-64">
+    <div
+      class="fixed z-30 w-full top-0 right-0 flex justify-end items-center p-2 bg-gray-50 text-sm text-gray-700"
+    >
+      <span class="mr-3">У вас еще нет учетной записи?</span>
+      <router-link
+        :to="{ name: 'Register' }"
+        class="btn"
+        style="border-color: black"
+      >
+        Создать
+      </router-link>
+    </div>
     <h1
       class="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200"
     >
@@ -24,27 +36,19 @@
         type="password"
         required
       />
+      <!-- <router-link
+        class="text-xs text-gray-500 font-medium underline hover:text-gray-900"
+        :to="{ name: 'Register' }"
+      >
+        Забыли пароль?
+      </router-link> -->
     </label>
 
     <!-- You should use a button here, as the anchor is only used for the example  -->
     <button type="submit" class="btn btn-save w-full mt-6">Войти</button>
+    <div class="facebook_login"></div>
+    <AuthFacebookBtn />
 
-    <p class="mt-4">
-      <router-link
-        class="text-sm text-gray-500 font-medium underline hover:text-gray-900"
-        :to="{ name: 'Register' }"
-      >
-        Забыли пароль?
-      </router-link>
-    </p>
-    <p class="mt-1">
-      <router-link
-        class="text-sm text-gray-500 font-medium underline hover:text-gray-900"
-        :to="{ name: 'Register' }"
-      >
-        Создать аккаунт
-      </router-link>
-    </p>
     <Notification :notiProps="notiItems" @close="closeNotification">
     </Notification>
   </form>
@@ -53,9 +57,10 @@
 <script>
 import { mapActions } from "vuex";
 import Notification from "@/components/Notification.vue";
+import AuthFacebookBtn from "@/components/AuthFacebookBtn.vue";
 
 export default {
-  components: { Notification },
+  components: { Notification, AuthFacebookBtn },
   name: "Login",
   data() {
     return {
@@ -66,7 +71,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getToken"]),
+    ...mapActions(["getToken", "GO_FACEBOOK"]),
     closeNotification(index) {
       this.notiItems.splice(index, 1);
     },
@@ -82,7 +87,7 @@ export default {
           if (error.status == 401) {
             this.notiItems.unshift({
               text: "Неверный логин или пароль",
-              type: 'error',
+              type: "error",
               id: Date.now(),
             });
           }

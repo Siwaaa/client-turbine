@@ -1,5 +1,17 @@
 <template>
-  <form @submit.prevent="register" class="w-60">
+  <form @submit.prevent="register" class="w-72">
+    <div
+      class="fixed z-30 w-full top-0 right-0 flex justify-end items-center p-2 bg-gray-50 text-sm text-gray-700"
+    >
+      <span class="mr-3">Уже есть аккаунт?</span>
+      <router-link
+        :to="{ name: 'Login' }"
+        class="btn"
+        style="border-color: black"
+      >
+        Войти
+      </router-link>
+    </div>
     <h1 class="mb-4 text-xl text-center font-semibold text-gray-700">
       Регистрация
     </h1>
@@ -19,9 +31,7 @@
         maxlength="12"
         class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
       />
-      <span v-if="!validCode" class="text-xs text-red-600">
-        Неверный код
-      </span>
+      <span v-if="!validCode" class="text-xs text-red-600"> Неверный код </span>
     </label>
     <label class="block text-sm">
       <span class="text-gray-700">Имя</span>
@@ -75,30 +85,27 @@
       <label class="flex items-center">
         <span>
           Регистрируясь, Вы принимаете
-          <router-link to="#" class="underline">политику конфиденциальности</router-link>
+          <router-link to="#" class="underline"
+            >политику конфиденциальности</router-link
+          >
         </span>
       </label>
     </div>
     <button type="submit" class="btn btn-save w-full mt-6">Создать</button>
-
-    <p class="mt-4">
-      <router-link
-        class="text-sm font-medium text-gray-600 hover:text-gray-900 underline"
-        :to="{ name: 'Login' }"
-      >
-        Уже есть аккаунт? Войти
-      </router-link>
-    </p>
+    <div class="facebook_login"></div>
+    <AuthFacebookBtn />
   </form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import AuthFacebookBtn from "@/components/AuthFacebookBtn.vue";
 export default {
   name: "Register",
+  components: { AuthFacebookBtn },
   data() {
     return {
-      codeSuccess: '',
+      codeSuccess: "",
       name: "",
       email: "",
       password: "",
@@ -111,11 +118,16 @@ export default {
   methods: {
     ...mapActions(["registerToken"]),
     checkCode(e) {
-      e.target.value == "GROUP14" ? this.validCode = true : this.validCode = false
+      e.target.value == "GROUP14"
+        ? (this.validCode = true)
+        : (this.validCode = false);
     },
     register() {
       this.$Progress.start();
-      if (this.codeSuccess == "GROUP14" && this.password === this.password_confirm) {
+      if (
+        this.codeSuccess == "GROUP14" &&
+        this.password === this.password_confirm
+      ) {
         this.registerToken({
           name: this.name,
           email: this.email,
@@ -133,6 +145,64 @@ export default {
           });
       } else this.$Progress.fail();
     },
+    statusChangeCallback(response) {
+      if (response.status === "connected") {
+        // Logged into your webpage and Facebook.
+        alert("dsffdafd");
+      } else {
+        // Not logged into your webpage or we are unable to tell.
+        alert("a!!!!sdfsfad");
+      }
+    },
+    loadFacebookSDK(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/ru_RU/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    },
+    initFacebook() {
+      // const vm = this;
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: "140978494625223",
+          cookie: true,
+          version: "v10.0",
+        });
+        // window.FB.getLoginStatus(function (response) {
+        //   vm.statusChangeCallback(response);
+        // }, true);
+      };
+    },
+    logInWithFacebook() {
+      const vm = this;
+      window.FB.login(
+        function (response) {
+          if (response.authResponse) {
+            vm.GO_FACEBOOK({
+              accessToken: response.authResponse.accessToken,
+              user_id: response.authResponse.userID,
+            }).then(() => {
+              this.$router.push({ name: "Home" });
+            });
+          } else {
+            alert(
+              "Пользователь отменил вход в систему или не полностью авторизовался."
+            );
+          }
+        },
+        { scope: "email,public_profile", return_scopes: true }
+      );
+      return false;
+    },
+  },
+  mounted() {
+    this.loadFacebookSDK(document, "script", "facebook-jssdk");
+    this.initFacebook();
   },
 };
 </script>

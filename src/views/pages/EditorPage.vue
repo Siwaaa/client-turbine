@@ -375,6 +375,8 @@
                   <span class="text-gray-700"
                     >Ник в Instagram <span class="text-red-800">*</span></span
                   >
+                  <br />
+                  <span class="text-xs text-gray-500">Avatar и bio подгрузятся автоматически</span>
                   <div class="relative flex mt-1">
                     <span
                       class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
