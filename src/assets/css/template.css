@@ -87,3 +87,76 @@
 .template__07 .input-style {
   color: #fff;
 }
+
+.template__08 {
+  --tw-bg-opacity: 1;
+  background: linear-gradient(225deg, #fc6076, #ff9a44);
+  color: #fff;
+}
+.template__08 .btn-color, .template__08 .timeline {
+  background: white;
+  color: #787878;
+}
+.template__08 .input-style {
+  color: #fff;
+}
+.template__09 {
+  --tw-bg-opacity: 1;
+  background: rgb(195, 132, 197);
+  color: #fff;
+}
+.template__09 .btn-color, .template__09 .timeline {
+  background: white;
+  color: #787878;
+}
+.template__09 .input-style {
+  color: #fff;
+}
+.template__10 {
+  --tw-bg-opacity: 1;
+  background: rgb(125, 187, 145);
+  color: #fff;
+}
+.template__10 .btn-color, .template__10 .timeline {
+  background: white;
+  color: #787878;
+}
+.template__10 .input-style {
+  color: #fff;
+}
+.template__11 {
+  --tw-bg-opacity: 1;
+  background: rgb(64, 142, 145);
+  color: #fff;
+}
+.template__11 .btn-color, .template__11 .timeline {
+  background: white;
+  color: #787878;
+}
+.template__11 .input-style {
+  color: #fff;
+}
+.template__12 {
+  --tw-bg-opacity: 1;
+  background: rgb(203, 115, 43);
+  color: #fff;
+}
+.template__12 .btn-color, .template__12 .timeline {
+  background: white;
+  color: #787878;
+}
+.template__12 .input-style {
+  color: #fff;
+}
+.template__13 {
+  --tw-bg-opacity: 1;
+  background: rgb(241, 236, 226);
+  color: rgb(38, 38, 39);
+}
+.template__13 .btn-color, .template__13 .timeline {
+  background: rgb(38, 38, 39);
+  color: #fefefe;
+}
+.template__13 .input-style {
+  color: #fff;
+}
