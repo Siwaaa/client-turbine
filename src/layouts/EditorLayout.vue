@@ -38,13 +38,18 @@
     <main class="overflow-hidden" style="height: calc(100vh - 3rem)">
       <router-view />
     </main>
+    <!-- SUPPORT -->
+    <SupportBtn></SupportBtn>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import SupportBtn from '@/components/SupportBtn.vue';
+
 export default {
   name: "EditorLayout",
+  components: { SupportBtn },
   computed: {
     ...mapGetters(["name"]),
   },

@@ -15,24 +15,6 @@
     <h1 class="mb-4 text-xl text-center font-semibold text-gray-700">
       Регистрация
     </h1>
-    <p class="text-xs text-gray-600">
-      Сервис на стадии тестирования. Если Вы хотите присоединиться к
-      тестированию, напишите нам в
-      <a href="https://t.me/aaawis" target="_blank" class="underline"
-        >telegram</a
-      >
-    </p>
-    <label class="block mb-4 text-sm">
-      <span class="text-gray-700">Код доступа</span>
-      <input
-        v-model="codeSuccess"
-        @change="checkCode"
-        required
-        maxlength="12"
-        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
-      />
-      <span v-if="!validCode" class="text-xs text-red-600"> Неверный код </span>
-    </label>
     <label class="block text-sm">
       <span class="text-gray-700">Имя</span>
       <input
@@ -112,7 +94,6 @@ export default {
       password_confirm: "",
       // переменные валидации
       validEmail: true,
-      validCode: true,
     };
   },
   methods: {
@@ -124,10 +105,7 @@ export default {
     },
     register() {
       this.$Progress.start();
-      if (
-        this.codeSuccess == "GROUP14" &&
-        this.password === this.password_confirm
-      ) {
+      if (this.password === this.password_confirm) {
         this.registerToken({
           name: this.name,
           email: this.email,

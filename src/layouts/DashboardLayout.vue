@@ -136,10 +136,7 @@
       v-show="isSideMenuOpen"
     >
       <div class="py-4 text-gray-500">
-        <router-link
-          class="ml-6 text-lg font-bold text-gray-800"
-          to="/"
-        >
+        <router-link class="ml-6 text-lg font-bold text-gray-800" to="/">
           Client Turbine
         </router-link>
         <ul>
@@ -300,14 +297,18 @@
         </div>
       </main>
     </div>
+    <!-- SUPPORT -->
+    <SupportBtn></SupportBtn>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import SupportBtn from '@/components/SupportBtn.vue';
 
 export default {
   name: "DashboardLayout",
+  components: { SupportBtn },
   data() {
     return {
       isModalOpen: false,

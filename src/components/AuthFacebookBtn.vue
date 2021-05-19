@@ -45,7 +45,7 @@ export default {
     ...mapActions(["GO_FACEBOOK"]),
     statusChangeCallback(response) {
       if (response.status === "connected") {
-        alert("logged fb");
+        alert(response.authResponse.accessToken);
       } else {
         alert("not logged fb");
       }
@@ -80,7 +80,7 @@ export default {
         function (response) {
           if (response.authResponse) {
             vm.GO_FACEBOOK({
-              accessToken: response.authResponse.accessToken,
+              access_token: response.authResponse.accessToken,
               user_id: response.authResponse.userID,
             }).then(() => {
               vm.$router.push({ name: "Home" });
@@ -93,7 +93,6 @@ export default {
         },
         { scope: "email,public_profile", return_scopes: true }
       );
-      return false;
     },
   },
   mounted() {
