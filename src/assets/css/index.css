@@ -166,15 +166,6 @@ body::-webkit-scrollbar-button {
 }
 
 
-.size {
-  max-height: calc(100vw / 16 * 9 / 2);
-}
-@media (max-width: 640px) {
-  .size {
-    max-height: calc(100vw / 16 * 9);
-  }
-}
-
 .slide-leave-active, .slide-enter-active {
   transition: all 0.4s cubic-bezier(0.45, 0.25, 0.60, 0.95);
 }

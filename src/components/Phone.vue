@@ -185,7 +185,7 @@
             class="input-container w-full mt-4 text-center"
           >
             <h2 class="font-bold text-xl leading-5">
-              Введите ваш логин инстаграма для проверки подписки:
+              Введите первые буквы вашего логина Instagram
             </h2>
             <input
               type="text"
@@ -291,5 +291,8 @@ export default {
 }
 .one {
   @apply w-2 h-2 rounded-full bg-white mr-3;
+}
+.size {
+  max-height: 210px;
 }
 </style>
