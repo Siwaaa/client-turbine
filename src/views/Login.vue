@@ -13,12 +13,12 @@
       </router-link>
     </div>
     <h1
-      class="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200"
+      class="mb-4 text-xl text-center font-semibold text-gray-700"
     >
       Вход
     </h1>
     <label class="block text-sm">
-      <span class="text-gray-700 dark:text-gray-400">Email</span>
+      <span class="text-gray-700">Email</span>
       <input
         v-model="email"
         type="email"
@@ -28,7 +28,7 @@
       />
     </label>
     <label class="block mt-4 text-sm">
-      <span class="text-gray-700 dark:text-gray-400">Пароль</span>
+      <span class="text-gray-700">Пароль</span>
       <input
         v-model="password"
         class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
@@ -36,12 +36,12 @@
         type="password"
         required
       />
-      <!-- <router-link
+      <router-link
         class="text-xs text-gray-500 font-medium underline hover:text-gray-900"
-        :to="{ name: 'Register' }"
+        :to="{ name: 'Reset' }"
       >
         Забыли пароль?
-      </router-link> -->
+      </router-link>
     </label>
 
     <!-- You should use a button here, as the anchor is only used for the example  -->

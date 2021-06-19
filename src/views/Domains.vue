@@ -14,12 +14,13 @@
         class="flex justify-between items-center mb-4 text-lg font-medium text-gray-600"
       >
         Подключение
-        <button
-          type="button"
+        <a
+          href="https://www.notion.so/ff684025c8bd4111be2ca65ff5e23231"
+          target="_blank"
           class="flex items-center text-sm underline hover:text-black transition duration-300 ease-in focus:outline-none"
         >
           Инструкция
-        </button>
+        </a>
       </h4>
 
       <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
@@ -132,103 +133,12 @@
               </tbody>
             </table>
             <div
-              v-if="!allDomains.length"
+              v-if="!allDomains"
               class="w-full h-10 flex justify-center items-center text-gray-400"
             >
               Нет подключенных доменов
             </div>
           </div>
-        </div>
-      </div>
-      <div id="tutorial" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-        <h2>Подключение домена</h2>
-        <div class="text-sm text-gray-800 pb-4">
-          <h3 class="text-black text-base font-medium">
-            Первый этап. Привязка домена к нашему серверу
-          </h3>
-          <span class="text-xs text-gray-600"
-            >Если у вас нет доменного имени, то можете зарегистрировать его в
-            <a
-              href="https://www.reg.ru/domain/new/?rlink=reflink-6539197"
-              target="_blank"
-              class="underline"
-              >REG.RU</a
-            >
-          </span>
-          <ul class="my-2 ml-4">
-            <li>
-              1. Перейдите в раздел с доменами в личном кабинете вашего
-              регистратора и выберите редактирование DNS записей (ресурсные
-              записи).
-            </li>
-            <li>
-              2. Добавьте новые записи
-              <br />
-              <p class="text-xs text-gray-600">
-                Для привязки основного домена необходимо сначала удалить записи:
-                А, АААА, CNAME.
-              </p>
-              <br />
-              <label class="relative block w-64 text-sm">
-                <span class="text-xs text-gray-600">IP для А-записи</span>
-                <input
-                  v-model="ip"
-                  type="text"
-                  required
-                  readonly
-                  maxlength="20"
-                  class="block w-full mt-1 text-sm focus:outline-none form-input"
-                />
-                <button
-                  type="button"
-                  @click="copyLinkPage(ip)"
-                  class="absolute bottom-0 right-0 btn btn-save"
-                >
-                  Скопировать
-                </button>
-              </label>
-              <p class="mt-2 text-xs text-gray-600">
-                <span class="font-medium">Для доменов первого уровня:</span> 
-                <br>
-                Поле 'subdomain' оставляем пустым или добавляем символ '@'
-                (зависит от регистратора)
-              </p>
-              <p class="mt-2 text-xs text-gray-600">
-                <span class="font-medium">Для поддоменов:</span> 
-                <br>
-                В поле 'subdomain' добавляем поддомен
-              </p>
-            </li>
-            <li></li>
-            <li></li>
-          </ul>
-          <h3 class="text-black text-base font-medium">
-            Второй этап. Подтверждение домена для Facebook
-          </h3>
-          <span class="text-xs"
-            >Добавьте текстовую запись TXT в хост вашего домена, чтобы
-            подтвердить, что домен принадлежит вам.</span
-          >
-          <ul class="mt-2 ml-4">
-            <li>
-              1. Перейдите в раздел "Подтверждени DNS" аккаунта Facebook:
-              "Настройки" -> "Безопасность бренда" -> "Домены"
-            </li>
-            <li>
-              2. Добавьте домен или поддомен. После перейдите во вкладку
-              "Подтверждение DNS". Скопируйте текстовую запись.
-            </li>
-            <li>
-              3. В личном кабинете регистратора в разделе редактирования DNS
-              записей создайте запись TXT и вставьте скопированный текст.
-              Добавьте @ в поле 'subdomain', если это является обязательным
-              требованием
-            </li>
-            <li class="text-xs text-gray-600">
-              Примечание: Как правило, это изменение занимает всего несколько
-              минут, однако бывают случаи, когда оно может занять до 72 часов.
-            </li>
-          </ul>
         </div>
       </div>
     </main>

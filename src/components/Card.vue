@@ -35,7 +35,7 @@
       class="footer-card relative px-4 py-3 border-t text-gray-400 bg-opacity-75 flex flex-wrap"
     >
       <span
-        ><span class="text-gray-800 font-semibold">{{ ctr }}%</span> CTR</span
+        ><span class="text-gray-800 font-semibold">{{ ctr }}%</span> CR</span
       >
       <button
         @click="openModal"
@@ -174,9 +174,9 @@ export default {
     },
     ctr() {
       if (this.pageProps.count_podpis && this.pageProps.count_prosmotr) {
-        return (
+        return ((
           this.pageProps.count_podpis / this.pageProps.count_prosmotr
-        ).toFixed(2);
+        )*100).toFixed(1);
       } else return 0;
     },
   },

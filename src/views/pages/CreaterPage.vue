@@ -184,6 +184,20 @@
                       </label>
                     </label>
                     <label class="block mt-4 text-sm">
+                      <span class="text-gray-700"
+                        >Текст на кнопке
+                        <span class="text-red-800">*</span></span
+                      >
+                      <input
+                        v-model="page.btn_ad"
+                        type="text"
+                        required
+                        maxlength="32"
+                        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
+                        placeholder="Получить материал"
+                      />
+                    </label>
+                    <label class="block mt-4 text-sm">
                       <header class="mb-4 flex justify-between items-center">
                         <span class="text-gray-700">Таймер</span>
                         <switch-comp v-model="page.timer"></switch-comp>
@@ -217,20 +231,6 @@
                           />
                         </section>
                       </transition>
-                    </label>
-                    <label class="block mt-4 text-sm">
-                      <span class="text-gray-700"
-                        >Текст на кнопке
-                        <span class="text-red-800">*</span></span
-                      >
-                      <input
-                        v-model="page.btn_ad"
-                        type="text"
-                        required
-                        maxlength="32"
-                        class="form-input block w-full mt-1 text-sm focus:border-black focus:outline-none"
-                        placeholder="Получить материал"
-                      />
                     </label>
                   </div>
                 </div>

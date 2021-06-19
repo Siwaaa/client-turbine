@@ -36,6 +36,24 @@ const routes = [
     component: () => import('@/views/Register.vue')
   },
   {
+    path: '/password-reset',
+    name: 'Reset',
+    meta: {
+      layout: 'login',
+      requiresVisitor: true
+    },
+    component: () => import('@/views/PasswordReset.vue')
+  },
+  {
+    path: '/password-set',
+    name: 'PasswordSet',
+    meta: {
+      layout: 'login',
+      requiresVisitor: true
+    },
+    component: () => import('@/views/PasswordSet.vue')
+  },
+  {
     path: '/page/create',
     name: 'CreaterPage',
     meta: {

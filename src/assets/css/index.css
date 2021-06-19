@@ -164,7 +164,15 @@ body::-webkit-scrollbar-button {
 .color-accent:active {
   color: #01516a;
 }
-
+.bg-main {
+  background-color: rgb(4, 135, 175); 
+}
+.bg-main:hover {
+  background-color: rgb(4, 124, 160); 
+}
+.bg-main:active {
+  background-color: rgb(4, 108, 140); 
+}
 
 .slide-leave-active, .slide-enter-active {
   transition: all 0.4s cubic-bezier(0.45, 0.25, 0.60, 0.95);

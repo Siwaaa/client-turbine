@@ -8,24 +8,24 @@
         <li class="py-1 px-3 hover:bg-gray-100">
           <a
             href="https://www.notion.so/Client-Turbine-Help-Center-955fec2445464b05ae839ef2108de6b7"
-            target="blank"
+            target="_blank"
             >Help Center 📚</a
           >
         </li>
         <li class="py-1 px-3 hover:bg-gray-100">
-          <a href="https://t.me/clturbinehelp" target="blank"
+          <a href="https://t.me/clturbine_help" target="_blank"
             >Чат поддержки 👨‍💻</a
           >
         </li>
         <li class="py-1 px-3 hover:bg-gray-100">
-          <a href="https://t.me/clturbine" target="blank">Что нового?</a>
+          <a href="https://t.me/clturbine" target="_blank">Что нового?</a>
         </li>
       </ul>
     </div>
     <button
       type="button"
       @click="showSupport = !showSupport"
-      class="flex justify-center items-center w-10 h-10 bg-gray-50 rounded-full border shadow-xl focus:outline-none transition-colors hover:bg-gray-100 active:bg-gray-200"
+      class="flex justify-center items-center text-white w-10 h-10 rounded-full border shadow-xl focus:outline-none transition-all bg-main"
     >
       <span class="font-medium text-xl">?</span>
     </button>
