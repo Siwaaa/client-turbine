@@ -98,6 +98,24 @@ const routes = [
     },
     component: () => import('@/views/Domains.vue')
   },
+  {
+    path: '/balance',
+    name: 'Balance',
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/Balance.vue')
+  },
+  {
+    path: '/balance/history',
+    name: 'BalanceHistory',
+    meta: {
+      layout: 'dashboard',
+      requiresAuth: true,
+    },
+    component: () => import('@/views/BalanceHistory.vue')
+  },
   // User PAGES
   // {
   //   path: '/q/id',
