@@ -21,9 +21,9 @@
           Текущий баланс
         </h4>
         <span class="text-5xl font-semibold"
-          >{{ balance }}<span class="text-2xl">₽</span></span
+          >{{ userBalance }}<span class="text-2xl">₽</span></span
         >
-        <p class="text-sm text-gray-400">1 рубль = 1 подписчик</p>
+        <p class="text-sm text-gray-400 pb-6 border-b">1 рубль = 1 подписчик</p>
         <h4
           class="
             flex
@@ -37,7 +37,7 @@
         >
           Пополнение
         </h4>
-        <div class="flex space-x-2 mb-4">
+        <div class="flex flex-wrap space-x-2 mb-4">
           <button
             class="
               item-price
@@ -131,23 +131,29 @@
           Пополнить
         </button>
       </div>
+      <router-link :to="{name: 'BalanceHistory'}" class="underline text-sm hover:opacity-70 ">История пополнений</router-link>
     </main>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Balance",
   data() {
     return {
-      balance: 50,
       inputBalance: 590,
       validError: false,
     };
   },
+  computed: {
+    ...mapGetters(['userBalance'])
+  },
   methods: {
+    // ...mapActions(["API_GET_USER"]),
     checkValid() {
-      if (this.inputBalance < 590) {
+      if (this.inputBalance < 590 && this.inputBalance > 100000) {
         this.validError = true;
         return false;
       }
@@ -155,8 +161,43 @@ export default {
       return true;
     },
     goToPay() {
-      this.checkValid();
-      fetch();
+      // this.checkValid();
+
+      this.$Progress.start();
+      fetch(`${process.env.VUE_APP_ROOT_API}/api/payments/create`, {
+        method: 'POST',
+        headers: {
+          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        body: JSON.stringify({
+          value: this.inputBalance
+        })
+      })
+        .then((response) =>
+          response.ok ? response.json() : Promise.reject(response)
+        )
+        .then((json) => {
+          if(json.status == "ok") {
+            window.location.href = json.url 
+            this.$Progress.finish();
+          } else {
+            alert('URL не получен')
+            this.$Progress.fail();
+          }
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+          alert("Ошибка пополнения");
+          if (error.status == 401) {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("name_user");
+            localStorage.removeItem("email_user");
+            localStorage.removeItem("created_at_user");
+          }
+          throw error;
+        });
     },
   },
 };

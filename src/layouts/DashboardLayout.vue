@@ -3,13 +3,42 @@
     class="flex h-screen bg-gray-50"
     :class="{ 'overflow-hidden': isSideMenuOpen }"
   >
+    <!-- Строка уведомления -->
+    <div v-if="isBalanceSmall" class="fixed flex px-8 justify-between items-center z-30 w-full h-14 bg-green-50 text-green-700">
+      <p>Баланс слишком низкий, рекомендуем пополнить. При ноле подписная страница будет заблокирована</p> 
+      <button @click="isBalanceSmall = false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
     <!-- Desktop sidebar -->
     <aside
-      class="z-20 hidden w-60 overflow-y-auto border-r bg-white md:block flex-shrink-0"
+      class="
+        z-20
+        hidden
+        w-60
+        overflow-y-auto
+        border-r
+        bg-white
+        md:block
+        flex-shrink-0
+      "
     >
       <div class="text-gray-600 h-full">
         <router-link
-          class="inline-block relative pl-6 py-3 md:h-14 w-full text-lg font-semibold text-gray-800 border-b"
+          class="
+            inline-block
+            relative
+            pl-6
+            py-3
+            md:h-14
+            w-full
+            text-lg
+            font-semibold
+            text-gray-800
+            border-b
+          "
           :to="{ name: 'Home' }"
         >
           <!-- <img src="@/assets/logo.png" alt="logo" class="h-full "> -->
@@ -19,7 +48,17 @@
         <ul class="mt-10">
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Home' }"
               active-class="bg-gray-100 text-black"
             >
@@ -44,7 +83,17 @@
           </li>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Domains' }"
               exact=""
               active-class="bg-gray-100 text-black"
@@ -69,7 +118,78 @@
           </li>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
+              :to="{ name: 'Balance' }"
+              active-class="bg-gray-100 text-black"
+            >
+              <span class="inline-flex items-center w-full text-sm font-medium">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span class="ml-4 mr-2">Баланс</span>
+                <span
+                  v-if="userBalance < 50"
+                  class="
+                    px-2
+                    py-1
+                    font-semibold
+                    leading-tight
+                    text-yellow-700
+                    bg-yellow-100
+                    rounded-full
+                  "
+                  >{{ userBalance }}</span
+                >
+                <span
+                  v-else
+                  class="
+                    px-2
+                    py-1
+                    font-semibold
+                    leading-tight
+                    text-green-700
+                    bg-green-100
+                    rounded-full
+                  "
+                  >{{ userBalance }}</span
+                >
+              </span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Settings' }"
               exact=""
               active-class="bg-gray-100 text-black"
@@ -104,7 +224,16 @@
           @click.prevent="logout"
         >
           <span
-            class="inline-flex items-center w-full text-sm font-medium transition-colors duration-300 hover:text-gray-800"
+            class="
+              inline-flex
+              items-center
+              w-full
+              text-sm
+              font-medium
+              transition-colors
+              duration-300
+              hover:text-gray-800
+            "
           >
             <svg
               class="w-5 h-5"
@@ -129,10 +258,28 @@
     <div
       v-show="isSideMenuOpen"
       @click="closeSideMenu"
-      class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+      class="
+        fixed
+        inset-0
+        z-10
+        flex
+        items-end
+        bg-black bg-opacity-50
+        sm:items-center
+        sm:justify-center
+      "
     ></div>
     <aside
-      class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white"
+      class="
+        fixed
+        inset-y-0
+        z-20
+        flex-shrink-0
+        w-64
+        mt-16
+        overflow-y-auto
+        bg-white
+      "
       v-show="isSideMenuOpen"
     >
       <div class="py-4 text-gray-500">
@@ -142,13 +289,32 @@
         <ul>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Home' }"
               exact=""
               active-class="bg-gray-100 text-black"
             >
               <span
-                class="inline-flex items-center w-full text-sm font-medium transition-colors duration-300 hover:text-gray-800"
+                class="
+                  inline-flex
+                  items-center
+                  w-full
+                  text-sm
+                  font-medium
+                  transition-colors
+                  duration-300
+                  hover:text-gray-800
+                "
               >
                 <svg
                   class="w-5 h-5"
@@ -170,7 +336,17 @@
           </li>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Domains' }"
               exact=""
               active-class="bg-gray-100 text-black"
@@ -195,7 +371,52 @@
           </li>
           <li>
             <router-link
-              class="inline-block w-full relative px-6 py-3 transition-all duration-300 hover:text-gray-800 hover:bg-gray-200"
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
+              :to="{ name: 'Balance' }"
+              active-class="bg-gray-100 text-black"
+            >
+              <span class="inline-flex items-center w-full text-sm font-medium">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span class="ml-4">Баланс</span>
+              </span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="
+                inline-block
+                w-full
+                relative
+                px-6
+                py-3
+                transition-all
+                duration-300
+                hover:text-gray-800
+                hover:bg-gray-200
+              "
               :to="{ name: 'Settings' }"
               exact=""
               active-class="bg-gray-100 text-black"
@@ -230,7 +451,16 @@
           @click.prevent="logout"
         >
           <span
-            class="inline-flex items-center w-full text-sm font-medium transition-colors duration-300 hover:text-gray-800"
+            class="
+              inline-flex
+              items-center
+              w-full
+              text-sm
+              font-medium
+              transition-colors
+              duration-300
+              hover:text-gray-800
+            "
           >
             <svg
               class="w-5 h-5"
@@ -254,11 +484,29 @@
     <div class="flex flex-col flex-1 w-full">
       <header class="z-10 md:h-14 py-4 bg-white border-b">
         <div
-          class="container mx-auto h-full w-full flex items-center md:justify-end justify-between px-6"
+          class="
+            container
+            mx-auto
+            h-full
+            w-full
+            flex
+            items-center
+            md:justify-end
+            justify-between
+            px-6
+          "
         >
           <!-- Mobile hamburger -->
           <button
-            class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+            class="
+              p-1
+              mr-5
+              -ml-1
+              rounded-md
+              md:hidden
+              focus:outline-none
+              focus:shadow-outline-purple
+            "
             @click="toggleSideMenu"
             aria-label="Menu"
           >
@@ -279,7 +527,18 @@
           <div class="flex items-center text-sm font-medium">
             <!-- Avatar with inset shadow -->
             <div
-              class="ava relative flex items-center justify-center w-8 h-8 mr-3 rounded-full shadow-sm"
+              class="
+                ava
+                relative
+                flex
+                items-center
+                justify-center
+                w-8
+                h-8
+                mr-3
+                rounded-full
+                shadow-sm
+              "
             >
               <span class="font-bold text-lg text-white">{{
                 name ? name[0].toUpperCase() : "C"
@@ -304,7 +563,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import SupportBtn from '@/components/SupportBtn.vue';
+import SupportBtn from "@/components/SupportBtn.vue";
 
 export default {
   name: "DashboardLayout",
@@ -317,13 +576,14 @@ export default {
       isPagesMenuOpen: false,
       isNotificationsMenuOpen: false,
       trapCleanup: null,
+      isBalanceSmall: false,
     };
   },
   computed: {
-    ...mapGetters(["name"]),
+    ...mapGetters(["name", "userBalance"]),
   },
   methods: {
-    ...mapActions(["destroyToken"]),
+    ...mapActions(["destroyToken", "API_GET_USER"]),
     logout() {
       this.destroyToken().then(() => {
         this.$router.push({ name: "Login" });
@@ -362,6 +622,7 @@ export default {
     this.$Progress.finish();
   },
   created() {
+    this.API_GET_USER();
     //  [App.vue specific] When App.vue is first loaded start the progress bar
     this.$Progress.start();
     //  hook the progress bar to start before we move router-view
@@ -382,6 +643,14 @@ export default {
       //  finish the progress bar
       this.$Progress.finish();
     });
+  },
+  watch: {
+    userBalance: function(newBalance) {
+      newBalance < 50 ? this.isBalanceSmall = true : this.isBalanceSmall = false
+    },
+    $route(to) {
+      to.name == "Balance" ? this.API_GET_USER() : false
+    }
   },
 };
 </script>

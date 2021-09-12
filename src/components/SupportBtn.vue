@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed flex flex-col items-end z-30 bottom-8 right-8">
+  <div class="fixed flex flex-col items-end z-20 bottom-8 right-8">
     <div
       v-if="showSupport"
       class="w-48 h-32 mb-2 bg-white border rounded-md shadow-xl overflow-auto"
