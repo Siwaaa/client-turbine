@@ -23,129 +23,130 @@
         "
       >
         Подключение
-        <button type="button" @click="tutorial = true" class="btn btn-save">Добавить домен</button>
+        <button type="button" @click="tutorial = true" class="btn btn-save">
+          Добавить домен
+        </button>
       </h4>
 
       <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md text-sm">
-          <span class=" text-gray-700 font-medium">Текущие домены</span>
-          <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
-              <thead>
-                <tr
-                  class="
-                    text-xs
-                    font-semibold
-                    tracking-wide
-                    text-left text-gray-500
-                    uppercase
-                    border-b
-                    bg-gray-50
-                  "
-                >
-                  <th class="px-4 py-3">Домен</th>
-                  <th class="px-4 py-3">Статус</th>
-                  <th class="px-4 py-3">Действия</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y">
-                <tr
-                  v-for="domain in allDomains"
-                  :key="domain.id"
-                  class="text-gray-700"
-                >
-                  <td class="px-4 py-3">
-                    <a
-                      :href="'http://' + domain.url"
-                      target="_blank"
-                      class="break-words"
+        <span class="text-gray-700 font-medium">Текущие домены</span>
+        <div class="w-full overflow-x-auto mt-2">
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr
+                class="
+                  text-xs
+                  font-semibold
+                  tracking-wide
+                  text-left text-gray-500
+                  uppercase
+                  border-b
+                  bg-gray-50
+                "
+              >
+                <th class="px-4 py-3">Домен</th>
+                <th class="px-4 py-3">Статус</th>
+                <th class="px-4 py-3">Действия</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y">
+              <tr
+                v-for="domain in allDomains"
+                :key="domain.id"
+                class="text-gray-700"
+              >
+                <td class="px-4 py-3">
+                  <a
+                    :href="'http://' + domain.url"
+                    target="_blank"
+                    class="break-words"
+                  >
+                    {{ domain.url }}</a
+                  >
+                </td>
+                <td class="px-4 py-3 text-xs">
+                  <span
+                    v-if="domain.status"
+                    class="
+                      px-2
+                      py-1
+                      font-semibold
+                      leading-tight
+                      text-green-700
+                      bg-green-100
+                      rounded-full
+                    "
+                  >
+                    Подключен
+                  </span>
+                  <span
+                    v-else
+                    class="
+                      px-2
+                      py-1
+                      font-semibold
+                      leading-tight
+                      text-red-700
+                      bg-red-100
+                      rounded-full
+                    "
+                  >
+                    Не активен
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-sm flex">
+                  <button
+                    @click="updateDomain(domain.id)"
+                    type="button"
+                    title="Обновить статус"
+                    class="mr-2 rounded focus:outline-none active:bg-gray-200"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      {{ domain.url }}</a
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    @click="deleteDomain(domain.id)"
+                    type="button"
+                    title="Удалить домен"
+                    class="rounded focus:outline-none active:bg-gray-200"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                  </td>
-                  <td class="px-4 py-3 text-xs">
-                    <span
-                      v-if="domain.status"
-                      class="
-                        px-2
-                        py-1
-                        font-semibold
-                        leading-tight
-                        text-green-700
-                        bg-green-100
-                        rounded-full
-                      "
-                    >
-                      Подключен
-                    </span>
-                    <span
-                      v-else
-                      class="
-                        px-2
-                        py-1
-                        font-semibold
-                        leading-tight
-                        text-red-700
-                        bg-red-100
-                        rounded-full
-                      "
-                    >
-                      Не активен
-                    </span>
-                  </td>
-                  <td class="px-4 py-3 text-sm flex">
-                    <button
-                      @click="updateDomain(domain.id)"
-                      type="button"
-                      title="Обновить статус"
-                      class="mr-2 rounded focus:outline-none active:bg-gray-200"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      @click="deleteDomain(domain.id)"
-                      type="button"
-                      title="Удалить домен"
-                      class="rounded focus:outline-none active:bg-gray-200"
-                    >
-                      <svg
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              v-if="allDomains.length < 1"
-              class="w-full h-10 flex justify-center items-center text-gray-400"
-            >
-              Нет подключенных доменов
-            </div>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            v-if="Array.isArray(allDomains) && allDomains.length < 1"
+            class="w-full h-10 flex justify-center items-center text-gray-400"
+          >
+            Нет подключенных доменов
           </div>
         </div>
-
+      </div>
     </main>
     <Modal v-if="tutorial" @close="closeModal">
       <template v-slot:header>
@@ -168,7 +169,12 @@
               "
               >{{ ip }}</span
             >
-            <button type="button" aria="copy" class="btn bg-gray-100">
+            <button
+              type="button"
+              @click="copyIP"
+              aria="copy"
+              class="btn bg-gray-100"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
@@ -219,7 +225,11 @@
               Подключить
             </button>
           </form>
-          <a href="https://www.notion.so/ff684025c8bd4111be2ca65ff5e23231" target="_blank" class="mt-8 btn btn-cancel">
+          <a
+            href="https://www.notion.so/ff684025c8bd4111be2ca65ff5e23231"
+            target="_blank"
+            class="mt-8 btn btn-cancel"
+          >
             Подробная инструкция
           </a>
         </div>
@@ -288,6 +298,7 @@ export default {
       urlValidText: "",
       // noti переменные
       notiItems: [],
+      loadedAllDomains: false,
     };
   },
   computed: {
@@ -379,12 +390,29 @@ export default {
     closeNotification(index) {
       this.notiItems.splice(index, 1);
     },
+    copyIP() {
+      navigator.clipboard
+        .writeText(this.ip)
+        .then(() => {
+          this.notiItems.unshift({
+            text: "IP-адрес скопирован",
+            type: "success",
+            id: Date.now(),
+          });
+        })
+        .catch((err) => {
+          console.log("Ошибка копирования IP", err);
+        });
+    },
   },
   created() {
     this.API_GET_DOMAINS().catch((err) =>
       err.status == 401 ? this.$router.push({ name: "Login" }) : false
     );
   },
+  // mounted() {
+  //   this.allDomains.length ? this.loadedAllDomains = false : this.loadedAllDomains = true
+  // }
 };
 </script>
 

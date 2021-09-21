@@ -151,9 +151,8 @@ export default {
     ...mapGetters(['userBalance'])
   },
   methods: {
-    // ...mapActions(["API_GET_USER"]),
     checkValid() {
-      if (this.inputBalance < 590 && this.inputBalance > 100000) {
+      if (Number(this.inputBalance) < 590 || Number(this.inputBalance > 100000)) {
         this.validError = true;
         return false;
       }
@@ -172,7 +171,7 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },
         body: JSON.stringify({
-          value: this.inputBalance
+          value: Number(this.inputBalance)
         })
       })
         .then((response) =>

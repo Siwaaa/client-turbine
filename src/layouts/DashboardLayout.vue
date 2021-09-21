@@ -4,7 +4,7 @@
     :class="{ 'overflow-hidden': isSideMenuOpen }"
   >
     <!-- Строка уведомления -->
-    <div v-if="isBalanceSmall" class="fixed flex px-8 justify-between items-center z-30 w-full h-14 bg-green-50 text-green-700">
+    <div v-if="isBalanceSmall" class="fixed flex px-8 py-2 justify-between items-center z-30 w-full md:h-14 h-auto bg-green-50 text-green-700">
       <p>Баланс слишком низкий, рекомендуем пополнить. При ноле подписная страница будет заблокирована</p> 
       <button @click="isBalanceSmall = false">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
