@@ -6,52 +6,41 @@
       <h1 id="title" class="text-2xl font-normal">Домены</h1>
       <span class="text-sm text-gray-600"
         >Процедура подключения домена непростая, но необходимая операция. Без
-        нее не получится использовать конверсионные стратегии от facebook на устройствах с ios 14</span
+        нее не получится использовать конверсионные стратегии от facebook на
+        устройствах с ios 14.5+</span
       >
     </header>
     <main>
       <h4
-        class="flex justify-between items-center mb-4 text-lg font-medium text-gray-600"
+        class="
+          flex
+          justify-between
+          items-center
+          mb-4
+          text-lg
+          font-medium
+          text-gray-600
+        "
       >
         Подключение
-        <a
-          href="https://www.notion.so/ff684025c8bd4111be2ca65ff5e23231"
-          target="_blank"
-          class="flex items-center text-sm underline hover:text-black transition duration-300 ease-in focus:outline-none"
-        >
-          Инструкция
-        </a>
+        <button type="button" @click="tutorial = true" class="btn btn-save">Добавить домен</button>
       </h4>
 
-      <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-        <form @submit.prevent="addDomain">
-          <label class="block text-sm">
-            <span class="text-gray-700">Адрес домена </span>
-            <input
-              v-model="domain"
-              @change="checkUrl"
-              type="text"
-              required
-              maxlength="40"
-              class="block w-full mt-1 text-sm focus:border-black focus:outline-none form-input"
-              placeholder="domain.ru"
-            />
-            <span v-if="!urlValid" class="text-xs text-red-600">
-              {{ urlValidText }}
-            </span>
-          </label>
-          <button type="submit" class="btn btn-save mt-2" :disabled="!urlValid">
-            Подключить
-          </button>
-        </form>
-
-        <div class="block mt-4 text-sm">
-          <span class="text-gray-700">Текущие домены</span>
+      <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md text-sm">
+          <span class=" text-gray-700 font-medium">Текущие домены</span>
           <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
               <thead>
                 <tr
-                  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50"
+                  class="
+                    text-xs
+                    font-semibold
+                    tracking-wide
+                    text-left text-gray-500
+                    uppercase
+                    border-b
+                    bg-gray-50
+                  "
                 >
                   <th class="px-4 py-3">Домен</th>
                   <th class="px-4 py-3">Статус</th>
@@ -76,13 +65,29 @@
                   <td class="px-4 py-3 text-xs">
                     <span
                       v-if="domain.status"
-                      class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full"
+                      class="
+                        px-2
+                        py-1
+                        font-semibold
+                        leading-tight
+                        text-green-700
+                        bg-green-100
+                        rounded-full
+                      "
                     >
                       Подключен
                     </span>
                     <span
                       v-else
-                      class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full"
+                      class="
+                        px-2
+                        py-1
+                        font-semibold
+                        leading-tight
+                        text-red-700
+                        bg-red-100
+                        rounded-full
+                      "
                     >
                       Не активен
                     </span>
@@ -133,16 +138,93 @@
               </tbody>
             </table>
             <div
-              v-if="!allDomains"
+              v-if="allDomains.length < 1"
               class="w-full h-10 flex justify-center items-center text-gray-400"
             >
               Нет подключенных доменов
             </div>
           </div>
         </div>
-      </div>
-    </main>
 
+    </main>
+    <Modal v-if="tutorial" @close="closeModal">
+      <template v-slot:header>
+        <h2>Подключение своего домена</h2>
+      </template>
+      <template v-slot:description>
+        <div class="text-sm">
+          <p>1. Добавьте A-запись в вашем регистраторе домена:</p>
+          <div class="flex my-4">
+            <span
+              class="
+                inline-block
+                px-4
+                py-2
+                mr-2
+                bg-gray-100
+                text-green-800
+                font-semibold
+                rounded-md
+              "
+              >{{ ip }}</span
+            >
+            <button type="button" aria="copy" class="btn bg-gray-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <form @submit.prevent="addDomain" class="flex items-end">
+            <label class="block text-sm mr-2">
+              <span class="text-gray-700 font-medium"
+                >2. Введите домен в поле ниже:
+              </span>
+              <input
+                v-model="domain"
+                @change="checkUrl"
+                type="text"
+                required
+                maxlength="40"
+                class="
+                  block
+                  w-full
+                  mt-1
+                  text-sm
+                  focus:border-black
+                  focus:outline-none
+                  form-input
+                "
+                placeholder="domain.ru"
+              />
+              <span v-if="!urlValid" class="text-xs text-red-600">
+                {{ urlValidText }}
+              </span>
+            </label>
+            <button
+              type="submit"
+              class="btn btn-save mt-2"
+              :disabled="!urlValid"
+            >
+              Подключить
+            </button>
+          </form>
+          <a href="https://www.notion.so/ff684025c8bd4111be2ca65ff5e23231" target="_blank" class="mt-8 btn btn-cancel">
+            Подробная инструкция
+          </a>
+        </div>
+      </template>
+    </Modal>
     <Modal v-if="isModalOpen" @close="closeModal">
       <template v-slot:header>
         <div v-if="loading" class="flex items-center space-x-2">
@@ -200,6 +282,7 @@ export default {
       isModalOpen: false,
       loading: true,
       loadingError: false,
+      tutorial: false,
       //валидация домена
       urlValid: true,
       urlValidText: "",
@@ -276,13 +359,18 @@ export default {
       this.isModalOpen = false;
       this.loading = true;
       this.loadingError = false;
+      this.tutorial = false;
     },
     // noti
     copyLinkPage(url) {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          this.notiItems.unshift({ text: "Скопировано", type: 'success', id: Date.now() });
+          this.notiItems.unshift({
+            text: "Скопировано",
+            type: "success",
+            id: Date.now(),
+          });
         })
         .catch((err) => {
           console.log("Ошибка копирования ссылки", err);
@@ -293,7 +381,9 @@ export default {
     },
   },
   created() {
-    this.API_GET_DOMAINS().catch((err) => err.status == 401 ? this.$router.push({ name: "Login" }) : false);
+    this.API_GET_DOMAINS().catch((err) =>
+      err.status == 401 ? this.$router.push({ name: "Login" }) : false
+    );
   },
 };
 </script>

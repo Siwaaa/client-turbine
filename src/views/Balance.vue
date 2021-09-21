@@ -161,7 +161,7 @@ export default {
       return true;
     },
     goToPay() {
-      // this.checkValid();
+      this.checkValid();
 
       this.$Progress.start();
       fetch(`${process.env.VUE_APP_ROOT_API}/api/payments/create`, {
